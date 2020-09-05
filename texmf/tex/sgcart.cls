@@ -1,5 +1,5 @@
 %%
-%% This is file `tex/sgcart.cls',
+%% This is file `texmf/tex/sgcart.cls',
 %% generated with the docstrip utility.
 %%
 %% The original source files were:
@@ -780,4 +780,4 @@ headpunct={\@thmpunct}
 
 \endinput
 %%
-%% End of file `tex/sgcart.cls'.
+%% End of file `texmf/tex/sgcart.cls'.

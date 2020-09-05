@@ -1,5 +1,5 @@
 %%
-%% This is file `tex/sgcbook.cls',
+%% This is file `texmf/tex/sgcbook.cls',
 %% generated with the docstrip utility.
 %%
 %% The original source files were:
@@ -818,4 +818,4 @@ headpunct={\@thmpunct}
 
 \endinput
 %%
-%% End of file `tex/sgcbook.cls'.
+%% End of file `texmf/tex/sgcbook.cls'.
