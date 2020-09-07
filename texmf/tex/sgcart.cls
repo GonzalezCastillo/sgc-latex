@@ -415,7 +415,7 @@ BoldItalicFont = {*-BoldItalic},
 \setlength{\parskip}{0.9em}
 \setlength{\parindent}{0pt}
 
-\renewcommand\abovethmskip{\parskip}
+\renewcommand\abovethm@skip{\parskip}
 \renewcommand{\env@sep}{0pt}
 \renewcommand{\head@sep}{0pt}
 \renewcommand{\title@space}{0pt}
