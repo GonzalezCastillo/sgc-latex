@@ -404,7 +404,6 @@ BoldItalicFont = {*-BoldItalic},
 
 \newcommand{\env@sep}{0.6em} % Space between environments.
 \newcommand{\head@sep}{1.2em} % Space at the head of certain environments.
-\newcommand{\title@space}{2.4em} % Spacing to be used in titles.
 \newcommand{\label@sep}{0.4em} % Spaced between labels and text (enum).
 \newcommand{\extra@margin}{1.5em} % Additional margin for quotes/abstracts.
 
@@ -742,7 +741,7 @@ headpunct={\@thmpunct}
 
 
 \titleformat{\section}[block]{\noindent\center\Large\bfseries}{\S\thesection\ }{0pt}{}
-\titlespacing*{\section}{0pt}{\title@space}{\head@sep}[0pt]
+\titlespacing*{\section}{0pt}{0pt}{\head@sep}[0pt]
 
 \titleformat{\subsection}{\noindent\bfseries\large}{\S\thesubsection \ }{0pt}{}
 \titlespacing*{\subsection}{0pt}{\head@sep}{\head@sep}[0pt]
