@@ -360,8 +360,8 @@ BoldItalicFont = {*-BoldItalic},
 
 \newcommand{\printcopyright}{Copyright \copyright \ \@years, \@author.}
 \newcommand{\printlicense}{\str@license}
-\newcommand{\setcopyright}[1]{\renewcommand\@copyrightstring{#1}}
-\newcommand{\setlicense}[1]{\renewcmmand\@license{#1}}
+\newcommand{\setcopyright}[1]{\renewcommand\printcopyright{#1}}
+\newcommand{\setlicense}[1]{\renewcommand\str@license{#1}}
 
 
 \newcommand\@release{}
