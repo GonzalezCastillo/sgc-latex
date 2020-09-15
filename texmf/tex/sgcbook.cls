@@ -588,9 +588,6 @@ parbox=false}
 
 %%fakesection Fixes
 
-\def\oldcomma{,}\catcode`\,=13
-\def,{\ifmmode\oldcomma\allowbreak\else\oldcomma\fi}
-
 \renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
 \hskip -\arraycolsep
 \let\@ifnextchar\new@ifnextchar

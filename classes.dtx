@@ -614,10 +614,6 @@
 
 %%fakesection Fixes
 
-% Allow breaks at commas
-\def\oldcomma{,}\catcode`\,=13
-\def,{\ifmmode\oldcomma\allowbreak\else\oldcomma\fi}
-
 % Allow matrix-array behaviour. Extracted from
 % https://texblog.net/latex-archive/maths/amsmath-matrix/
 \renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
