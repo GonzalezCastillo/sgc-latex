@@ -87,7 +87,7 @@ urlcolor=blue,filecolor=black,citecolor=black]{hyperref}
 \fi
 
 \setmainfont{XITS}[
-Scale = 1.03,
+Scale = 1,
 Extension = .otf,
 UprightFont = {*-Regular},
 BoldFont = {*-Bold},
@@ -101,7 +101,7 @@ BoldFont = {*-bold},
 ItalicFont = {*-italic},
 BoldItalicFont = {*-bolditalic}]
 
-\setmathfont[Scale = 1.03]{XITSMath-Regular.otf}
+\setmathfont[Scale = 1]{XITSMath-Regular.otf}
 \fi
 
 \else
@@ -234,7 +234,7 @@ SizeFeatures = {
 \renewcommand\familydefault\sfdefault
 \fi
 
-\setmathfont{latinmodern-math.otf}
+\setmathfont{tlatinmodern-math.otf}
 \setmathfont[range={\varnothing,\setminus}]{XITSMath-Regular.otf}
 \fi
 
@@ -417,7 +417,6 @@ BoldItalicFont = {*-BoldItalic},
 \renewcommand\abovethm@skip{\parskip}
 \renewcommand{\env@sep}{0pt}
 \renewcommand{\head@sep}{0pt}
-\renewcommand{\title@space}{0pt}
 
 \lstset{aboveskip = \parskip, belowskip=\parskip, xleftmargin=0pt} 
 
