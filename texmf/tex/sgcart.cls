@@ -15,7 +15,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{sgcart}
 
-\LoadClass[reqno,12pt]{article}
+\LoadClass[reqno,11pt]{article}
 
 \newif\ifspanish\spanishfalse
 \newif\ifsans\sansfalse
@@ -703,7 +703,8 @@ headpunct={\@thmpunct}
 \titleformat{\section}[block]{\noindent\center\Large\bfseries}{\S\thesection\ }{0pt}{}
 \titlespacing*{\section}{0pt}{0pt}{\head@sep}[0pt]
 
-\titleformat{\subsection}{\noindent\bfseries\large}{\S\thesubsection \ }{0pt}{}
+\titleformat{\subsection}{\bfseries\large}{\noindent \S\thesubsection \ }{0pt}{}
+
 \titlespacing*{\subsection}{0pt}{\head@sep}{\head@sep}[0pt]
 
 
