@@ -15,7 +15,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{sgcbook}
 
-\LoadClass[reqno,11pt]{book}
+\LoadClass[reqno,12pt]{book}
 
 \newif\ifspanish\spanishfalse
 \newif\ifsans\sansfalse
@@ -44,9 +44,10 @@
 \ProcessOptions\relax
 
 %%fakesection Packages and basic settings
+\RequirePackage[table]{xcolor}
 \RequirePackage{geometry, graphicx, tikz, pgfplots, circuitikz}
 \RequirePackage{enumitem, import, centernot, cancel, array, tabu, soul}
-\RequirePackage{amsmath, amssymb, amsthm, thmtools, braket, qcircuit, mathtools}
+\RequirePackage{amsmath, amssymb, amsthm, thmtools, braket, mathtools}
 \RequirePackage[final]{listings}
 \RequirePackage[most]{tcolorbox}
 \RequirePackage[utf8]{inputenc} % Redundant since 2018, but still.
@@ -453,7 +454,7 @@ top=1.95cm,bottom=1.95cm,inner=2.35cm,outer=1.55cm}
 \fi
 \SetBgPosition{-1cm, -4.5cm}
 \else
-\geometry{a4paper,left=3.6cm,right=3.6cm,top=3cm,bottom=3cm}
+\geometry{a4paper,left=3cm,right=3cm,top=3cm,bottom=3cm}
 \SetBgPosition{-0.7cm, -7cm}
 \fi
 
@@ -658,6 +659,7 @@ headpunct={\@thmpunct}
 \ifwithin
 \numberwithin{equation}{section}
 \numberwithin{figure}{section}
+\numberwithin{table}{section}
 
 \numberwithin{theorem}{section}
 \numberwithin{definition}{section}
@@ -702,6 +704,7 @@ headpunct={\@thmpunct}
 \renewcommand{\label}[1]{\@classiclabel{\@chlabel:#1}}
 \renewcommand{\label@in@display}[1]{\@classicamslabel{\@chlabel:#1}}
 \renewcommand{\ref}[2][\@compare]{\IfStrEq{#1}{\@compare}{\@classicref{\@chlabel:#2}}{\IfStrEq{#1}{appendix}{\@classicref{appendix:#2}}{\@classicref{#1}-\@classicref{#1:#2}}}}
+\newcommand{\nochref}[2][\@compare]{\IfStrEq{#1}{\@compare}{\@classicref{\@chlabel:#2}}{\IfStrEq{#1}{appendix}{\@classicref{appendix:#2}}{\@classicref{#1:#2}}}}
 }
 
 \pagestyle{fancy}
@@ -778,7 +781,7 @@ headpunct={\@thmpunct}
 
 \begin{center}
 {\@coverfont\Huge\@title{\ifx\Subtitle\empty{\\[0.8em]}\else{\\[0.3em]}\fi}}
-{\ifx\@subtitle\@compare\else{\@coverfont\LARGE\@subtitle\\[1.3em]}\fi}
+{\ifx\@subtitle\@compare{\vspace{1em}}\else{\@coverfont\LARGE\@subtitle\\[1.3em]}\fi}
 
 \textsc{
 \Large
