@@ -56,7 +56,7 @@
 \RequirePackage{xstring}
 
 \usetikzlibrary{arrows.meta, calc, decorations.markings, math}
-\usetikzlibrary{intersections,patterns, cd}
+\usetikzlibrary{intersections, patterns, cd, quantikz}
 
 \sethlcolor{yellow}
 \tabulinesep=0.4em
