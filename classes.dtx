@@ -42,9 +42,10 @@
 \ProcessOptions\relax
 
 %%fakesection Packages and basic settings
+\RequirePackage[table]{xcolor}
 \RequirePackage{geometry, graphicx, tikz, pgfplots, circuitikz}
 \RequirePackage{enumitem, import, centernot, cancel, array, tabu, soul}
-\RequirePackage{amsmath, amssymb, amsthm, thmtools, braket, qcircuit, mathtools}
+\RequirePackage{amsmath, amssymb, amsthm, thmtools, braket, mathtools}
 \RequirePackage[final]{listings}
 \RequirePackage[most]{tcolorbox}
 \RequirePackage[utf8]{inputenc} % Redundant since 2018, but still.
@@ -691,6 +692,7 @@
 \ifwithin
 	\numberwithin{equation}{section}
 	\numberwithin{figure}{section}
+	\numberwithin{table}{section}
 
 	\numberwithin{theorem}{section}
 	\numberwithin{definition}{section}
@@ -740,6 +742,7 @@
 	\renewcommand{\label}[1]{\@classiclabel{\@chlabel:#1}}
 	\renewcommand{\label@in@display}[1]{\@classicamslabel{\@chlabel:#1}}
 	\renewcommand{\ref}[2][\@compare]{\IfStrEq{#1}{\@compare}{\@classicref{\@chlabel:#2}}{\IfStrEq{#1}{appendix}{\@classicref{appendix:#2}}{\@classicref{#1}-\@classicref{#1:#2}}}}
+	\newcommand{\nochref}[2][\@compare]{\IfStrEq{#1}{\@compare}{\@classicref{\@chlabel:#2}}{\IfStrEq{#1}{appendix}{\@classicref{appendix:#2}}{\@classicref{#1:#2}}}}
 }
 
 
@@ -842,7 +845,7 @@
 
 	\begin{center}
 	{\@coverfont\Huge\@title{\ifx\Subtitle\empty{\\[0.8em]}\else{\\[0.3em]}\fi}}
-	{\ifx\@subtitle\@compare\else{\@coverfont\LARGE\@subtitle\\[1.3em]}\fi}
+	{\ifx\@subtitle\@compare{\vspace{1em}}\else{\@coverfont\LARGE\@subtitle\\[1.3em]}\fi}
 	
 	\textsc{
 	%<book>\Large
