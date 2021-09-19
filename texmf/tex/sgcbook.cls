@@ -18,12 +18,15 @@
 \LoadClass[reqno,12pt]{book}
 
 \newif\ifspanish\spanishfalse
-\newif\ifsans\sansfalse
 \newif\iftimes\timesfalse
 \newif\ifhelvet\helvetfalse
 \newif\iflegacy\legacyfalse
+\newif\ifnewmono\newmonofalse
 \DeclareOption{es}{\spanishtrue}
-\DeclareOption{sans}{\sanstrue}
+\DeclareOption{sans}{
+\renewcommand\familydefault\sfdefault
+\newmonotrue
+}
 \DeclareOption{lm}{\legacytrue}
 \DeclareOption{times}{\legacytrue\timestrue}
 \DeclareOption{helvet}{\legacytrue\timestrue\helvettrue}
@@ -81,84 +84,13 @@ urlcolor=blue,filecolor=black,citecolor=black]{hyperref}
 \unimathsetup{warnings-off={mathtools-colon,mathtools-overbracket}}
 \unimathsetup{math-style=french, bold-style=upright, sans-style=upright}
 
-\iflegacy
-\iftimes
-\ifhelvet
-\renewcommand\familydefault\sfdefault
-\fi
-
-\setmainfont{XITS}[
-Scale = 1,
+\setmainfont{LibertinusSerif}[
 Extension = .otf,
+Ligatures = {TeX},
 UprightFont = {*-Regular},
 BoldFont = {*-Bold},
 ItalicFont = {*-Italic},
-BoldItalicFont = {*-BoldItalic}]
-
-\setsansfont{texgyreheros}[
-Extension = .otf,
-UprightFont = {*-regular},
-BoldFont = {*-bold},
-ItalicFont = {*-italic},
-BoldItalicFont = {*-bolditalic}]
-
-\setmathfont[Scale = 1]{XITSMath-Regular.otf}
-\fi
-
-\else
-
-\setmainfont{tlmroman}[
-Extension = .otf,
-Ligatures = {TeX},
-UprightFont = {*10-regular},
-UprightFeatures = {
-SmallCapsFont = {*caps10-regular.otf},
-SizeFeatures = {
-{Size = -5.5, Font={*5-regular}},
-{Size = 5.5-6.5, Font={*6-regular}},
-{Size = 6.5-7.5, Font={*7-regular}},
-{Size = 7.5-8.5, Font={*8-regular}},
-{Size = 8.5-9.5, Font={*9-regular}},
-{Size = 9.5-11.5, Font={*10-regular}},
-{Size = 11.5-14.5, Font={*12-regular}},
-{Size = 14.5-,  Font={*17-regular}}
-}
-},
-BoldFont = {*10-bold},
-BoldFeatures = {
-SizeFeatures = {
-{Size = -5.5, Font={*5-bold}},
-{Size = 5.5-6.5, Font={*6-bold}},
-{Size = 6.5-7.5, Font={*7-bold}},
-{Size = 7.5-8.5, Font={*8-bold}},
-{Size = 8.5-9.5, Font={*9-bold}},
-{Size = 9.5-11.5, Font={*10-bold}},
-  {Size = 11.5-, Font={*12-bold}}
-}
-},
-ItalicFont = {*10-italic},
-ItalicFeatures = {
-SizeFeatures= {
-{Size = -7.5, Font={*7-italic}},
-{Size = 7.5-8.5, Font={*8-italic}},
-{Size = 8.5-9.5, Font={*9-italic}},
-{Size = 9.5-11.5, Font={*10-italic}},
-{Size = 11.5-, Font={*12-italic}}
-}
-},
-BoldItalicFont = {*10-bolditalic},
-SlantedFont = {lmromanslant10-regular.otf},
-SlantedFeatures = {
-SmallCapsFont = {lmromancaps10-oblique.otf},
-SizeFeatures = {
-{Size = -8.5, Font={lmromanslant8-regular.otf}},
-{Size = 8.5-9.5, Font={lmromanslant9-regular.otf}},
-{Size = 9.5-11.5, Font={lmromanslant10-regular.otf}},
-{Size = 11.5-14.5, Font={lmromanslant12-regular.otf}},
-{Size = 14.5-, Font={lmromanslant17-regular.otf}}
-}
-},
-BoldSlantedFont = {*slant10-bold.otf},
+BoldItalicFont = {*-BoldItalic},
 ]
 
 \setsansfont{Inter}[
@@ -169,14 +101,14 @@ Scale = 0.85,
 UprightFeatures = {
 SizeFeatures = {
 {Size = -16},
-{Size = 16-, Font={*Display-Regular}}
+{Size = 16-70, Font={*Display-Regular}}
 }
 },
 BoldFont = {*-Bold},
 BoldFeatures = {
 SizeFeatures = {
 {Size = -16},
-  {Size = 16-, Font={*Display-Bold}}
+{Size = 16-, Font={*Display-Bold}}
 }
 },
 ItalicFont = {*-Italic},
@@ -210,7 +142,7 @@ BoldFont = {*-SemiBold},
 BoldFeatures = {
 SizeFeatures = {
 {Size = -16},
-  {Size = 16-, Font={*Display-SemiBold}}
+{Size = 16-, Font={*Display-SemiBold}}
 }
 },
 ItalicFont = {*-LightItalic},
@@ -231,14 +163,31 @@ SizeFeatures = {
 
 \newcommand\textlf[1]{{\sflight#1}}
 
-\ifsans
-\renewcommand\familydefault\sfdefault
+\setmathfont{LibertinusMath-Regular.otf}
+
+\iftimes
+\setmainfont{XITS}[
+Scale = 1,
+Extension = .otf,
+UprightFont = {*-Regular},
+BoldFont = {*-Bold},
+ItalicFont = {*-Italic},
+BoldItalicFont = {*-BoldItalic}
+]
+\setmathfont[Scale = 1]{XITSMath-Regular.otf}
+\newmonotrue
+\fi
+\ifhelvet
+\setsansfont{texgyreheros}[
+Extension = .otf,
+UprightFont = {*-regular},
+BoldFont = {*-bold},
+ItalicFont = {*-italic},
+BoldItalicFont = {*-bolditalic}
+]
 \fi
 
-\setmathfont{tlatinmodern-math.otf}
-\setmathfont[range={\varnothing,\setminus}]{XITSMath-Regular.otf}
-\fi
-
+\ifnewmono
 \setmonofont{Hack}[
 Extension = .ttf,
 Scale = 0.9,
@@ -247,6 +196,7 @@ BoldFont = {*-Bold},
 ItalicFont = {*-Italic},
 BoldItalicFont = {*-BoldItalic},
 ]
+\fi
 
 %%fakesection Language
 
