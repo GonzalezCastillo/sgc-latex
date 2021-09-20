@@ -16,15 +16,17 @@
 \newif\iftimes\timesfalse
 \newif\ifhelvet\helvetfalse
 \newif\iflegacy\legacyfalse
+\newif\ifserif\seriffalse
 \newif\ifnewmono\newmonofalse
 \DeclareOption{es}{\spanishtrue}
 \DeclareOption{sans}{
 	\renewcommand\familydefault\sfdefault
 	\newmonotrue
 }
+\DeclareOption{serif}{\seriftrue}
 \DeclareOption{lm}{\legacytrue}
 \DeclareOption{times}{\legacytrue\timestrue}
-\DeclareOption{helvet}{\legacytrue\timestrue\helvettrue}
+\DeclareOption{helvet}{\legacytrue\helvettrue}
 
 %<*doc>
 \newif\ifswap\swapfalse
@@ -87,21 +89,22 @@
 \unimathsetup{warnings-off={mathtools-colon,mathtools-overbracket}}
 \unimathsetup{math-style=french, bold-style=upright, sans-style=upright}
 
-\setmainfont{LibertinusSerif}[
-	Extension = .otf,
-	Ligatures = {TeX},
-	UprightFont = {*-Regular},
-%	UprightFeatures = {
-%		SizeFeatures = {
-%			{Size = -16},
-%			{Size = 16-, Font={*Display-Regular}}
-%		}
-%	},
-	BoldFont = {*-Bold},
-	ItalicFont = {*-Italic},
-	BoldItalicFont = {*-BoldItalic},
-]
-	
+\unless\iflegacy
+	\setmainfont{LibertinusSerif}[
+		Extension = .otf,
+		Ligatures = {TeX},
+		UprightFont = {*-Regular},
+%		UprightFeatures = {
+%			SizeFeatures = {
+%				{Size = -16},
+%				{Size = 16-, Font={*Display-Regular}}
+%			}
+%		},
+		BoldFont = {*-Bold},
+		ItalicFont = {*-Italic},
+		BoldItalicFont = {*-BoldItalic},
+	]
+\fi
 
 \setsansfont{Inter}[
 	Extension = .otf,
@@ -174,7 +177,15 @@
 
 \newcommand\textlf[1]{{\sflight#1}}
 
+\setmonofont{LibertinusMono-Regular.otf}
 \setmathfont{LibertinusMath-Regular.otf}
+
+\newcommand\normalheadingfont{\sffamily}
+\newcommand\lightheadingfont{\sflight}
+
+\iflegacy
+	\newmonotrue
+\fi
 
 \iftimes
 	\setmainfont{XITS}[
@@ -196,6 +207,7 @@
 		ItalicFont = {*-italic},
 		BoldItalicFont = {*-bolditalic}
 	]
+	\renewcommand\lightheadingfont\sffamily
 \fi
 
 
@@ -210,6 +222,10 @@
 	]
 \fi
 
+\ifserif
+	\renewcommand\normalheadingfont{}
+	\renewcommand\lightheadingfont{}
+\fi
 
 %%fakesection Language
 
@@ -592,7 +608,7 @@
 %<*doc>
 \ifswap
 	\declaretheoremstyle[
-		headfont=\bfseries,
+		headfont=\bfseries\normalheadingfont,
 		bodyfont=\normalfont,
 		headformat=swapnumber,
 		spaceabove=\abovethm@skip,
@@ -600,7 +616,8 @@
 		headpunct={\@thmpunct}
 	]{theorem}
 	\declaretheoremstyle[
-		notefont=\bfseries, notebraces={}{},
+		notefont=\bfseries\normalheadingfont, notebraces={}{},
+		headfont=\bfseries\normalheadingfont,
 		bodyfont=\normalfont,
 		spaceabove=\abovethm@skip,
 		spacebelow=\env@sep,
@@ -609,15 +626,15 @@
 	]{custom}
 \else
 	\declaretheoremstyle[
-		headfont=\bfseries,
+		headfont=\bfseries\normalheadingfont,
 		spaceabove=\abovethm@skip,
 		spacebelow=\env@sep,
 		bodyfont=\normalfont,	
 		headpunct={\@thmpunct}
 	]{theorem}
 	\declaretheoremstyle[
-		notefont=\bfseries, notebraces={[}{]},
-		headfont=\bfseries,
+		notefont=\bfseries\normalheadingfont, notebraces={[}{]},
+		headfont=\bfseries\normalheadingfont,
 		bodyfont=\normalfont,
 		spaceabove=\abovethm@skip,
 		spacebelow=\env@sep,
@@ -704,8 +721,9 @@
 
 \pagestyle{fancy}
 \lhead{}
-\chead{\nouppercase{\leftmark}}
+\chead{\nouppercase{\normalheadingfont\leftmark}}
 \rhead{}
+%\cfoot{\normalheadingfont\thepage} TODO: Change also in chapter headings
 \renewcommand{\headrulewidth}{0pt}
 
 \ifprint
@@ -738,13 +756,13 @@
 
 \titleformat{\part}[display]{
 	\setlength{\parskip}{0pt}\setlength{\parindent}{0pt}
-	\bfseries\Huge\centering\medskip\vspace*{\fill}
+	\lightheadingfont\bfseries\Huge\centering\medskip\vspace*{\fill}
 }{\LARGE\bfseries\partname~\arabic{part}
 }{0pt}{}[\vspace{200pt}\vspace*{\fill}]
 
 \titlespacing{\part}{0pt}{0pt}{0pt}[0pt]
 
-\titleformat{\chapter}[display]{\setlength{\parskip}{0pt}\setlength{\parindent}{0pt}\center\huge}{\large\bfseries\chaptername~\thechapter}{0.1em}{}[{\bigskip\bigskip}]
+\titleformat{\chapter}[display]{\setlength{\parskip}{0pt}\setlength{\parindent}{0pt}\center\huge\lightheadingfont}{\large\bfseries\chaptername~\thechapter}{0.1em}{}[{\bigskip\bigskip}]
 
 \titlespacing*{\chapter}{0pt}{0pt}{3em}[0pt]
 
@@ -752,10 +770,10 @@
 
 %<*doc>
 
-\titleformat{\section}[block]{\noindent\center\Large\bfseries}{\S\thesection\ }{0pt}{}
+\titleformat{\section}[block]{\noindent\center\Large\bfseries\lightheadingfont}{\S\thesection\ }{0pt}{}
 \titlespacing*{\section}{0pt}{0pt}{\head@sep}[0pt]
 
-\titleformat{\subsection}{\bfseries\large}{\noindent \S\thesubsection \ }{0pt}{}
+\titleformat{\subsection}{\bfseries\large\lightheadingfont}{\noindent \S\thesubsection \ }{0pt}{}
 
 \titlespacing*{\subsection}{0pt}{\head@sep}{\head@sep}[0pt]
 
@@ -800,23 +818,24 @@
 	\fi
 
 	\begin{center}
-	{\@coverfont\Huge\@title{\ifx\Subtitle\empty{\\[0.8em]}\else{\\[0.3em]}\fi}}
-	{\ifx\@subtitle\@compare{\vspace{1em}}\else{\@coverfont\LARGE\@subtitle\\[1.3em]}\fi}
-	
-	\textsc{
-	%<book>\Large
-	%<article>\large
-	\@author}
-
-	\vspace*{\fill}
-	\ifx\shortversion\@compare{}\else
-		{\smallskip \@coverfont
+	{
+		{\@coverfont\Huge\@title{\ifx\Subtitle\empty{\\[0.8em]}\else{\\[0.3em]}\fi}}
+		{\ifx\@subtitle\@compare{\vspace{1em}}\else{\LARGE\@subtitle\\[1.3em]}\fi}
+	}	
+	{
+		\textsc{
 		%<book>\Large
 		%<article>\large
-		\centerline{\shortversion}}
-	\fi
+		\@author}
 
-
+		\vspace*{\fill}
+		\ifx\shortversion\@compare{}\else
+			{\smallskip \@coverfont
+			%<book>\Large
+			%<article>\large
+			\centerline{\shortversion}}
+		\fi
+	}
 	\end{center}
 
 	\ifafive
@@ -848,6 +867,7 @@
 %<*article>
 \renewcommand{\maketitle}{
 	\begingroup
+	\lightheadingfont
 	\setlength{\parskip}{0pt}
 	\setlength{\parindent}{0pt}
 	\center
