@@ -21,15 +21,17 @@
 \newif\iftimes\timesfalse
 \newif\ifhelvet\helvetfalse
 \newif\iflegacy\legacyfalse
+\newif\ifserif\seriffalse
 \newif\ifnewmono\newmonofalse
 \DeclareOption{es}{\spanishtrue}
 \DeclareOption{sans}{
 \renewcommand\familydefault\sfdefault
 \newmonotrue
 }
+\DeclareOption{serif}{\seriftrue}
 \DeclareOption{lm}{\legacytrue}
 \DeclareOption{times}{\legacytrue\timestrue}
-\DeclareOption{helvet}{\legacytrue\timestrue\helvettrue}
+\DeclareOption{helvet}{\legacytrue\helvettrue}
 
 \newif\ifswap\swapfalse
 \newif\ifwithin\withinfalse
@@ -84,6 +86,7 @@ urlcolor=blue,filecolor=black,citecolor=black]{hyperref}
 \unimathsetup{warnings-off={mathtools-colon,mathtools-overbracket}}
 \unimathsetup{math-style=french, bold-style=upright, sans-style=upright}
 
+\unless\iflegacy
 \setmainfont{LibertinusSerif}[
 Extension = .otf,
 Ligatures = {TeX},
@@ -92,37 +95,38 @@ BoldFont = {*-Bold},
 ItalicFont = {*-Italic},
 BoldItalicFont = {*-BoldItalic},
 ]
+\fi
 
 \setsansfont{Inter}[
 Extension = .otf,
 Ligatures = {TeX},
 UprightFont = {*-Regular},
-Scale = 0.85,
+Scale = 0.865,
 UprightFeatures = {
 SizeFeatures = {
 {Size = -16},
-{Size = 16-70, Font={*Display-Regular}}
+{Size = 16-, LetterSpace={-1.5}}
 }
 },
 BoldFont = {*-Bold},
 BoldFeatures = {
 SizeFeatures = {
 {Size = -16},
-{Size = 16-, Font={*Display-Bold}}
+{Size = 16-, LetterSpace={-1.5}}
 }
 },
 ItalicFont = {*-Italic},
 ItalicFeatures = {
 SizeFeatures= {
 {Size = -16},
-{Size = 16-, Font={*Display-Italic}}
+{Size = 16-, LetterSpace={-1.5}}
 }
 },
 BoldItalicFont = {*-BoldItalic},
 BoldItalicFeatures = {
 SizeFeatures = {
 {Size = -16},
-{Size = 16-, Font={*Display-BoldItalic}}
+{Size = 16-, LetterSpace={-1.5}}
 }
 }
 ]
@@ -135,35 +139,43 @@ Scale = 0.85,
 UprightFeatures = {
 SizeFeatures = {
 {Size = -16},
-{Size = 16-, Font={*Display-Light}}
+{Size = 16-, LetterSpace={-1.5}}
 }
 },
 BoldFont = {*-SemiBold},
 BoldFeatures = {
 SizeFeatures = {
 {Size = -16},
-{Size = 16-, Font={*Display-SemiBold}}
+{Size = 16-, LetterSpace={-1.5}}
 }
 },
 ItalicFont = {*-LightItalic},
 ItalicFeatures = {
 SizeFeatures= {
 {Size = -16},
-{Size = 16-, Font={*Display-LightItalic}}
+{Size = 16-, LetterSpace={-1.5}}
 }
 },
 BoldItalicFont = {*-SemiBoldItalic},
 BoldItalicFeatures = {
 SizeFeatures = {
 {Size = -16},
-{Size = 16-, Font={*Display-SemiBoldItalic}}
+{Size = 16-, LetterSpace={-1.5}}
 }
 }
 ]
 
 \newcommand\textlf[1]{{\sflight#1}}
 
+\setmonofont{LibertinusMono-Regular.otf}
 \setmathfont{LibertinusMath-Regular.otf}
+
+\newcommand\normalheadingfont{\sffamily}
+\newcommand\lightheadingfont{\sflight}
+
+\iflegacy
+\newmonotrue
+\fi
 
 \iftimes
 \setmainfont{XITS}[
@@ -185,6 +197,7 @@ BoldFont = {*-bold},
 ItalicFont = {*-italic},
 BoldItalicFont = {*-bolditalic}
 ]
+\renewcommand\lightheadingfont\sffamily
 \fi
 
 \ifnewmono
@@ -196,6 +209,11 @@ BoldFont = {*-Bold},
 ItalicFont = {*-Italic},
 BoldItalicFont = {*-BoldItalic},
 ]
+\fi
+
+\ifserif
+\renewcommand\normalheadingfont{}
+\renewcommand\lightheadingfont{}
 \fi
 
 %%fakesection Language
@@ -554,7 +572,7 @@ parbox=false}
 %%fakesection Theorem environments
 \ifswap
 \declaretheoremstyle[
-headfont=\bfseries,
+headfont=\bfseries\normalheadingfont,
 bodyfont=\normalfont,
 headformat=swapnumber,
 spaceabove=\abovethm@skip,
@@ -562,7 +580,8 @@ spacebelow=\env@sep,
 headpunct={\@thmpunct}
 ]{theorem}
 \declaretheoremstyle[
-notefont=\bfseries, notebraces={}{},
+notefont=\bfseries\normalheadingfont, notebraces={}{},
+headfont=\bfseries\normalheadingfont,
 bodyfont=\normalfont,
 spaceabove=\abovethm@skip,
 spacebelow=\env@sep,
@@ -571,15 +590,15 @@ headpunct={\@thmpunct}
 ]{custom}
 \else
 \declaretheoremstyle[
-headfont=\bfseries,
+headfont=\bfseries\normalheadingfont,
 spaceabove=\abovethm@skip,
 spacebelow=\env@sep,
 bodyfont=\normalfont, 
 headpunct={\@thmpunct}
 ]{theorem}
 \declaretheoremstyle[
-notefont=\bfseries, notebraces={[}{]},
-headfont=\bfseries,
+notefont=\bfseries\normalheadingfont, notebraces={[}{]},
+headfont=\bfseries\normalheadingfont,
 bodyfont=\normalfont,
 spaceabove=\abovethm@skip,
 spacebelow=\env@sep,
@@ -659,7 +678,7 @@ headpunct={\@thmpunct}
 
 \pagestyle{fancy}
 \lhead{}
-\chead{\nouppercase{\leftmark}}
+\chead{\nouppercase{\normalheadingfont\leftmark}}
 \rhead{}
 \renewcommand{\headrulewidth}{0pt}
 
@@ -677,22 +696,22 @@ headpunct={\@thmpunct}
 
 \titleformat{\part}[display]{
 \setlength{\parskip}{0pt}\setlength{\parindent}{0pt}
-\bfseries\Huge\centering\medskip\vspace*{\fill}
+\lightheadingfont\bfseries\Huge\centering\medskip\vspace*{\fill}
 }{\LARGE\bfseries\partname~\arabic{part}
 }{0pt}{}[\vspace{200pt}\vspace*{\fill}]
 
 \titlespacing{\part}{0pt}{0pt}{0pt}[0pt]
 
-\titleformat{\chapter}[display]{\setlength{\parskip}{0pt}\setlength{\parindent}{0pt}\center\huge}{\large\bfseries\chaptername~\thechapter}{0.1em}{}[{\bigskip\bigskip}]
+\titleformat{\chapter}[display]{\setlength{\parskip}{0pt}\setlength{\parindent}{0pt}\center\huge\lightheadingfont}{\large\bfseries\chaptername~\thechapter}{0.1em}{}[{\bigskip\bigskip}]
 
 \titlespacing*{\chapter}{0pt}{0pt}{3em}[0pt]
 
 
 
-\titleformat{\section}[block]{\noindent\center\Large\bfseries}{\S\thesection\ }{0pt}{}
+\titleformat{\section}[block]{\noindent\center\Large\bfseries\lightheadingfont}{\S\thesection\ }{0pt}{}
 \titlespacing*{\section}{0pt}{0pt}{\head@sep}[0pt]
 
-\titleformat{\subsection}{\bfseries\large}{\noindent \S\thesubsection \ }{0pt}{}
+\titleformat{\subsection}{\bfseries\large\lightheadingfont}{\noindent \S\thesubsection \ }{0pt}{}
 
 \titlespacing*{\subsection}{0pt}{\head@sep}{\head@sep}[0pt]
 
@@ -730,9 +749,11 @@ headpunct={\@thmpunct}
 \fi
 
 \begin{center}
+{
 {\@coverfont\Huge\@title{\ifx\Subtitle\empty{\\[0.8em]}\else{\\[0.3em]}\fi}}
-{\ifx\@subtitle\@compare{\vspace{1em}}\else{\@coverfont\LARGE\@subtitle\\[1.3em]}\fi}
-
+{\ifx\@subtitle\@compare{\vspace{1em}}\else{\LARGE\@subtitle\\[1.3em]}\fi}
+} 
+{
 \textsc{
 \Large
 \@author}
@@ -743,7 +764,7 @@ headpunct={\@thmpunct}
 \Large
 \centerline{\shortversion}}
 \fi
-
+}
 \end{center}
 
 \ifafive
