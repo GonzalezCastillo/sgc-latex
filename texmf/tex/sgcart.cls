@@ -95,6 +95,9 @@ BoldFont = {*-Bold},
 ItalicFont = {*-Italic},
 BoldItalicFont = {*-BoldItalic},
 ]
+
+\setmonofont{LibertinusMono-Regular.otf}
+\setmathfont{LibertinusMath-Regular.otf}
 \fi
 
 \setsansfont{Inter}[
@@ -166,9 +169,6 @@ SizeFeatures = {
 ]
 
 \newcommand\textlf[1]{{\sflight#1}}
-
-\setmonofont{LibertinusMono-Regular.otf}
-\setmathfont{LibertinusMath-Regular.otf}
 
 \newcommand\normalheadingfont{\sffamily}
 \newcommand\lightheadingfont{\sflight}
@@ -739,7 +739,6 @@ headpunct={\@thmpunct}
 
 \renewcommand{\maketitle}{
 \begingroup
-\lightheadingfont
 \setlength{\parskip}{0pt}
 \setlength{\parindent}{0pt}
 \center
