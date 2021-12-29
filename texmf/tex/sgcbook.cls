@@ -67,8 +67,7 @@
 \tabulinesep=0.4em
 \setlength{\arrayrulewidth}{0.75pt}
 
-\RequirePackage{titlesec, tocstyle}
-\usetocstyle{standard}
+\RequirePackage{titlesec}
 \RequirePackage{fancyhdr, background}
 \RequirePackage[pdfusetitle,hidelinks,final,
 colorlinks = true, linkcolor = black,
@@ -289,9 +288,7 @@ BoldItalicFont = {*-BoldItalic},
 \newcommand{\und}[1]{\underline{#1}}
 \newcommand{\tx}[1]{\text{#1}}
 
-\newcommand{\di}[1]{\mathop{\mathrm{d}#1}}
-\newcommand{\De}[1]{\mathop{\Delta#1}}
-\newcommand{\de}[1]{\mathop{\delta#1}}
+\newcommand{\di}{\mathrm{d}}
 \newcommand{\mmid}{\;\middle\vert\;}
 \newcommand\grad{\vec{\nabla}}
 
