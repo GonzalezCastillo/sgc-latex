@@ -19,7 +19,6 @@
 \LoadClass[reqno,12pt]{book}
 
 \newif\ifspanish\spanishfalse
-\newif\iftimes\timesfalse
 \newif\ifhelvet\helvetfalse
 \newif\iflegacy\legacyfalse
 \newif\ifserif\seriffalse
@@ -31,8 +30,7 @@
 }
 \DeclareOption{serif}{\seriftrue}
 \DeclareOption{lm}{\legacytrue}
-\DeclareOption{times}{\legacytrue\timestrue}
-\DeclareOption{helvet}{\legacytrue\helvettrue}
+\DeclareOption{helvet}{\helvettrue}
 
 \newif\ifswap\swapfalse
 \newif\ifwithin\withinfalse
@@ -87,24 +85,24 @@ urlcolor=blue,filecolor=black,citecolor=black]{hyperref}
 \unimathsetup{math-style=french, bold-style=upright, sans-style=upright}
 
 \unless\iflegacy
-\setmainfont{LibertinusSerif}[
+
+\setmainfont{XITS}[
+Scale = 1.09,
 Extension = .otf,
-Ligatures = {TeX},
 UprightFont = {*-Regular},
 BoldFont = {*-Bold},
 ItalicFont = {*-Italic},
-BoldItalicFont = {*-BoldItalic},
+BoldItalicFont = {*-BoldItalic}
 ]
+\setmathfont[Scale = 1.04]{XITSMath-Regular.otf}
 
-\setmonofont{LibertinusMono-Regular.otf}
-\setmathfont{LibertinusMath-Regular.otf}
 \fi
 
 \setsansfont{Inter}[
 Extension = .otf,
 Ligatures = {TeX},
 UprightFont = {*-Regular},
-Scale = 0.865,
+Scale = 0.92,
 UprightFeatures = {
 SizeFeatures = {
 {Size = -16},
@@ -138,7 +136,7 @@ SizeFeatures = {
 Extension = .otf,
 Ligatures = {TeX},
 UprightFont = {*-Light},
-Scale = 0.85,
+Scale = 0.95,
 UprightFeatures = {
 SizeFeatures = {
 {Size = -16},
@@ -173,22 +171,6 @@ SizeFeatures = {
 \newcommand\normalheadingfont{\sffamily}
 \newcommand\lightheadingfont{\sflight}
 
-\iflegacy
-\newmonotrue
-\fi
-
-\iftimes
-\setmainfont{XITS}[
-Scale = 1,
-Extension = .otf,
-UprightFont = {*-Regular},
-BoldFont = {*-Bold},
-ItalicFont = {*-Italic},
-BoldItalicFont = {*-BoldItalic}
-]
-\setmathfont[Scale = 1]{XITSMath-Regular.otf}
-\newmonotrue
-\fi
 \ifhelvet
 \setsansfont{texgyreheros}[
 Extension = .otf,
@@ -200,7 +182,7 @@ BoldItalicFont = {*-bolditalic}
 \renewcommand\lightheadingfont\sffamily
 \fi
 
-\ifnewmono
+\unless\ifhelvet
 \setmonofont{Hack}[
 Extension = .ttf,
 Scale = 0.9,
@@ -317,6 +299,7 @@ BoldItalicFont = {*-BoldItalic},
 \newcommand{\soulcolour}{yellow}
 \DeclareRobustCommand{\fixme}[1]{\sethlcolor{xfix}\hl{\textbf{FIX ME:} #1}\sethlcolor{\soulcolour}}
 \DeclareRobustCommand{\todo}[1]{\sethlcolor{xtodo}\hl{\textbf{TO-DO:} #1}\sethlcolor{\soulcolour}}
+\DeclareRobustCommand{\comment}[1]{\sethlcolor{xgrey}\hl{#1}\sethlcolor{\soulcolour}}
 
 
 \def\@subtitle{}

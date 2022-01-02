@@ -13,7 +13,6 @@
 %<book>\LoadClass[reqno,12pt]{book}
 
 \newif\ifspanish\spanishfalse
-\newif\iftimes\timesfalse
 \newif\ifhelvet\helvetfalse
 \newif\iflegacy\legacyfalse
 \newif\ifserif\seriffalse
@@ -25,8 +24,7 @@
 }
 \DeclareOption{serif}{\seriftrue}
 \DeclareOption{lm}{\legacytrue}
-\DeclareOption{times}{\legacytrue\timestrue}
-\DeclareOption{helvet}{\legacytrue\helvettrue}
+\DeclareOption{helvet}{\helvettrue}
 
 %<*doc>
 \newif\ifswap\swapfalse
@@ -89,30 +87,24 @@
 \unimathsetup{math-style=french, bold-style=upright, sans-style=upright}
 
 \unless\iflegacy
-	\setmainfont{LibertinusSerif}[
-		Extension = .otf,
-		Ligatures = {TeX},
-		UprightFont = {*-Regular},
-%		UprightFeatures = {
-%			SizeFeatures = {
-%				{Size = -16},
-%				{Size = 16-, Font={*Display-Regular}}
-%			}
-%		},
-		BoldFont = {*-Bold},
-		ItalicFont = {*-Italic},
-		BoldItalicFont = {*-BoldItalic},
-	]
 
-\setmonofont{LibertinusMono-Regular.otf}
-\setmathfont{LibertinusMath-Regular.otf}
+\setmainfont{XITS}[
+	Scale = 1.09,
+	Extension = .otf,
+	UprightFont = {*-Regular},
+	BoldFont = {*-Bold},
+	ItalicFont = {*-Italic},
+	BoldItalicFont = {*-BoldItalic}
+]
+\setmathfont[Scale = 1.04]{XITSMath-Regular.otf}
+
 \fi
 
 \setsansfont{Inter}[
 	Extension = .otf,
 	Ligatures = {TeX},
 	UprightFont = {*-Regular},
-	Scale = 0.865,
+	Scale = 0.92,
 	UprightFeatures = {
 		SizeFeatures = {
 			{Size = -16},
@@ -142,12 +134,11 @@
 	}
 ]
 
-
 \newfontfamily\sflight{Inter}[
 	Extension = .otf,
 	Ligatures = {TeX},
 	UprightFont = {*-Light},
-	Scale = 0.85,
+	Scale = 0.95,
 	UprightFeatures = {
 		SizeFeatures = {
 			{Size = -16},
@@ -182,22 +173,6 @@
 \newcommand\normalheadingfont{\sffamily}
 \newcommand\lightheadingfont{\sflight}
 
-\iflegacy
-	\newmonotrue
-\fi
-
-\iftimes
-	\setmainfont{XITS}[
-		Scale = 1,
-		Extension = .otf,
-		UprightFont = {*-Regular},
-		BoldFont = {*-Bold},
-		ItalicFont = {*-Italic},
-		BoldItalicFont = {*-BoldItalic}
-	]
-	\setmathfont[Scale = 1]{XITSMath-Regular.otf}
-	\newmonotrue
-\fi
 \ifhelvet
 	\setsansfont{texgyreheros}[
 		Extension = .otf,
@@ -209,8 +184,7 @@
 	\renewcommand\lightheadingfont\sffamily
 \fi
 
-
-\ifnewmono
+\unless\ifhelvet
 	\setmonofont{Hack}[
 		Extension = .ttf,
 		Scale = 0.9,
@@ -330,6 +304,7 @@
 \newcommand{\soulcolour}{yellow}
 \DeclareRobustCommand{\fixme}[1]{\sethlcolor{xfix}\hl{\textbf{FIX ME:} #1}\sethlcolor{\soulcolour}}
 \DeclareRobustCommand{\todo}[1]{\sethlcolor{xtodo}\hl{\textbf{TO-DO:} #1}\sethlcolor{\soulcolour}}
+\DeclareRobustCommand{\comment}[1]{\sethlcolor{xgrey}\hl{#1}\sethlcolor{\soulcolour}}
 
 % Document variables
 
