@@ -6,9 +6,10 @@
 %%
 %% classes.dtx  (with options: `doc,article')
 %% 
-%% Copyright (C) 2019-2020, Samuel Gonzalez Castillo.
-%% All rights reserved.
-%% 
+%%
+%% Copyright (C) Samuel González-Castillo (sgc.ink).
+%% See LICENSE.md for license and copyright details.
+%%
 
 %%fakesection Initial setup and class options
 
