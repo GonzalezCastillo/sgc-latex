@@ -60,7 +60,7 @@
 \RequirePackage{xstring}
 
 \usetikzlibrary{arrows.meta, calc, decorations.markings, math}
-\usetikzlibrary{intersections, patterns, cd, quantikz}
+\usetikzlibrary{intersections, patterns, cd}%, quantikz}
 
 \sethlcolor{yellow}
 \tabulinesep=0.4em
@@ -80,21 +80,20 @@ urlcolor=blue,filecolor=black,citecolor=black]{hyperref}
 %%fakesection Fonts
 
 \RequirePackage{fontspec}
-\RequirePackage{unicode-math}
-\unimathsetup{warnings-off={mathtools-colon,mathtools-overbracket}}
-\unimathsetup{math-style=french, bold-style=upright, sans-style=upright}
+\RequirePackage{amsmath, amsfonts, amssymb}
 
 \unless\iflegacy
 
-\setmainfont{XITS}[
-Scale = 1.09,
+\setmainfont{TeXGyreTermesX}[
 Extension = .otf,
 UprightFont = {*-Regular},
 BoldFont = {*-Bold},
 ItalicFont = {*-Italic},
 BoldItalicFont = {*-BoldItalic}
 ]
-\setmathfont[Scale = 1.04]{XITSMath-Regular.otf}
+
+\usepackage{newtxtext}
+\usepackage[vvarbb,frenchmath]{newtxmath}
 
 \fi
 
@@ -102,7 +101,7 @@ BoldItalicFont = {*-BoldItalic}
 Extension = .otf,
 Ligatures = {TeX},
 UprightFont = {*-Regular},
-Scale = 0.92,
+Scale = 0.9,
 UprightFeatures = {
 SizeFeatures = {
 {Size = -16},
@@ -136,7 +135,7 @@ SizeFeatures = {
 Extension = .otf,
 Ligatures = {TeX},
 UprightFont = {*-Light},
-Scale = 0.95,
+Scale = 0.9,
 UprightFeatures = {
 SizeFeatures = {
 {Size = -16},
@@ -166,7 +165,7 @@ SizeFeatures = {
 }
 ]
 
-\newcommand\textlf[1]{{\sflight#1}}
+\newcommand\textslf[1]{{\sflight#1}}
 
 \newcommand\normalheadingfont{\sffamily}
 \newcommand\lightheadingfont{\sflight}
@@ -403,6 +402,7 @@ top=1.95cm,bottom=1.95cm,inner=2.35cm,outer=1.55cm}
 \fi
 \SetBgPosition{-1cm, -4.5cm}
 \else
+%% \geometry{a4paper,left=3cm,right=3.5cm,top=3cm,bottom=3cm}
 \geometry{a4paper,left=3cm,right=3cm,top=3cm,bottom=3cm}
 \SetBgPosition{-0.7cm, -7cm}
 \fi
