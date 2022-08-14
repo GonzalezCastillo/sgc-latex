@@ -95,7 +95,7 @@
 \newcommand\str@theorem{Theorem}
 \newcommand\str@lemma{Lemma}
 \newcommand\str@definition{Definition}
-\newcommand\str@remark{Remark}
+\newcommand\str@scholium{Scholium}
 \newcommand\str@corollary{Corollary}
 \newcommand\str@example{Example}
 \newcommand\str@proposition{Proposition}
@@ -125,11 +125,11 @@
 
 	\renewcommand\str@theorem{Teorema}
 	\renewcommand\str@lemma{Lema}
-	\renewcommand\str@definition{Definici\'on}
-	\renewcommand\str@remark{Observaci\'on}
+	\renewcommand\str@definition{Definición}
+	\renewcommand\str@scholium{Escolio}
 	\renewcommand\str@corollary{Corolario}
 	\renewcommand\str@example{Ejemplo}
-	\renewcommand\str@proposition{Proposici\'on}
+	\renewcommand\str@proposition{Proposición}
 	\renewcommand\str@algorithm{Algoritmo}
 
 	
@@ -524,7 +524,7 @@
 }
 
 \nthm{\str@definition}{definition}
-\nthm{\str@remark}{remark}
+\nthm{\str@scholium}{scholium}
 \nthm{\str@example}{example}
 \nthm{\str@proposition}{proposition}
 \nthm{\str@corollary}{corollary}
@@ -532,7 +532,7 @@
 \nthm{\str@algorithm}{algorithm}
 
 \declaretheorem[style=custom,name=,sibling=theorem]{para}
-\declaretheorem[style=custom,name=]{para*}
+\declaretheorem[style=custom,name=]{unpara}
 
 \ifwithin
 	\numberwithin{equation}{section}
@@ -545,9 +545,12 @@
 	\numberwithin{corollary}{section}
 	\numberwithin{lemma}{section}
 	\numberwithin{proposition}{section}
-	\numberwithin{remark}{section}
+	\numberwithin{scholium}{section}
 	\numberwithin{para}{section}
 	\numberwithin{algorithm}{section}
+
+	\numberwithin{unpara}{section}
+	\renewcommand{\theunpara}{\arabic{unpara}}
 \fi
 %</doc>
 %%fakesection Article and book commands and settings
