@@ -447,7 +447,7 @@
 \lstset{tabsize = 4,
 	basicstyle=\ttfamily\small,
 	commentstyle={\color{xgreen}},
-    keywordstyle={\bfseries\color{xmagenta}},
+    keywordstyle={\bfseries\color{xred}},
     stringstyle={\color{xblue}},
     showstringspaces=false,
 	numbers=left,
@@ -493,7 +493,7 @@
 %<*doc>
 \ifswap
 	\declaretheoremstyle[
-		headfont=\bfseries\normalheadingfont,
+		headfont=\bfseries,
 		bodyfont=\normalfont,
 		headformat=swapnumber,
 		spaceabove=\abovethm@skip,
@@ -501,8 +501,8 @@
 		headpunct={\@thmpunct}
 	]{theorem}
 	\declaretheoremstyle[
-		notefont=\bfseries\normalheadingfont, notebraces={}{},
-		headfont=\bfseries\normalheadingfont,
+		notefont=\bfseries, notebraces={}{},
+		headfont=\bfseries,
 		bodyfont=\normalfont,
 		spaceabove=\abovethm@skip,
 		spacebelow=\env@sep,
@@ -511,15 +511,15 @@
 	]{custom}
 \else
 	\declaretheoremstyle[
-		headfont=\bfseries\normalheadingfont,
+		headfont=\bfseries,
 		spaceabove=\abovethm@skip,
 		spacebelow=\env@sep,
 		bodyfont=\normalfont,	
 		headpunct={\@thmpunct}
 	]{theorem}
 	\declaretheoremstyle[
-		notefont=\bfseries\normalheadingfont, notebraces={[}{]},
-		headfont=\bfseries\normalheadingfont,
+		notefont=\bfseries, notebraces={[}{]},
+		headfont=\bfseries,
 		bodyfont=\normalfont,
 		spaceabove=\abovethm@skip,
 		spacebelow=\env@sep,
