@@ -13,7 +13,7 @@
 %<book>\LoadClass[reqno,12pt]{book}
 
 \newif\ifspanish\spanishfalse
-\newif\ifhelvet\helvetfalse
+\newif\ifsans\sansfalse
 \newif\iflegacy\legacyfalse
 \newif\ifserif\seriffalse
 \newif\ifnewmono\newmonofalse
@@ -24,7 +24,7 @@
 }
 \DeclareOption{serif}{\seriftrue}
 \DeclareOption{lm}{\legacytrue}
-\DeclareOption{helvet}{\helvettrue}
+\DeclareOption{sans}{\sanstrue}
 
 %<*doc>
 \newif\ifswap\swaptrue
@@ -76,132 +76,6 @@
 \SetBgScale{1.5}
 \SetBgColor{black}
 %</doc>
-
-%%fakesection Fonts
-
-
-\RequirePackage{fontspec}
-%\RequirePackage[T1]{fontenc}
-\RequirePackage{amsmath, amsfonts, amssymb}
-
-
-\unless\iflegacy
-
-
-\setmainfont{TeXGyreTermesX}[
-%	Scale = 1.04,
-	Extension = .otf,
-	UprightFont = {*-Regular},
-	BoldFont = {*-Bold},
-	ItalicFont = {*-Italic},
-	BoldItalicFont = {*-BoldItalic}
-]
-
-
-\usepackage{newtxtext}
-\usepackage[vvarbb,frenchmath]{newtxmath}
-
-\fi
-
-\setsansfont{Inter}[
-	Extension = .otf,
-	Ligatures = {TeX},
-	UprightFont = {*-Regular},
-	Scale = 0.9,
-	UprightFeatures = {
-		SizeFeatures = {
-			{Size = -16},
-			{Size = 16-, LetterSpace={-1.5}}
-		}
-	},
-	BoldFont = {*-Bold},
-	BoldFeatures = {
-		SizeFeatures = {
-			{Size = -16},
-			{Size = 16-, LetterSpace={-1.5}}
-		}
-	},
-	ItalicFont = {*-Italic},
-	ItalicFeatures = {
-		SizeFeatures= {
-			{Size = -16},
-			{Size = 16-, LetterSpace={-1.5}}
-		}
-	},
-	BoldItalicFont = {*-BoldItalic},
-	BoldItalicFeatures = {
-		SizeFeatures = {
-			{Size = -16},
-			{Size = 16-, LetterSpace={-1.5}}
-		}
-	}
-]
-
-\newfontfamily\sflight{Inter}[
-	Extension = .otf,
-	Ligatures = {TeX},
-	UprightFont = {*-Light},
-	Scale = 0.9,
-	UprightFeatures = {
-		SizeFeatures = {
-			{Size = -16},
-			{Size = 16-, LetterSpace={-1.5}}
-		}
-	},
-	BoldFont = {*-SemiBold},
-	BoldFeatures = {
-		SizeFeatures = {
-			{Size = -16},
-			{Size = 16-, LetterSpace={-1.5}}
-		}
-	},
-	ItalicFont = {*-LightItalic},
-	ItalicFeatures = {
-		SizeFeatures= {
-			{Size = -16},
-			{Size = 16-, LetterSpace={-1.5}}
-		}
-	},
-	BoldItalicFont = {*-SemiBoldItalic},
-	BoldItalicFeatures = {
-		SizeFeatures = {
-			{Size = -16},
-			{Size = 16-, LetterSpace={-1.5}}
-		}
-	}
-]
-
-\newcommand\textslf[1]{{\sflight#1}}
-
-\newcommand\normalheadingfont{\sffamily}
-\newcommand\lightheadingfont{\sflight}
-
-\ifhelvet
-	\setsansfont{texgyreheros}[
-		Extension = .otf,
-		UprightFont = {*-regular},
-		BoldFont = {*-bold},
-		ItalicFont = {*-italic},
-		BoldItalicFont = {*-bolditalic}
-	]
-	\renewcommand\lightheadingfont\sffamily
-\fi
-
-\unless\ifhelvet
-	\setmonofont{Hack}[
-		Extension = .ttf,
-		Scale = 0.9,
-		UprightFont = {*-Regular},
-		BoldFont = {*-Bold},
-		ItalicFont = {*-Italic},
-		BoldItalicFont = {*-BoldItalic},
-	]
-\fi
-
-\ifserif
-	\renewcommand\normalheadingfont{}
-	\renewcommand\lightheadingfont{}
-\fi
 
 %%fakesection Language
 
@@ -260,6 +134,31 @@
 	\RequirePackage[british]{babel}
 
 \fi
+
+
+%%fakesection Fonts
+
+\iflegacy
+	\RequirePackage{amsmath, amsfonts, amssymb}
+\else
+	\RequirePackage[
+		scaled = 1.04,
+		proportional, % proportional lining figures
+		largesc, varbb, subscriptcorrection,
+		frenchmath, upint
+	]{newtx}
+\fi
+
+\newcommand\headingfont{\sffamily}
+
+\ifsans
+	\renewcommand\familydefault{\sfdefault}
+\fi
+
+\ifserif
+	\renewcommand\headingfont{}
+\fi
+
 
 
 %%fakesection Commands, variables and environments
