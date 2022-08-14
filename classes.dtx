@@ -18,6 +18,7 @@
 \newif\iflegacy\legacyfalse
 \newif\ifphysics\physicsfalse
 \newif\ifhomework\homeworkfalse
+\newif\iftwoside\twosidefalse
 
 \DeclareOption{es}{\spanishtrue}
 \DeclareOption{sans}{
@@ -39,7 +40,8 @@
 \newif\ifprint\printfalse
 \DeclareOption{noswap}{\swapfalse}
 %<article>\DeclareOption{within}{\withintrue}
-%<book>\withintrue
+%<article>\DeclareOption{twoside}{\twosidetrue}
+%<book>\withintrue\twosidetrue
 \DeclareOption{zero}{\zerotrue}
 \DeclareOption{a5}{\afivetrue}
 \DeclareOption{spaced}{\spacedtrue}
@@ -318,17 +320,11 @@
 	\let\huge\relax
 	\let\Huge\relax
 	\input{size10.clo}
-	\ifprint
-		\geometry{a5paper,footskip=25pt, headsep=15pt,
-			top=1.95cm,bottom=1.95cm,inner=2.35cm,outer=1.55cm}
-	\else
-		\geometry{a5paper,footskip=25pt, headsep=15pt, margin=1.95cm}
-	\fi
+	\geometry{a5paper,footskip=25pt, headsep=15pt, margin=1.9cm}
 	\SetBgPosition{-1cm, -4.5cm}
 \else
-%%	\geometry{a4paper,left=3cm,right=3.5cm,top=3cm,bottom=3cm}
-	\geometry{a4paper,left=3cm,right=3cm,top=3cm,bottom=3cm}
-	\SetBgPosition{-0.7cm, -7cm}
+	\geometry{a4paper,hmargin=3.3cm,top=3.3cm, bottom = 3.3cm}
+	\SetBgPosition{-1cm, -8cm}
 \fi
 %</doc>
 
@@ -414,7 +410,7 @@
 \newcommand\dstep[3][]{\item \label{\@deductionref #1} [#2] \  $#3$}
 \newcommand\dref[1]{\ref{\@deductionref #1}}
 
-% Axioms environment.
+% Axioms environment
 \newcounter{axiomnum}
 \def\axiomletter{}
 
@@ -594,7 +590,6 @@
 	\newcommand{\nochref}[2][\@compare]{\IfStrEq{#1}{\@compare}{\@classicref{\@chlabel:#2}}{\IfStrEq{#1}{appendix}{\@classicref{appendix:#2}}{\@classicref{#1:#2}}}}
 }
 
-
 \pagestyle{fancy}
 \lhead{}
 \chead{\nouppercase{\normalheadingfont\leftmark}}
@@ -602,9 +597,7 @@
 %\cfoot{\normalheadingfont\thepage} TODO: Change also in chapter headings
 \renewcommand{\headrulewidth}{0pt}
 
-\ifprint
-
-\else
+\ifprint\else
 	\let\cleardoublepage\clearpage
 \fi
 
