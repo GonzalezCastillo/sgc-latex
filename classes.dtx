@@ -9,7 +9,7 @@
 %<article>\ProvidesClass{sgcart}
 %<book>\ProvidesClass{sgcbook}
 
-%<article>\LoadClass[reqno,12pt]{article}
+%<article>\LoadClass[reqno,12pt,twoside]{article}
 %<book>\LoadClass[reqno,12pt]{book}
 
 \newif\ifspanish\spanishfalse
@@ -18,7 +18,6 @@
 \newif\iflegacy\legacyfalse
 \newif\ifphysics\physicsfalse
 \newif\ifhomework\homeworkfalse
-\newif\iftwoside\twosidefalse
 
 \DeclareOption{es}{\spanishtrue}
 \DeclareOption{sans}{
@@ -40,8 +39,7 @@
 \newif\ifprint\printfalse
 \DeclareOption{noswap}{\swapfalse}
 %<article>\DeclareOption{within}{\withintrue}
-%<article>\DeclareOption{twoside}{\twosidetrue}
-%<book>\withintrue\twosidetrue
+%<book>\withintrue
 \DeclareOption{zero}{\zerotrue}
 \DeclareOption{a5}{\afivetrue}
 \DeclareOption{spaced}{\spacedtrue}
@@ -147,7 +145,7 @@
 	\RequirePackage{amsmath, amsfonts, amssymb}
 \else
 	\RequirePackage[
-		scaled = 1.04,
+		scaled = 1.02,
 		largesc, varbb, subscriptcorrection,
 		frenchmath, upint
 	]{newtx}
@@ -588,39 +586,53 @@
 \renewcommand\thepart{\partname \ \arabic{part}}
 \ifzero\setcounter{chapter}{-1}\fi
 
-\newcommand\unchapter[1]{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}\markboth{#1}{}}
+\newcommand\unchapter[1]{
+	\chapter*{#1}
+	\addcontentsline{toc}{chapter}{#1}\markboth{#1}{}
+}
 \renewcommand\appendix{
-	\unchapter{\str@appendices}\stepcounter{chapter}\chlabel{appendix}\setcounter{section}{0}
-	\renewcommand\thesection{\Alph{section}}}
+	\unchapter{\str@appendices}
+	\stepcounter{chapter}\setcounter{section}{0}
+	\chlabel{appendix}
+	\renewcommand\thesection{\Alph{section}}
+}
 
 % Chapter-based labels
 \newcommand\@chlabel{}
 \AtBeginDocument{
 	\let\@classiclabel\label
 	\let\@classicref\ref
-	\newcommand\chlabel[1]{\renewcommand\@chlabel{#1}\@classiclabel{#1}}
+	\newcommand\chlabel[1]{
+		\renewcommand\@chlabel{#1}\@classiclabel{#1}
+	}
 	\let\@classicamslabel\label@in@display
 	\renewcommand{\label}[1]{\@classiclabel{\@chlabel:#1}}
 	\renewcommand{\label@in@display}[1]{\@classicamslabel{\@chlabel:#1}}
-	\renewcommand{\ref}[2][\@compare]{\IfStrEq{#1}{\@compare}{\@classicref{\@chlabel:#2}}{\IfStrEq{#1}{appendix}{\@classicref{appendix:#2}}{\@classicref{#1}-\@classicref{#1:#2}}}}
-	\newcommand{\nochref}[2][\@compare]{\IfStrEq{#1}{\@compare}{\@classicref{\@chlabel:#2}}{\IfStrEq{#1}{appendix}{\@classicref{appendix:#2}}{\@classicref{#1:#2}}}}
+	\renewcommand{\ref}[2][\@compare]{
+		\IfStrEq{#1}{\@compare}{
+			\@classicref{\@chlabel:#2}
+		}{
+			\IfStrEq{#1}{appendix}{
+				\@classicref{appendix:#2}
+			}{
+				\@classicref{#1}-\@classicref{#1:#2}
+			}
+		}
+	}
+	\newcommand{\nochref}[2][\@compare]{
+		\IfStrEq{#1}{\@compare}{
+			\@classicref{\@chlabel:#2}
+		}{
+			\IfStrEq{#1}{appendix}{
+				\@classicref{appendix:#2}
+			}{
+				\@classicref{#1:#2}
+			}
+		}
+	}
 }
 
-\pagestyle{fancy}
-\lhead{}
-\chead{\nouppercase{\normalheadingfont\leftmark}}
-\rhead{}
-%\cfoot{\normalheadingfont\thepage} TODO: Change also in chapter headings
-\renewcommand{\headrulewidth}{0pt}
-
-\ifprint\else
-	\let\cleardoublepage\clearpage
-\fi
-
-% TODO: Better support for print.
-
 %</book>
-
 %<*article>
 
 \ifzero\setcounter{section}{-1}\fi
@@ -652,32 +664,62 @@
 \fi
 %</article>
 
+% Page style
+\pagestyle{fancy}
+%<article>\lhead{}\chead{}\rhead{}\cfoot{\small\thepage}\rfoot{}\lfoot{}
+%<*book>
+\ifprint
+	\fancyhead[LE]{\scshape\footnotesize\nouppercase{\rightmark}}
+	\fancyhead[RO]{\scshape\footnotesize\nouppercase{\leftmark}}
+	\fancyhead[C,LO,RE]{}
+\else
+	\lhead{}\chead{\scshape\footnotesize\nouppercase{\leftmark}}\rhead{}
+\fi
+\ifprint
+	\fancyfoot[LE]{\small\thepage}
+	\fancyfoot[RO]{\small\thepage}
+	\fancyfoot[C,LO,RE]{}
+\else
+\cfoot{\small\thepage}\rfoot{}\lfoot{}
+\fi
+%</book>
+\renewcommand{\headrulewidth}{0pt}
+
+\ifprint\else
+	\let\cleardoublepage\clearpage
+\fi
+
+% TODO: Better support for print.
+
+
+
+
 %%fakesection Titles and covers
 
 %<*book>
 
 \titleformat{\part}[display]{
 	\setlength{\parskip}{0pt}\setlength{\parindent}{0pt}
-	\lightheadingfont\bfseries\Huge\centering\medskip\vspace*{\fill}
+	\headingfont\bfseries\Huge\centering\medskip\vspace*{\fill}
 }{\LARGE\bfseries\partname~\arabic{part}
 }{0pt}{}[\vspace{200pt}\vspace*{\fill}]
 
 \titlespacing{\part}{0pt}{0pt}{0pt}[0pt]
 
-\titleformat{\chapter}[display]{\setlength{\parskip}{0pt}\setlength{\parindent}{0pt}\center\huge\lightheadingfont}{\large\bfseries\chaptername~\thechapter}{0.1em}{}[{\bigskip\bigskip}]
+\titleformat{\chapter}[display]{\setlength{\parskip}{0pt}\setlength{\parindent}{0pt}\huge\headingfont}{\large\bfseries\chaptername~\thechapter}{0.1em}{}[{\bigskip\bigskip}]
 
-\titlespacing*{\chapter}{0pt}{0pt}{3em}[0pt]
+\titlespacing*{\chapter}{0pt}{0pt}{5em}[0pt]
 
 %</book>
 
 %<*doc>
 
-\titleformat{\section}[block]{\noindent\center\Large\bfseries\lightheadingfont}{\S\thesection\ }{0pt}{}
-\titlespacing*{\section}{0pt}{0pt}{\head@sep}[0pt]
+\titleformat{\section}{\large\bfseries\headingfont}{\S\thesection}{.5em}{}
+\titlespacing*{\section}{0pt}{3em}{1em}[0pt]
 
-\titleformat{\subsection}{\bfseries\large\lightheadingfont}{\noindent \S\thesubsection \ }{0pt}{}
+\titleformat{\subsection}{\bfseries\headingfont}{ \S\thesubsection \ }{0pt}{}
 
-\titlespacing*{\subsection}{0pt}{\head@sep}{\head@sep}[0pt]
+\titlespacing*{\subsection}{0pt}{\head@sep}{\env@sep}[0pt]
 
 %</doc>
 
@@ -706,11 +748,12 @@
 %<article>\newcommand{\cover}{
 %<book>\renewcommand{\maketitle}[1][]{
 	%<book>\frontmatter
+	%<article>\pagenumbering{roman}
 	\NoBgThispage
 	\begingroup
 	\setlength{\parindent}{0pt} \setlength{\parskip}{1em}
 	\newpage
-	\thispagestyle{empty}\begingroup\normalfont
+	\thispagestyle{empty}\begingroup\normalfont\headingfont
 
 	\ifafive 
 		\vspace*{1.5em}	
@@ -725,7 +768,7 @@
 		{\ifx\@subtitle\@compare{\vspace{1em}}\else{\LARGE\@subtitle\\[1.3em]}\fi}
 	}	
 	{
-		\textsc{
+		{
 		%<book>\Large
 		%<article>\large
 		\@author}
@@ -735,7 +778,7 @@
 			{\smallskip \@coverfont
 			%<book>\Large
 			%<article>\large
-			\centerline{\shortversion}}
+			\centerline{\longversion}}
 		\fi
 	}
 	\end{center}
@@ -750,7 +793,7 @@
 
 	%<book>\infopage[#1]
 
-	%<article>\ifprint\newpage
+	%<article>\ifprint\newpage\thispagestyle{empty}
 	%<article>\vspace*{\fill}\centerline{\str@pageblank}\vspace{10em}
 	%<article>\vspace*{\fill}\newpage\fi
 
@@ -759,7 +802,8 @@
 	\ifx\@to\@compare{}\else
 	\vspace*{\fill}\noindent{\itshape\@to}\vspace*{10em}\vspace*{\fill}
 	\newpage\fi
-
+	
+	%<article>\pagenumbering{arabic}
 	\tableofcontents
 	%<book>\newpage
 }
@@ -769,12 +813,13 @@
 %<*article>
 \renewcommand{\maketitle}{
 	\begingroup
+	\headingfont
 	\setlength{\parskip}{0pt}
 	\setlength{\parindent}{0pt}
 	\center
-	{\huge{\@title}
-		{\ifx\@subtitle\empty\else{\\\LARGE{\@subtitle}}\fi}\par\bigskip}
-	{\scshape\@author}\\ \@date\vspace{2em}
+	{\LARGE{\@title}
+		{\ifx\@subtitle\empty\else{\\\Large{\@subtitle}}\fi}\par\bigskip}
+	{\@author}\\ \@date\vspace{2em}
 
 	\ifspaced\else\vspace{0.7em}\fi
 	\endgroup

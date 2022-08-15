@@ -16,13 +16,15 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{sgcart}
 
-\LoadClass[reqno,12pt]{article}
+\LoadClass[reqno,12pt,twoside]{article}
 
 \newif\ifspanish\spanishfalse
-\newif\ifhelvet\helvetfalse
-\newif\iflegacy\legacyfalse
+\newif\ifsans\sansfalse
 \newif\ifserif\seriffalse
-\newif\ifnewmono\newmonofalse
+\newif\iflegacy\legacyfalse
+\newif\ifphysics\physicsfalse
+\newif\ifhomework\homeworkfalse
+
 \DeclareOption{es}{\spanishtrue}
 \DeclareOption{sans}{
 \renewcommand\familydefault\sfdefault
@@ -30,15 +32,17 @@
 }
 \DeclareOption{serif}{\seriftrue}
 \DeclareOption{lm}{\legacytrue}
-\DeclareOption{helvet}{\helvettrue}
+\DeclareOption{sans}{\sanstrue}
+\DeclareOption{physics}{\physicstrue}
+\DeclareOption{homework}{\homeworktrue}
 
-\newif\ifswap\swapfalse
+\newif\ifswap\swaptrue
 \newif\ifwithin\withinfalse
 \newif\ifzero\zerofalse
 \newif\ifafive\afivefalse
 \newif\ifspaced\spacedfalse
 \newif\ifprint\printfalse
-\DeclareOption{swap}{\swaptrue}
+\DeclareOption{noswap}{\swapfalse}
 \DeclareOption{within}{\withintrue}
 \DeclareOption{zero}{\zerotrue}
 \DeclareOption{a5}{\afivetrue}
@@ -48,154 +52,33 @@
 \ProcessOptions\relax
 
 %%fakesection Packages and basic settings
-\RequirePackage[table]{xcolor}
-\RequirePackage{geometry, graphicx, tikz, pgfplots, circuitikz}
-\RequirePackage{enumitem, import, centernot, cancel, array, tabu, soul}
-\RequirePackage{amsmath, amssymb, amsthm, thmtools, braket, mathtools}
+\RequirePackage{xcolor, geometry, graphicx, tikz, pgfplots}
+\RequirePackage{enumitem, import, centernot, tabularray, xstring}
+\RequirePackage{amsthm, thmtools, mathtools, cancel}
 \RequirePackage[final]{listings}
-\RequirePackage[most]{tcolorbox}
-\RequirePackage[utf8]{inputenc} % Redundant since 2018, but still.
+\usepackage[T1]{fontenc}
 \RequirePackage[separate-uncertainty = true]{siunitx}
 \RequirePackage[inline]{asymptote}
-\RequirePackage{xstring}
+
+\ifphysics
+\RequirePackage{circuitikz, quantikz, braket}
+\fi
 
 \usetikzlibrary{arrows.meta, calc, decorations.markings, math}
-\usetikzlibrary{intersections, patterns, cd}%, quantikz}
+\usetikzlibrary{intersections, patterns, cd}
 
-\sethlcolor{yellow}
-\tabulinesep=0.4em
-\setlength{\arrayrulewidth}{0.75pt}
+\setlength{\arrayrulewidth}{0.75pt} % for tabular (no longer used)
 
 \RequirePackage{titlesec}
 \RequirePackage{fancyhdr, background}
 \RequirePackage[pdfusetitle,hidelinks,final,
 colorlinks = true, linkcolor = black,
-urlcolor=blue,filecolor=black,citecolor=black]{hyperref}
+urlcolor = blue, filecolor = black, citecolor = black]{hyperref}
 
 \SetBgOpacity{1}
 \SetBgAngle{90}
 \SetBgScale{1.5}
 \SetBgColor{black}
-
-%%fakesection Fonts
-
-\RequirePackage{fontspec}
-\RequirePackage{amsmath, amsfonts, amssymb}
-
-\unless\iflegacy
-
-\setmainfont{TeXGyreTermesX}[
-Extension = .otf,
-UprightFont = {*-Regular},
-BoldFont = {*-Bold},
-ItalicFont = {*-Italic},
-BoldItalicFont = {*-BoldItalic}
-]
-
-\usepackage{newtxtext}
-\usepackage[vvarbb,frenchmath]{newtxmath}
-
-\fi
-
-\setsansfont{Inter}[
-Extension = .otf,
-Ligatures = {TeX},
-UprightFont = {*-Regular},
-Scale = 0.9,
-UprightFeatures = {
-SizeFeatures = {
-{Size = -16},
-{Size = 16-, LetterSpace={-1.5}}
-}
-},
-BoldFont = {*-Bold},
-BoldFeatures = {
-SizeFeatures = {
-{Size = -16},
-{Size = 16-, LetterSpace={-1.5}}
-}
-},
-ItalicFont = {*-Italic},
-ItalicFeatures = {
-SizeFeatures= {
-{Size = -16},
-{Size = 16-, LetterSpace={-1.5}}
-}
-},
-BoldItalicFont = {*-BoldItalic},
-BoldItalicFeatures = {
-SizeFeatures = {
-{Size = -16},
-{Size = 16-, LetterSpace={-1.5}}
-}
-}
-]
-
-\newfontfamily\sflight{Inter}[
-Extension = .otf,
-Ligatures = {TeX},
-UprightFont = {*-Light},
-Scale = 0.9,
-UprightFeatures = {
-SizeFeatures = {
-{Size = -16},
-{Size = 16-, LetterSpace={-1.5}}
-}
-},
-BoldFont = {*-SemiBold},
-BoldFeatures = {
-SizeFeatures = {
-{Size = -16},
-{Size = 16-, LetterSpace={-1.5}}
-}
-},
-ItalicFont = {*-LightItalic},
-ItalicFeatures = {
-SizeFeatures= {
-{Size = -16},
-{Size = 16-, LetterSpace={-1.5}}
-}
-},
-BoldItalicFont = {*-SemiBoldItalic},
-BoldItalicFeatures = {
-SizeFeatures = {
-{Size = -16},
-{Size = 16-, LetterSpace={-1.5}}
-}
-}
-]
-
-\newcommand\textslf[1]{{\sflight#1}}
-
-\newcommand\normalheadingfont{\sffamily}
-\newcommand\lightheadingfont{\sflight}
-
-\ifhelvet
-\setsansfont{texgyreheros}[
-Extension = .otf,
-UprightFont = {*-regular},
-BoldFont = {*-bold},
-ItalicFont = {*-italic},
-BoldItalicFont = {*-bolditalic}
-]
-\renewcommand\lightheadingfont\sffamily
-\fi
-
-\unless\ifhelvet
-\setmonofont{Hack}[
-Extension = .ttf,
-Scale = 0.9,
-UprightFont = {*-Regular},
-BoldFont = {*-Bold},
-ItalicFont = {*-Italic},
-BoldItalicFont = {*-BoldItalic},
-]
-\fi
-
-\ifserif
-\renewcommand\normalheadingfont{}
-\renewcommand\lightheadingfont{}
-\fi
 
 %%fakesection Language
 
@@ -204,14 +87,13 @@ BoldItalicFont = {*-BoldItalic},
 \newcommand\str@draft{DRAFT}
 \newcommand\str@pageblank{This page is intentionally left blank.}
 \newcommand\str@appendices{Appendices}
-\newcommand\str@release{Release}
-\newcommand\char@release{R}
+\newcommand\str@edition{Edition}
 \newcommand\str@abstract{Abstract}
 
 \newcommand\str@theorem{Theorem}
 \newcommand\str@lemma{Lemma}
 \newcommand\str@definition{Definition}
-\newcommand\str@remark{Remark}
+\newcommand\str@scholium{Scholium}
 \newcommand\str@corollary{Corollary}
 \newcommand\str@example{Example}
 \newcommand\str@proposition{Proposition}
@@ -229,9 +111,8 @@ BoldItalicFont = {*-BoldItalic},
 \renewcommand\str@license{Todos los derechos reservados.}
 \renewcommand\str@draft{BORRADOR}
 \renewcommand\str@pageblank{Página dejada intencionadamente en blanco.}
-\renewcommand\str@appendices{Ap\'endices}
-\renewcommand\str@release{Edición}
-\renewcommand\char@release{E}
+\renewcommand\str@appendices{Apéndices}
+\renewcommand\str@edition{Edición}
 \renewcommand\str@abstract{Resumen}
 
 \addto\captionsspanish{
@@ -242,11 +123,11 @@ BoldItalicFont = {*-BoldItalic},
 
 \renewcommand\str@theorem{Teorema}
 \renewcommand\str@lemma{Lema}
-\renewcommand\str@definition{Definici\'on}
-\renewcommand\str@remark{Observaci\'on}
+\renewcommand\str@definition{Definición}
+\renewcommand\str@scholium{Escolio}
 \renewcommand\str@corollary{Corolario}
 \renewcommand\str@example{Ejemplo}
-\renewcommand\str@proposition{Proposici\'on}
+\renewcommand\str@proposition{Proposición}
 \renewcommand\str@algorithm{Algoritmo}
 
 \else
@@ -254,51 +135,66 @@ BoldItalicFont = {*-BoldItalic},
 
 \fi
 
-%%fakesection Commands, variables and environments
-\newcommand\@compare{}
+\RequirePackage[autostyle=true]{csquotes}
+\MakeOuterQuote{"}
 
+%%fakesection Fonts
+
+\iflegacy
+\RequirePackage{amsmath, amsfonts, amssymb}
+\else
+\RequirePackage[
+scaled = 1.02,
+largesc, varbb, subscriptcorrection,
+frenchmath, upint
+]{newtx}
+\fi
+
+\newcommand\headingfont{\sffamily}
+
+\ifsans
+\renewcommand\familydefault{\sfdefault}
+\fi
+
+\ifserif
+\renewcommand\headingfont{}
+\fi
+
+%%fakesection Commands, variables and environments
+
+\newcommand\@compare{}
 \newcommand\load[1]{\subimport{#1/}{#1}}
 \newcommand\zeroroman[1]{\ifcase\value{#1}\relax0\else\Roman{#1}\fi}
 \newcommand{\xfootnote}[2][]{{\renewcommand{\thefootnote}{#1}
 \ifx{#1}\empty\footnotetext{#2}\else\footnote{#2}\fi}}
-\newcommand{\cml}[1]{\guillemotleft#1\guillemotright}
 
-\renewcommand{\qedsymbol}{$\blacksquare$}
+\renewcommand{\qedsymbol}{//}
 \AtBeginDocument{\renewcommand{\phi}{\varphi}}
+\AtBeginDocument{\renewcommand{\emptyset}{\varnothing}}
+\AtBeginDocument{\renewcommand{\leq}{\leqslant}}
+\AtBeginDocument{\renewcommand{\geq}{\geqslant}}
 
 \newcommand{\op}[1]{\operatorname{#1}}
-\newcommand{\und}[1]{\underline{#1}}
 \newcommand{\tx}[1]{\text{#1}}
-
-\newcommand{\di}{\mathrm{d}}
 \newcommand{\mmid}{\;\middle\vert\;}
-\newcommand\grad{\vec{\nabla}}
-
-\newcommand\showing[2]{(#1) $\Rightarrow$ (#2)}
-
+\newcommand\showing[2]{\ref{#1} $\Rightarrow$ \ref{#2}}
 \newcommand{\anb}[1]{\langle #1 \rangle}
 \newcommand{\Anb}[1]{\left\langle #1 \right\rangle}
 \newcommand{\norm}[1]{\Vert #1 \Vert}
 \newcommand{\Norm}[1]{\left\Vert #1 \right\Vert}
 \newcommand{\abs}[1]{\vert #1 \vert}
 \newcommand{\Abs}[1]{\left\vert #1 \right\vert}
-\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
-\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\floor}[1]{\lfloor #1 \rfloor}
+\newcommand{\Floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\lceil #1 \rceil}
+\newcommand{\Ceil}[1]{\left\lceil #1 \right\rceil}
 \newcommand\limplies\rightarrow
 \newcommand\liff\leftrightarrow
 \newcommand\qsep{.\ }
 
-
-\newenvironment{lrcases}
+\newenvironment{lrcases} % rcases already defined in mathtools
 {\left\{\begin{aligned}}
 {\end{aligned}\right\}}
-
-\definecolor{xfix}{RGB}{249, 181, 169}
-\definecolor{xtodo}{RGB}{180, 226, 249}
-\newcommand{\soulcolour}{yellow}
-\DeclareRobustCommand{\fixme}[1]{\sethlcolor{xfix}\hl{\textbf{FIX ME:} #1}\sethlcolor{\soulcolour}}
-\DeclareRobustCommand{\todo}[1]{\sethlcolor{xtodo}\hl{\textbf{TO-DO:} #1}\sethlcolor{\soulcolour}}
-\DeclareRobustCommand{\comment}[1]{\sethlcolor{xgrey}\hl{#1}\sethlcolor{\soulcolour}}
 
 
 \def\@subtitle{}
@@ -333,28 +229,34 @@ BoldItalicFont = {*-BoldItalic},
 }
 }
 
-\newcommand{\shortversion}{\@generateversion{\char@release}}
-\newcommand{\longversion}{\@generateversion{\str@release\ }}
+\newcommand{\shortversion}{\@generateversion{e}}
+\newcommand{\longversion}{\@generateversion{\str@edition\ }}
 
 \SetBgContents{}
 
 \newcommand{\draft}[1]{
-\IfStrEq{#1}{\@compare}
-{\renewcommand\@draft{nonum}}{\renewcommand\@draft{#1}}
-\SetBgContents{\bfseries\texttt{\shortversion}}}
-\newcommand{\release}[2][\@compare]{
-\ifx#1\@compare
-\renewcommand\@release #2
-\else
-\renewcommand\@release{#2-#1}
-\fi}
+\IfStrEq{#1}{\@compare}{
+\renewcommand\@draft{nonum}
+}{
+\renewcommand\@draft{#1}
+}
+\SetBgContents{\bfseries\texttt{\shortversion}}
+}
+
+\newcommand{\release}[2]{
+\IfStrEq{#2}{\@compare}{
+\renewcommand\@release{#1-\the\year{}/\the\month{}/\the\day{}}
+}{
+\renewcommand\@release{#1-#2}
+}
+}
+
 
 %%fakesection Spacing and geometry
 
 \newcommand{\env@sep}{0.6em} % Space between environments.
-\newcommand{\head@sep}{1.2em} % Space at the head of certain environments.
-\newcommand{\label@sep}{0.4em} % Spaced between labels and text (enum).
-\newcommand{\extra@margin}{1.5em} % Additional margin for quotes/abstracts.
+\newcommand{\head@sep}{1.2em} % Space around headings.
+\newcommand{\label@sep}{0.4em} % Space between labels and text (enums).
 
 \newcommand\abovethm@skip{\env@sep}
 \setlength{\partopsep}{0pt plus 0pt minus 0pt}
@@ -370,16 +272,13 @@ BoldItalicFont = {*-BoldItalic},
 \lstset{aboveskip = \parskip, belowskip=\parskip, xleftmargin=0pt} 
 
 \setlength{\topsep}{0pt}
-
 \else
 \setlength{\parskip}{0pt}
 \setlength{\parindent}{3em}
 
-\tcbsetforeverylayer{before skip = \head@space, after skip = \env@space}
 \lstset{aboveskip = \env@sep, belowskip=\env@sep, xleftmargin=0pt}
 
 \setlength{\topsep}{\env@sep}
-
 \fi
 
 \pagestyle{plain}
@@ -394,17 +293,11 @@ BoldItalicFont = {*-BoldItalic},
 \let\huge\relax
 \let\Huge\relax
 \input{size10.clo}
-\ifprint
-\geometry{a5paper,footskip=25pt, headsep=15pt,
-top=1.95cm,bottom=1.95cm,inner=2.35cm,outer=1.55cm}
-\else
-\geometry{a5paper,footskip=25pt, headsep=15pt, margin=1.95cm}
-\fi
+\geometry{a5paper,footskip=25pt, headsep=15pt, margin=1.9cm}
 \SetBgPosition{-1cm, -4.5cm}
 \else
-%% \geometry{a4paper,left=3cm,right=3.5cm,top=3cm,bottom=3cm}
-\geometry{a4paper,left=3cm,right=3cm,top=3cm,bottom=3cm}
-\SetBgPosition{-0.7cm, -7cm}
+\geometry{a4paper,hmargin=3.3cm,top=3.3cm, bottom = 3.3cm}
+\SetBgPosition{-1cm, -8cm}
 \fi
 
 %%fakesection Lists and related environments
@@ -424,7 +317,7 @@ topsep=\env@sep, itemsep=0pt}
 \setlist[enumerate,1]{label=\arabic*.,ref=\arabic*}
 \setlist[enumerate,2]{
 label={\textit{\alph*})},ref={\textit{\alph*})},
-listparindent=1.5em,leftmargin=1.5em,
+listparindent={\ifspaced 0pt \else 1.5em \fi },leftmargin=1.5em,
 labelsep=0pt,labelwidth=1.5em,align=left}
 
 \newlist{lettered}{enumerate}{1}
@@ -460,15 +353,15 @@ itemsep=\env@sep, itemindent=\parindent}
 
 \newlist{quotenum}{enumerate}{1}
 \setlist[quotenum]{
-leftmargin=\extra@margin,
+leftmargin=\parindent,
 align = left, labelsep = 0pt, labelwidth = 0pt,
-topsep=0pt, itemsep=0pt, font=\small,label=}
+topsep=\env@sep, itemsep=0pt, font=\small,label=}
 
 \newlist{abstenum}{enumerate}{1}
 \setlist[abstenum]{
-leftmargin=\extra@margin, rightmargin=\extra@margin,
+leftmargin=\parindent, rightmargin=\parindent,
 align = left, labelsep = 0pt, labelwidth = 0pt,
-topsep=0pt, itemsep=0pt, font=\small,label=}
+topsep=\env@sep, itemsep=0pt, font=\small,label=}
 
 \renewenvironment{quote}{\begin{quotenum}\item}{\end{quotenum}}
 \renewenvironment{abstract}{
@@ -479,6 +372,7 @@ topsep=0pt, itemsep=0pt, font=\small,label=}
 \newenvironment{deduction}[1]{
 \renewcommand\@deductionref{#1}
 \begin{enumerate}[label=(\arabic*),itemsep=\env@sep]
+\label{#1}
 }{
 \end{enumerate}
 }
@@ -504,39 +398,58 @@ after=\setcounter{axiomnum}{\value{enumi}}
 
 %%fakesection Colours & Boxes
 
-\lstset{tabsize = 4,
-basicstyle=\ttfamily\small,
-commentstyle=\color[rgb]{0,0.5,0},
-    keywordstyle=\bfseries\color[HTML]{A71D5D},
-    stringstyle=\color[HTML]{0086E5},
-    showstringspaces=false,
-numbers=left,
-}
-
 \ifafive
 \lstset{basicstyle=\ttfamily\footnotesize}
 \fi
 
+\ifprint
+\definecolor{xgreen}{cmyk}{.82,.11,.91,.21}
+\definecolor{xred}{cmyk}{.07,.95,.77,.20}
+\definecolor{xblue}{cmyk}{.84,.52,0,0}
+\definecolor{xcyan}{cmyk}{.74,.08,.10,.02}
+\definecolor{xmagenta}{cmyk}{.09,.96,.06,.05}
+\definecolor{xyellow}{cmyk}{.03,.31,.98,.10}
+
+\definecolor{xblack}{cmyk}{1,1,1,1}
+\definecolor{xsilver}{cmyk}{.83,.62,.35,.23}
+\definecolor{xgray}{cmyk}{.1,.1,.1,.1}
+\else
 \definecolor{xgreen}{RGB}{0, 124, 60}
 \definecolor{xred}{RGB}{170, 8, 42}
 \definecolor{xblue}{RGB}{0, 106, 182}
-\definecolor{xaqua}{RGB}{2, 165, 195}
-\definecolor{xpurple}{RGB}{198, 0, 118}
+\definecolor{xcyan}{RGB}{2, 165, 195}
+\definecolor{xmagenta}{RGB}{198, 0, 118}
 \definecolor{xyellow}{RGB}{212, 157, 15}
 
 \definecolor{xblack}{RGB}{0,0,0}
 \definecolor{xsilver}{RGB}{52, 73, 94}
-\definecolor{xgrey}{rgb}{0.87,0.87,0.87}
+\definecolor{xgray}{RGB}{198,198,198}
+\fi
+
+\lstset{tabsize = 4,
+basicstyle=\ttfamily\small,
+commentstyle={\color{xgreen}},
+    keywordstyle={\bfseries\color{xred}},
+    stringstyle={\color{xblue}},
+    showstringspaces=false,
+numbers=left,
+}
+
+\DeclareRobustCommand{\issue}[1]{
+{\color{xred}\headingfont\textbf{ISSUE} $\blacktriangleright$}
+#1 {\color{xred}$\blacktriangleleft$}
+}
+\DeclareRobustCommand{\todo}[1]{
+{\color{xblue}\headingfont\textbf{TO-DO} $\blacktriangleright$}
+#1 {\color{xblue}$\blacktriangleleft$}
+}
+
+\DeclareRobustCommand{\comment}[1]{
+{\color{xmagenta}\headingfont\textbf{!!} $\blacktriangleright$}
+#1 {\color{xmagenta}$\blacktriangleleft$}
+}
 
 \newcommand\light[1]{#1!13}
-
-\tcbsetforeverylayer{sharp corners,
-colback = xgrey,
-colframe = xblack,
-before skip = \parskip,
-after skip = \parskip,
-boxrule = 0.1em,
-parbox=false}
 
 %%fakesection Fixes
 
@@ -556,7 +469,7 @@ parbox=false}
 %%fakesection Theorem environments
 \ifswap
 \declaretheoremstyle[
-headfont=\bfseries\normalheadingfont,
+headfont=\bfseries,
 bodyfont=\normalfont,
 headformat=swapnumber,
 spaceabove=\abovethm@skip,
@@ -564,8 +477,8 @@ spacebelow=\env@sep,
 headpunct={\@thmpunct}
 ]{theorem}
 \declaretheoremstyle[
-notefont=\bfseries\normalheadingfont, notebraces={}{},
-headfont=\bfseries\normalheadingfont,
+notefont=\bfseries, notebraces={}{},
+headfont=\bfseries,
 bodyfont=\normalfont,
 spaceabove=\abovethm@skip,
 spacebelow=\env@sep,
@@ -574,15 +487,15 @@ headpunct={\@thmpunct}
 ]{custom}
 \else
 \declaretheoremstyle[
-headfont=\bfseries\normalheadingfont,
+headfont=\bfseries,
 spaceabove=\abovethm@skip,
 spacebelow=\env@sep,
 bodyfont=\normalfont, 
 headpunct={\@thmpunct}
 ]{theorem}
 \declaretheoremstyle[
-notefont=\bfseries\normalheadingfont, notebraces={[}{]},
-headfont=\bfseries\normalheadingfont,
+notefont=\bfseries, notebraces={[}{]},
+headfont=\bfseries,
 bodyfont=\normalfont,
 spaceabove=\abovethm@skip,
 spacebelow=\env@sep,
@@ -599,7 +512,7 @@ headpunct={\@thmpunct}
 }
 
 \nthm{\str@definition}{definition}
-\nthm{\str@remark}{remark}
+\nthm{\str@scholium}{scholium}
 \nthm{\str@example}{example}
 \nthm{\str@proposition}{proposition}
 \nthm{\str@corollary}{corollary}
@@ -607,7 +520,7 @@ headpunct={\@thmpunct}
 \nthm{\str@algorithm}{algorithm}
 
 \declaretheorem[style=custom,name=,sibling=theorem]{para}
-\declaretheorem[style=custom,name=]{para*}
+\declaretheorem[style=custom,name=]{unpara}
 
 \ifwithin
 \numberwithin{equation}{section}
@@ -620,9 +533,12 @@ headpunct={\@thmpunct}
 \numberwithin{corollary}{section}
 \numberwithin{lemma}{section}
 \numberwithin{proposition}{section}
-\numberwithin{remark}{section}
+\numberwithin{scholium}{section}
 \numberwithin{para}{section}
 \numberwithin{algorithm}{section}
+
+\numberwithin{unpara}{section}
+\renewcommand{\theunpara}{\arabic{unpara}}
 \fi
 %%fakesection Article and book commands and settings
 
@@ -638,7 +554,21 @@ headpunct={\@thmpunct}
 
 \ifzero\setcounter{section}{-1}\fi
 
-%% Homework
+\ifhomework 
+\RequirePackage{tcolorbox}
+\tcbsetforeverylayer{sharp corners,
+colback = xgrey,
+colframe = xblack,
+before skip = \parskip,
+after skip = \parskip,
+boxrule = 0.1em,
+parbox=false
+}
+\ifspaced\else
+\tcbsetforeverylayer{
+before skip = \head@space, after skip = \env@space
+}
+\fi 
 \newcounter{pcounter}
 \stepcounter{pcounter}
 \newenvironment{problem}[1][\Roman{pcounter}]{
@@ -646,18 +576,27 @@ headpunct={\@thmpunct}
 \textbf{\problemstring{\ifx#1\empty\else \ \fi {#1}.---}}
 }
 {\end{tcolorbox}\stepcounter{pcounter}}
+\fi
+
+\pagestyle{fancy}
+\lhead{}\chead{}\rhead{}\cfoot{\small\thepage}\rfoot{}\lfoot{}
+\renewcommand{\headrulewidth}{0pt}
+
+\ifprint\else
+\let\cleardoublepage\clearpage
+\fi
 
 
 %%fakesection Titles and covers
 
 
 
-\titleformat{\section}[block]{\noindent\center\Large\bfseries\lightheadingfont}{\S\thesection\ }{0pt}{}
-\titlespacing*{\section}{0pt}{0pt}{\head@sep}[0pt]
+\titleformat{\section}{\large\bfseries\headingfont}{\S\thesection}{.5em}{}
+\titlespacing*{\section}{0pt}{3em}{1em}[0pt]
 
-\titleformat{\subsection}{\bfseries\large\lightheadingfont}{\noindent \S\thesubsection \ }{0pt}{}
+\titleformat{\subsection}{\bfseries\headingfont}{ \S\thesubsection \ }{0pt}{}
 
-\titlespacing*{\subsection}{0pt}{\head@sep}{\head@sep}[0pt]
+\titlespacing*{\subsection}{0pt}{\head@sep}{\env@sep}[0pt]
 
 
 
@@ -665,11 +604,12 @@ headpunct={\@thmpunct}
 \newcommand\@coverfont{}
 
 \newcommand{\cover}{
+\pagenumbering{roman}
 \NoBgThispage
 \begingroup
 \setlength{\parindent}{0pt} \setlength{\parskip}{1em}
 \newpage
-\thispagestyle{empty}\begingroup\normalfont
+\thispagestyle{empty}\begingroup\normalfont\headingfont
 
 \ifafive
 \vspace*{1.5em} 
@@ -683,7 +623,7 @@ headpunct={\@thmpunct}
 {\ifx\@subtitle\@compare{\vspace{1em}}\else{\LARGE\@subtitle\\[1.3em]}\fi}
 } 
 {
-\textsc{
+{
 \large
 \@author}
 
@@ -691,7 +631,7 @@ headpunct={\@thmpunct}
 \ifx\shortversion\@compare{}\else
 {\smallskip \@coverfont
 \large
-\centerline{\shortversion}}
+\centerline{\longversion}}
 \fi
 }
 \end{center}
@@ -705,7 +645,7 @@ headpunct={\@thmpunct}
 \newpage
 
 
-\ifprint\newpage
+\ifprint\newpage\thispagestyle{empty}
 \vspace*{\fill}\centerline{\str@pageblank}\vspace{10em}
 \vspace*{\fill}\newpage\fi
 
@@ -715,17 +655,19 @@ headpunct={\@thmpunct}
 \vspace*{\fill}\noindent{\itshape\@to}\vspace*{10em}\vspace*{\fill}
 \newpage\fi
 
+\pagenumbering{arabic}
 \tableofcontents
 }
 
 \renewcommand{\maketitle}{
 \begingroup
+\headingfont
 \setlength{\parskip}{0pt}
 \setlength{\parindent}{0pt}
 \center
-{\huge{\@title}
-{\ifx\@subtitle\empty\else{\\\LARGE{\@subtitle}}\fi}\par\bigskip}
-{\scshape\@author}\\ \@date\vspace{2em}
+{\LARGE{\@title}
+{\ifx\@subtitle\empty\else{\\\Large{\@subtitle}}\fi}\par\bigskip}
+{\@author}\\ \@date\vspace{2em}
 
 \ifspaced\else\vspace{0.7em}\fi
 \endgroup
