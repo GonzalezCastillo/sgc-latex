@@ -667,7 +667,7 @@ before skip = \head@space, after skip = \env@space
 \center
 {\LARGE{\@title}
 {\ifx\@subtitle\empty\else{\\\Large{\@subtitle}}\fi}\par\bigskip}
-{\@author}\\ \@date\vspace{2em}
+{\@author}\\ \@date\vspace{7em}
 
 \ifspaced\else\vspace{0.7em}\fi
 \endgroup
