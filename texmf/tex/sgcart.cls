@@ -136,7 +136,7 @@ urlcolor = blue, filecolor = black, citecolor = black]{hyperref}
 \fi
 
 \RequirePackage[autostyle=true]{csquotes}
-\MakeOuterQuote{"}
+\newcommand\cml[1]{\enquote{#1}}
 
 %%fakesection Fonts
 
