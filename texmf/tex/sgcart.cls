@@ -58,6 +58,7 @@
 \RequirePackage[final]{listings}
 \usepackage[T1]{fontenc}
 \RequirePackage[separate-uncertainty = true]{siunitx}
+\usepackage[style=numeric,maxnames=3]{biblatex}
 \RequirePackage[inline]{asymptote}
 
 \ifphysics
