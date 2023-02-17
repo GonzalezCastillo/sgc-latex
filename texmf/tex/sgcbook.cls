@@ -254,6 +254,25 @@ frenchmath, upint
 
 %%fakesection Spacing and geometry
 
+\pagestyle{plain}
+\ifafive
+\let\small\relax
+\let\footnotesize\relax
+\let\scriptsize\relax
+\let\tiny\relax
+\let\large\relax
+\let\Large\relax
+\let\LARGE\relax
+\let\huge\relax
+\let\Huge\relax
+\input{size10.clo}
+\geometry{a5paper, footskip=25pt, headsep=15pt, hmargin=1.6cm, vmargin=2cm}
+\SetBgPosition{-1cm, -4.5cm}
+\else
+\geometry{a4paper, hmargin=3.2cm, vmargin=3.3cm}
+\SetBgPosition{-1cm, -8cm}
+\fi
+
 \newcommand{\env@sep}{0.6em} % Space between environments.
 \newcommand{\head@sep}{1.2em} % Space around headings.
 \newcommand{\label@sep}{0.4em} % Space between labels and text (enums).
@@ -279,25 +298,6 @@ frenchmath, upint
 \lstset{aboveskip = \env@sep, belowskip=\env@sep, xleftmargin=0pt}
 
 \setlength{\topsep}{\env@sep}
-\fi
-
-\pagestyle{plain}
-\ifafive
-\let\small\relax
-\let\footnotesize\relax
-\let\scriptsize\relax
-\let\tiny\relax
-\let\large\relax
-\let\Large\relax
-\let\LARGE\relax
-\let\huge\relax
-\let\Huge\relax
-\input{size10.clo}
-\geometry{a5paper,footskip=25pt, headsep=15pt, margin=1.9cm}
-\SetBgPosition{-1cm, -4.5cm}
-\else
-\geometry{a4paper,hmargin=3.3cm,top=3.3cm, bottom = 3.3cm}
-\SetBgPosition{-1cm, -8cm}
 \fi
 
 %%fakesection Lists and related environments
