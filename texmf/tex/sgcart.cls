@@ -258,14 +258,14 @@ frenchmath, upint
 \newcommand{\head@sep}{1.2em} % Space around headings.
 \newcommand{\label@sep}{0.4em} % Space between labels and text (enums).
 
-\newcommand\abovethm@skip{\env@sep}
+\newcommand\thm@skip{1.2em}
 \setlength{\partopsep}{0pt plus 0pt minus 0pt}
 
 \ifspaced
 \setlength{\parskip}{0.9em}
 \setlength{\parindent}{0pt}
 
-\renewcommand\abovethm@skip{\parskip}
+\renewcommand\thm@skip{\parskip}
 \renewcommand{\env@sep}{0pt}
 \renewcommand{\head@sep}{0pt}
 
@@ -472,24 +472,24 @@ numbers=left,
 headfont=\bfseries,
 bodyfont=\normalfont,
 headformat=swapnumber,
-spaceabove=\abovethm@skip,
-spacebelow=\env@sep,
+spaceabove=\thm@skip,
+spacebelow=\thm@skip,
 headpunct={\@thmpunct}
 ]{theorem}
 \declaretheoremstyle[
 notefont=\bfseries, notebraces={}{},
 headfont=\bfseries,
 bodyfont=\normalfont,
-spaceabove=\abovethm@skip,
-spacebelow=\env@sep,
+spaceabove=\thm@skip,
+spacebelow=\thm@skip,
 headformat={\NUMBER\NOTE},
 headpunct={\@thmpunct}
 ]{custom}
 \else
 \declaretheoremstyle[
 headfont=\bfseries,
-spaceabove=\abovethm@skip,
-spacebelow=\env@sep,
+spaceabove=\thm@skip,
+spacebelow=\thm@skip,
 bodyfont=\normalfont, 
 headpunct={\@thmpunct}
 ]{theorem}
@@ -497,8 +497,8 @@ headpunct={\@thmpunct}
 notefont=\bfseries, notebraces={[}{]},
 headfont=\bfseries,
 bodyfont=\normalfont,
-spaceabove=\abovethm@skip,
-spacebelow=\env@sep,
+spaceabove=\thm@skip,
+spacebelow=\thm@skip,
 headindent=0pt,
 headformat=\NUMBER,
 headpunct={\@thmpunct}
