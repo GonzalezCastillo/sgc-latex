@@ -335,7 +335,7 @@ label=(\alph*),ref=(\alph*)}
 \newlist{parlist}{enumerate}{1}
 \setlist[parlist]{
 label={(\roman*)},ref=(\roman*),
-leftmargin=0pt, align = left, labelwidth = 0pt,
+leftmargin=0pt, align = left, labelwidth = *,
 itemsep=\env@sep}
 
 \newlist{exercises}{enumerate}{1}
