@@ -274,19 +274,16 @@ frenchmath, upint
 \fi
 
 \newcommand{\env@sep}{0.6em} % Space between environments.
-\newcommand{\head@sep}{1.2em} % Space around headings.
 \newcommand{\label@sep}{0.4em} % Space between labels and text (enums).
-
-\newcommand\thm@skip{1.2em}
+\newcommand{\thm@skip}{1.2em} % Space around theorems.
 \setlength{\partopsep}{0pt plus 0pt minus 0pt}
 
 \ifspaced
 \setlength{\parskip}{0.9em}
 \setlength{\parindent}{0pt}
 
-\renewcommand\thm@skip{\parskip}
+\renewcommand{\thm@skip}{\parskip}
 \renewcommand{\env@sep}{0pt}
-\renewcommand{\head@sep}{0pt}
 
 \lstset{aboveskip = \parskip, belowskip=\parskip, xleftmargin=0pt} 
 
@@ -596,7 +593,7 @@ before skip = \head@space, after skip = \env@space
 
 \titleformat{\subsection}{\bfseries\headingfont}{ \S\thesubsection \ }{0pt}{}
 
-\titlespacing*{\subsection}{0pt}{\head@sep}{\env@sep}[0pt]
+\titlespacing*{\subsection}{0pt}{1.2em}{\env@sep}[0pt]
 
 
 
