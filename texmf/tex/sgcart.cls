@@ -53,7 +53,7 @@
 
 %%fakesection Packages and basic settings
 \RequirePackage{xcolor, geometry, graphicx, tikz, pgfplots}
-\RequirePackage{enumitem, import, centernot, tabularray, xstring}
+\RequirePackage{enumitem, import, centernot, tabularray, xstring, calc}
 \RequirePackage{amsthm, thmtools, mathtools, cancel}
 \RequirePackage[final]{listings}
 \usepackage[T1]{fontenc}
@@ -464,14 +464,21 @@ numbers=left,
 \renewcommand{\right}{\aftergroup\egroup\originalright}
 
 %%fakesection Theorem environments
+\newlength{\numlength}
+
 \ifswap
 \declaretheoremstyle[
 headfont=\bfseries,
 bodyfont=\normalfont,
-headformat=swapnumber,
 spaceabove=\thm@skip,
 spacebelow=\thm@skip,
-headpunct={\@thmpunct}
+headformat={%
+\settowidth\numlength{\headingfont\NUMBER\ }%
+\makebox[\ifdim\numlength>\parindent%
+{\numlength}\else{\parindent}\fi][l]%
+{\headingfont\NUMBER\ }\NAME \NOTE%
+},
+headpunct={\@thmpunct\,}
 ]{theorem}
 \declaretheoremstyle[
 notefont=\bfseries, notebraces={}{},
@@ -479,8 +486,14 @@ headfont=\bfseries,
 bodyfont=\normalfont,
 spaceabove=\thm@skip,
 spacebelow=\thm@skip,
-headformat={\NUMBER\NOTE},
-headpunct={\@thmpunct}
+headformat={%
+\renewcommand\thmt@space{}%
+\settowidth\numlength{\headingfont\NUMBER\ }%
+\makebox[\ifdim\numlength>\parindent%
+{\numlength}\else{\parindent}\fi][l]%
+{\headingfont\NUMBER\ }\NOTE%
+},
+headpunct={\if\NOTE\empty\else{\@thmpunct\,}\fi}
 ]{custom}
 \else
 \declaretheoremstyle[
