@@ -599,6 +599,7 @@ headpunct={\@thmpunct}
 }%
 }%
 }%
+\newcommand{\chref}[1]{\@classicref{#1}}
 }
 
 
