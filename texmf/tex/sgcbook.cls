@@ -150,7 +150,89 @@ frenchmath, upint
 ]{newtx}
 \fi
 
+\ifxetex
+
+\RequirePackage[no-math]{fontspec}
+
+\setsansfont{Inter}[
+Extension = .otf,
+Ligatures = {TeX},
+UprightFont = {*-Regular},
+Scale = 0.95,
+CharacterVariant = {5,8,10,2},
+UprightFeatures = {
+SizeFeatures = {
+{Size = -16},
+{Size = 16-, Font = {*-Display}}
+}
+},
+BoldFont = {*-Bold},
+BoldFeatures = {
+SizeFeatures = {
+{Size = -16},
+{Size = 16-, Font = {*-DisplayBold}}
+}
+},
+ItalicFont = {*-Italic},
+ItalicFeatures = {
+SizeFeatures= {
+{Size = -16},
+{Size = 16-, Font = {*-DisplayItalic}}
+}
+},
+BoldItalicFont = {*-BoldItalic},
+BoldItalicFeatures = {
+SizeFeatures = {
+{Size = -16},
+{Size = 16-, Font = {*-DisplayBoldItalic}}
+}
+}
+]
+
+\newfontfamily\sflight{Inter}[
+Extension = .otf,
+Ligatures = {TeX},
+UprightFont = {*-Light},
+Scale = 0.95,
+CharacterVariant = {5,8,10,2},
+UprightFeatures = {
+SizeFeatures = {
+{Size = -16},
+{Size = 16-, Font = {*-DisplayLight}}
+}
+},
+BoldFont = {*-SemiBold},
+BoldFeatures = {
+SizeFeatures = {
+{Size = -16},
+{Size = 16-, Font = {*-DisplaySemiBold}}
+}
+},
+ItalicFont = {*-LightItalic},
+ItalicFeatures = {
+SizeFeatures= {
+{Size = -16},
+{Size = 16-, Font = {*-DisplayLightItalic}}
+}
+},
+BoldItalicFont = {*-SemiBoldItalic},
+BoldItalicFeatures = {
+SizeFeatures = {
+{Size = -16},
+{Size = 16-, Font = {*-DisplaySemiBoldItalic}}
+}
+}
+]
+
+\newcommand\textslf[1]{{\sflight#1}}
+
+\else
+\newcommand\sflight\sffamily
+\newcommand\textslf[1]{\sffamily#1}
+\fi
+
 \newcommand\headingfont{\sffamily}
+\newcommand\lightheadingfont{\sflight}
 
 \ifsans
 \renewcommand\familydefault{\sfdefault}
@@ -158,6 +240,7 @@ frenchmath, upint
 
 \ifserif
 \renewcommand\headingfont{}
+\renewcommand\lightheadingfont{}
 \fi
 
 %%fakesection Commands, variables and environments
@@ -648,7 +731,7 @@ headpunct={\@thmpunct}
 
 \titlespacing{\part}{0pt}{0pt}{0pt}[0pt]
 
-\titleformat{\chapter}[display]{\setlength{\parskip}{0pt}\setlength{\parindent}{0pt}\huge\headingfont}{\large\bfseries\chaptername~\thechapter}{0.1em}{}[{\bigskip\bigskip}]
+\titleformat{\chapter}[display]{\setlength{\parskip}{0pt}\setlength{\parindent}{0pt}\huge\lightheadingfont}{\large\bfseries\chaptername~\thechapter}{0.1em}{}[{\bigskip\bigskip}]
 
 \titlespacing*{\chapter}{0pt}{0pt}{5em}[0pt]
 
@@ -686,7 +769,7 @@ headpunct={\@thmpunct}
 \begingroup
 \setlength{\parindent}{0pt} \setlength{\parskip}{1em}
 \newpage
-\thispagestyle{empty}\begingroup\normalfont\headingfont
+\thispagestyle{empty}\begingroup\normalfont\lightheadingfont
 
 \ifafive
 \vspace*{1.5em} 
