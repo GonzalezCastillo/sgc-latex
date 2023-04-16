@@ -334,6 +334,8 @@ SizeFeatures = {
 }
 }
 
+\newcommand\cf[1]{[\S~#1]}
+
 
 %%fakesection Spacing and geometry
 
