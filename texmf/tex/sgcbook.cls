@@ -380,6 +380,14 @@ SizeFeatures = {
 \setlength{\topsep}{\env@sep}
 \fi
 
+\newlength{\numlength}
+\newlength{\parindentpt}
+\setlength{\parindentpt}{\dimexpr\parindent}
+\newcommand\minwidthbox[2]{%
+\settowidth\numlength{#2}%
+\makebox[\ifdim\numlength>#1{\numlength}\else{#1}\fi][l]{#2}%
+}
+
 %%fakesection Lists and related environments
 
 \ifspaced
@@ -544,7 +552,6 @@ numbers=left,
 \renewcommand{\right}{\aftergroup\egroup\originalright}
 
 %%fakesection Theorem environments
-\newlength{\numlength}
 
 \ifswap
 \declaretheoremstyle[
@@ -554,10 +561,7 @@ spaceabove=\thm@skip,
 spacebelow=\thm@skip,
 postheadspace=0pt,
 headformat={%
-\settowidth\numlength{\headingfont\NUMBER\ }%
-\makebox[\ifdim\numlength>\parindent%
-{\numlength}\else{\parindent}\fi][l]%
-{\headingfont\NUMBER\ }\NAME \NOTE%
+\minwidthbox{\parindentpt}{\headingfont\NUMBER\ }\NAME \NOTE%
 },
 headpunct={\@thmpunct\ \,}
 ]{theorem}
@@ -570,10 +574,7 @@ spacebelow=\thm@skip,
 postheadspace=0pt,
 headformat={%
 \renewcommand\thmt@space{}%
-\settowidth\numlength{\headingfont\NUMBER\ }%
-\makebox[\ifdim\numlength>\parindent%
-{\numlength}\else{\parindent}\fi][l]%
-{\headingfont\NUMBER \ }\NOTE%
+\minwidthbox{\parindentpt}{\headingfont\NUMBER \ }\NOTE%
 },
 headpunct={\if\NOTE\empty\else{\@thmpunct\ \,}\fi}
 ]{custom}
@@ -737,10 +738,12 @@ headpunct={\@thmpunct}
 
 
 
-\titleformat{\section}{\large\bfseries\headingfont}{\S\thesection}{.5em}{}
+\titleformat{\section}{\large\bfseries\headingfont}{%
+\minwidthbox{\parindentpt}{\thesection \ }}{0pt}{}
 \titlespacing*{\section}{0pt}{3em}{1em}[0pt]
 
-\titleformat{\subsection}{\bfseries\headingfont}{ \S\thesubsection \ }{0pt}{}
+\titleformat{\subsection}{\bfseries\headingfont}%
+{\minwidthbox{\parindentpt}{\thesubsection \ }}{0pt}{}
 
 \titlespacing*{\subsection}{0pt}{1.2em}{\env@sep}[0pt]
 
