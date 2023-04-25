@@ -21,7 +21,7 @@
 \newif\ifspanish\spanishfalse
 \newif\ifsans\sansfalse
 \newif\ifserif\seriffalse
-\newif\iflegacy\legacyfalse
+\newif\iflm\lmfalse
 \newif\ifphysics\physicsfalse
 
 \DeclareOption{es}{\spanishtrue}
@@ -30,7 +30,7 @@
 \newmonotrue
 }
 \DeclareOption{serif}{\seriftrue}
-\DeclareOption{lm}{\legacytrue}
+\DeclareOption{lm}{\lmtrue}
 \DeclareOption{sans}{\sanstrue}
 \DeclareOption{physics}{\physicstrue}
 
@@ -138,7 +138,7 @@ urlcolor = blue, filecolor = black, citecolor = black]{hyperref}
 
 %%fakesection Fonts
 
-\iflegacy
+\iflm
 \RequirePackage{amsmath, amsfonts, amssymb}
 \else
 \RequirePackage[
