@@ -23,7 +23,6 @@
 \newif\ifserif\seriffalse
 \newif\iflegacy\legacyfalse
 \newif\ifphysics\physicsfalse
-\newif\ifhomework\homeworkfalse
 
 \DeclareOption{es}{\spanishtrue}
 \DeclareOption{sans}{
@@ -34,7 +33,6 @@
 \DeclareOption{lm}{\legacytrue}
 \DeclareOption{sans}{\sanstrue}
 \DeclareOption{physics}{\physicstrue}
-\DeclareOption{homework}{\homeworktrue}
 
 \newif\ifswap\swaptrue
 \newif\ifwithin\withinfalse

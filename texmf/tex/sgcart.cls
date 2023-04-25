@@ -23,7 +23,6 @@
 \newif\ifserif\seriffalse
 \newif\iflegacy\legacyfalse
 \newif\ifphysics\physicsfalse
-\newif\ifhomework\homeworkfalse
 
 \DeclareOption{es}{\spanishtrue}
 \DeclareOption{sans}{
@@ -34,7 +33,6 @@
 \DeclareOption{lm}{\legacytrue}
 \DeclareOption{sans}{\sanstrue}
 \DeclareOption{physics}{\physicstrue}
-\DeclareOption{homework}{\homeworktrue}
 
 \newif\ifswap\swaptrue
 \newif\ifwithin\withinfalse
@@ -652,29 +650,6 @@ headpunct={\@thmpunct}
 
 \ifzero\setcounter{section}{-1}\fi
 
-\ifhomework 
-\RequirePackage{tcolorbox}
-\tcbsetforeverylayer{sharp corners,
-colback = xgrey,
-colframe = xblack,
-before skip = \parskip,
-after skip = \parskip,
-boxrule = 0.1em,
-parbox=false
-}
-\ifspaced\else
-\tcbsetforeverylayer{
-before skip = \head@space, after skip = \env@space
-}
-\fi 
-\newcounter{pcounter}
-\stepcounter{pcounter}
-\newenvironment{problem}[1][\Roman{pcounter}]{
-\begin{tcolorbox}[boxrule=0pt]\par\noindent
-\textbf{\problemstring{\ifx#1\empty\else \ \fi {#1}.---}}
-}
-{\end{tcolorbox}\stepcounter{pcounter}}
-\fi
 
 \pagestyle{fancy}
 \lhead{}\chead{}\rhead{}\cfoot{\small\thepage}\rfoot{}\lfoot{}
