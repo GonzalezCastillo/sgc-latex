@@ -52,20 +52,19 @@
 %%fakesection Packages and basic settings
 \RequirePackage{xcolor, geometry, graphicx, tikz, pgfplots}
 \RequirePackage{enumitem, import, centernot, tabularray, xstring, calc}
-\RequirePackage{amsthm, thmtools, mathtools, cancel}
+\RequirePackage{amsthm, thmtools, mathtools, cancel, interval}
 \RequirePackage[final]{listings}
-\usepackage[T1]{fontenc}
 \RequirePackage[separate-uncertainty = true]{siunitx}
 \usepackage[style=numeric,maxnames=3]{biblatex}
 
 \ifphysics
-\RequirePackage{circuitikz, quantikz, braket}
+\RequirePackage{quantikz, braket}
 \fi
 
 \usetikzlibrary{arrows.meta, calc, decorations.markings, math}
 \usetikzlibrary{intersections, patterns, cd}
 
-\setlength{\arrayrulewidth}{0.75pt} % for tabular (no longer used)
+\setlength{\arrayrulewidth}{0.75pt} % Table rule thickness.
 
 \RequirePackage{titlesec}
 \RequirePackage{fancyhdr, background}
@@ -225,6 +224,7 @@ SizeFeatures = {
 \newcommand\textslf[1]{{\sflight#1}}
 
 \else
+\usepackage[T1]{fontenc}
 \newcommand\sflight\sffamily
 \newcommand\textslf[1]{\sffamily#1}
 \fi
