@@ -491,10 +491,6 @@ after=\setcounter{axiomnum}{\value{enumi}}
 
 %%fakesection Colours & Boxes
 
-\ifafive
-\lstset{basicstyle=\ttfamily\footnotesize}
-\fi
-
 \ifprint
 \definecolor{xgreen}{cmyk}{.82,.11,.91,.21}
 \definecolor{xred}{cmyk}{.07,.95,.77,.20}
@@ -521,12 +517,15 @@ after=\setcounter{axiomnum}{\value{enumi}}
 
 \lstset{tabsize = 4,
 basicstyle=\ttfamily\small,
-commentstyle={\color{xgreen}},
-    keywordstyle={\bfseries\color{xred}},
-    stringstyle={\color{xblue}},
     showstringspaces=false,
 numbers=left,
+commentstyle=\color{darkgray},
+keywordstyle=\bfseries,
+stringstyle=\color{darkgray}
 }
+\ifafive
+\lstset{basicstyle=\ttfamily\footnotesize}
+\fi
 
 \DeclareRobustCommand{\issue}[1]{
 {\color{xred}\headingfont\textbf{ISSUE} $\blacktriangleright$}
@@ -560,7 +559,6 @@ numbers=left,
 \renewcommand{\right}{\aftergroup\egroup\originalright}
 
 %%fakesection Theorem environments
-
 \ifswap
 \declaretheoremstyle[
 headfont=\bfseries,
