@@ -291,47 +291,54 @@ SizeFeatures = {
 \newcommand{\setlicense}[1]{\renewcommand\str@license{#1}}
 
 
-\newcommand\@release{}
+\newcommand\@edition{}
+\newcommand\@revision{}
 \newcommand\@draft{}
 
-\newcommand\@generateversion[1]{
-\IfStrEq{\@release}{\@compare}{
-\IfStrEq{\@draft}{\@compare}{
-\@compare
-}{
-\str@draft\IfStrEq{\@draft}{nonum}{}{\ \@draft}
-}
-}{
-\IfStrEq{\@draft}{\@compare}{
-#1\@release
-}{
-#1\@release \
-(\str@draft\IfStrEq{\@draft}{nonum}{}{\ \@draft})
-}
-}
+\newcommand\@generateversion[1]{%
+\IfStrEq{\@edition}{\@compare}{%
+\IfStrEq{\@draft}{\@compare}{%
+\@compare%
+}{%
+\str@draft\IfStrEq{\@draft}{nonum}{}{\ \@draft}%
+}%
+}{%
+\IfStrEq{\@draft}{\@compare}{%
+#1\@edition%
+}{%
+#1\@edition \ %
+(\str@draft\IfStrEq{\@draft}{nonum}{}{\ \@draft})%
+}%
+}%
 }
 
-\newcommand{\shortversion}{\@generateversion{e}}
+\newcommand{\shortversion}{\@generateversion{}}
 \newcommand{\longversion}{\@generateversion{\str@edition\ }}
 
 \SetBgContents{}
 
 \newcommand{\draft}[1]{
-\IfStrEq{#1}{\@compare}{
-\renewcommand\@draft{nonum}
-}{
-\renewcommand\@draft{#1}
-}
-\SetBgContents{\bfseries\texttt{\shortversion}}
+\IfStrEq{#1}{\@compare}{%
+\renewcommand\@draft{nonum}%
+}{%
+\renewcommand\@draft{#1}%
+}%
+\SetBgContents{\bfseries\texttt{\shortversion}}%
 }
 
-\newcommand{\release}[2]{
-\IfStrEq{#2}{\@compare}{
-\renewcommand\@release{#1-\the\year{}/\the\month{}/\the\day{}}
-}{
-\renewcommand\@release{#1-#2}
+\newcommand{\edition}[3][]{%
+\IfStrEq{#1}{\@empty}{%
+\renewcommand\@edition{#2.#3}%
+}{%
+\IfStrEq{#1}{today}{%
+\renewcommand\@edition{#2.#3 ++ \the\year{}-\the\month{}-\the\day{}}%
+}{%
+\renewcommand\@edition{#2.#3 ++ #1}%
+}%
+}%
 }
-}
+
+\newcommand
 
 \newcommand\cf[1]{[\S~#1]}
 
