@@ -489,27 +489,27 @@ after=\setcounter{axiomnum}{\value{enumi}}
 %%fakesection Colours & Boxes
 
 \ifprint
-\definecolor{xgreen}{cmyk}{.82,.11,.91,.21}
-\definecolor{xred}{cmyk}{.07,.95,.77,.20}
-\definecolor{xblue}{cmyk}{.84,.52,0,0}
-\definecolor{xcyan}{cmyk}{.74,.08,.10,.02}
-\definecolor{xmagenta}{cmyk}{.09,.96,.06,.05}
-\definecolor{xyellow}{cmyk}{.03,.31,.98,.10}
+\definecolor{sgreen}{cmyk}{.82,.11,.91,.21}
+\definecolor{sred}{cmyk}{.07,.95,.77,.20}
+\definecolor{sblue}{cmyk}{.84,.52,0,0}
+\definecolor{scyan}{cmyk}{.74,.08,.10,.02}
+\definecolor{smagenta}{cmyk}{.09,.96,.06,.05}
+\definecolor{syellow}{cmyk}{.03,.31,.98,.10}
 
-\definecolor{xblack}{cmyk}{1,1,1,1}
-\definecolor{xsilver}{cmyk}{.83,.62,.35,.23}
-\definecolor{xgray}{cmyk}{.1,.1,.1,.1}
+\definecolor{sblack}{cmyk}{1,1,1,1}
+\definecolor{ssilver}{cmyk}{.83,.62,.35,.23}
+\definecolor{sgray}{cmyk}{.1,.1,.1,.1}
 \else
-\definecolor{xgreen}{RGB}{0, 124, 60}
-\definecolor{xred}{RGB}{170, 8, 42}
-\definecolor{xblue}{RGB}{0, 106, 182}
-\definecolor{xcyan}{RGB}{2, 165, 195}
-\definecolor{xmagenta}{RGB}{198, 0, 118}
-\definecolor{xyellow}{RGB}{212, 157, 15}
+\definecolor{sgreen}{RGB}{0, 124, 60}
+\definecolor{sred}{RGB}{170, 8, 42}
+\definecolor{sblue}{RGB}{0, 106, 182}
+\definecolor{scyan}{RGB}{2, 165, 195}
+\definecolor{smagenta}{RGB}{198, 0, 118}
+\definecolor{syellow}{RGB}{212, 157, 15}
 
-\definecolor{xblack}{RGB}{0,0,0}
-\definecolor{xsilver}{RGB}{52, 73, 94}
-\definecolor{xgray}{RGB}{198,198,198}
+\definecolor{sblack}{RGB}{0,0,0}
+\definecolor{ssilver}{RGB}{52, 73, 94}
+\definecolor{sgray}{RGB}{198,198,198}
 \fi
 
 \lstset{tabsize = 4,
@@ -525,17 +525,17 @@ stringstyle=\color{darkgray}
 \fi
 
 \DeclareRobustCommand{\issue}[1]{
-{\color{xred}\headingfont\textbf{ISSUE} $\blacktriangleright$}
-#1 {\color{xred}$\blacktriangleleft$}
+{\color{sred}\headingfont\textbf{ISSUE} $\blacktriangleright$}
+#1 {\color{sred}$\blacktriangleleft$}
 }
 \DeclareRobustCommand{\todo}[1]{
-{\color{xblue}\headingfont\textbf{TO-DO} $\blacktriangleright$}
-#1 {\color{xblue}$\blacktriangleleft$}
+{\color{sblue}\headingfont\textbf{TO-DO} $\blacktriangleright$}
+#1 {\color{sblue}$\blacktriangleleft$}
 }
 
 \DeclareRobustCommand{\comment}[1]{
-{\color{xmagenta}\headingfont\textbf{!!} $\blacktriangleright$}
-#1 {\color{xmagenta}$\blacktriangleleft$}
+{\color{smagenta}\headingfont\textbf{!!} $\blacktriangleright$}
+#1 {\color{smagenta}$\blacktriangleleft$}
 }
 
 \newcommand\light[1]{#1!13}
@@ -687,7 +687,7 @@ headpunct={\@thmpunct}
 }%
 }%
 }%
-\newcommand{\nochref}[2][\@empty]{%
+\newcommand{\xref}[2][\@empty]{%
 \IfStrEq{#1}{\@empty}{%
 \@classicref{\@chlabel:#2}%
 }{%
