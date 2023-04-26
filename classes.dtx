@@ -145,6 +145,13 @@
 		largesc, varbb, subscriptcorrection,
 		frenchmath, upint
 	]{newtx}
+
+% Redefine coloneq (adapted from https://tex.stackexchange.com/a/4881)
+\renewcommand*{\coloneq}{%
+	\mathrel{\rlap{\raisebox{0.25ex}{$\m@th\cdot$}}%
+	\raisebox{-0.25ex}{$\m@th\cdot$}}=%
+}
+
 \fi
 
 \ifxetex

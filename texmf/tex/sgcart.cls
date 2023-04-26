@@ -145,6 +145,12 @@ scaled = 1.02,
 largesc, varbb, subscriptcorrection,
 frenchmath, upint
 ]{newtx}
+
+\renewcommand*{\coloneq}{%
+\mathrel{\rlap{\raisebox{0.25ex}{$\m@th\cdot$}}%
+\raisebox{-0.25ex}{$\m@th\cdot$}}=%
+}
+
 \fi
 
 \ifxetex
