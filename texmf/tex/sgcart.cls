@@ -662,7 +662,6 @@ headpunct={\@thmpunct}
 \let\cleardoublepage\clearpage
 \fi
 
-
 %%fakesection Titles and covers
 
 

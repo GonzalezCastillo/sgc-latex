@@ -704,9 +704,9 @@ headpunct={\@thmpunct}
 
 \pagestyle{fancy}
 \ifprint
-\fancyhead[LE]{\scshape\footnotesize\nouppercase{\rightmark}}
-\fancyhead[RO]{\scshape\footnotesize\nouppercase{\leftmark}}
-\fancyhead[C,LO,RE]{}
+\fancyhead[CE]{\scshape\footnotesize\nouppercase{\rightmark}}
+\fancyhead[CO]{\scshape\footnotesize\nouppercase{\leftmark}}
+\fancyhead[L,R]{}
 \else
 \lhead{}\chead{\scshape\footnotesize\nouppercase{\leftmark}}\rhead{}
 \fi
@@ -722,7 +722,6 @@ headpunct={\@thmpunct}
 \ifprint\else
 \let\cleardoublepage\clearpage
 \fi
-
 
 %%fakesection Titles and covers
 

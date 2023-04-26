@@ -744,9 +744,9 @@
 %<article>\lhead{}\chead{}\rhead{}\cfoot{\small\thepage}\rfoot{}\lfoot{}
 %<*book>
 \ifprint
-	\fancyhead[LE]{\scshape\footnotesize\nouppercase{\rightmark}}
-	\fancyhead[RO]{\scshape\footnotesize\nouppercase{\leftmark}}
-	\fancyhead[C,LO,RE]{}
+	\fancyhead[CE]{\scshape\footnotesize\nouppercase{\rightmark}}
+	\fancyhead[CO]{\scshape\footnotesize\nouppercase{\leftmark}}
+	\fancyhead[L,R]{}
 \else
 	\lhead{}\chead{\scshape\footnotesize\nouppercase{\leftmark}}\rhead{}
 \fi
@@ -763,8 +763,6 @@
 \ifprint\else
 	\let\cleardoublepage\clearpage
 \fi
-
-% TODO: Better support for print.
 
 
 
