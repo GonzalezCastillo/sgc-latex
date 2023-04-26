@@ -245,7 +245,7 @@ SizeFeatures = {
 
 \newcommand\load[1]{\subimport{#1/}{0}}
 \newcommand\zeroroman[1]{\ifcase\value{#1}\relax0\else\Roman{#1}\fi}
-\newcommand{\xfootnote}[2][]{{\renewcommand{\thefootnote}{#1}
+\newcommand{\xfootnote}[2][]{{\renewcommand{\thefootnote}{#1}%
 \ifx{#1}\empty\footnotetext{#2}\else\footnote{#2}\fi}}
 
 \renewcommand{\qedsymbol}{$\blacksquare$}
