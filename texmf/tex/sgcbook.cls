@@ -251,6 +251,7 @@ SizeFeatures = {
 
 \renewcommand{\qedsymbol}{$\blacksquare$}
 \AtBeginDocument{\renewcommand{\phi}{\varphi}}
+\AtBeginDocument{\renewcommand{\epsilon}{\varepsilon}}
 \AtBeginDocument{\renewcommand{\emptyset}{\varnothing}}
 \AtBeginDocument{\renewcommand{\leq}{\leqslant}}
 \AtBeginDocument{\renewcommand{\geq}{\geqslant}}
@@ -273,7 +274,7 @@ SizeFeatures = {
 \newcommand\liff\leftrightarrow
 \newcommand\qsep{.\ }
 
-\newenvironment{lrcases} % rcases already defined in mathtools
+\newenvironment{lrcases} % rcases is already defined in mathtools
 {\left\{\begin{aligned}}
 {\end{aligned}\right\}}
 
