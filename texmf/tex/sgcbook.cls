@@ -243,7 +243,6 @@ SizeFeatures = {
 
 %%fakesection Commands, variables and environments
 
-\newcommand\@compare{}
 \newcommand\load[1]{\subimport{#1/}{0}}
 \newcommand\zeroroman[1]{\ifcase\value{#1}\relax0\else\Roman{#1}\fi}
 \newcommand{\xfootnote}[2][]{{\renewcommand{\thefootnote}{#1}
@@ -296,14 +295,14 @@ SizeFeatures = {
 \newcommand\@draft{}
 
 \newcommand\@generateversion[1]{%
-\IfStrEq{\@edition}{\@compare}{%
-\IfStrEq{\@draft}{\@compare}{%
-\@compare%
+\IfStrEq{\@edition}{\@empty}{%
+\IfStrEq{\@draft}{\@empty}{%
+\@empty%
 }{%
 \str@draft\IfStrEq{\@draft}{nonum}{}{\ \@draft}%
 }%
 }{%
-\IfStrEq{\@draft}{\@compare}{%
+\IfStrEq{\@draft}{\@empty}{%
 #1\@edition%
 }{%
 #1\@edition \ %
@@ -318,7 +317,7 @@ SizeFeatures = {
 \SetBgContents{}
 
 \newcommand{\draft}[1]{
-\IfStrEq{#1}{\@compare}{%
+\IfStrEq{#1}{\@empty}{%
 \renewcommand\@draft{nonum}%
 }{%
 \renewcommand\@draft{#1}%
@@ -337,8 +336,6 @@ SizeFeatures = {
 }%
 }%
 }
-
-\newcommand
 
 \newcommand\cf[1]{[\S~#1]}
 
@@ -475,8 +472,8 @@ topsep=\env@sep, itemsep=0pt, font=\small,label=}
 \newcounter{axiomnum}
 \def\axiomletter{}
 
-\newenvironment{axioms}[1][\@compare]{
-\ifx#1\@compare
+\newenvironment{axioms}[1][\@empty]{
+\ifx#1\@empty
 \begin{enumerate}[
 label=(\axiomletter\arabic*),noitemsep,
 before=\setcounter{enumi}{\value{axiomnum}},
@@ -681,8 +678,8 @@ headpunct={\@thmpunct}
 \let\@classicamslabel\label@in@display
 \renewcommand{\label}[1]{\@classiclabel{\@chlabel:#1}}
 \renewcommand{\label@in@display}[1]{\@classicamslabel{\@chlabel:#1}}
-\renewcommand{\ref}[2][\@compare]{%
-\IfStrEq{#1}{\@compare}{%
+\renewcommand{\ref}[2][\@empty]{%
+\IfStrEq{#1}{\@empty}{%
 \@classicref{\@chlabel:#2}%
 }{%
 \IfStrEq{#1}{appendix}{%
@@ -692,8 +689,8 @@ headpunct={\@thmpunct}
 }%
 }%
 }%
-\newcommand{\nochref}[2][\@compare]{%
-\IfStrEq{#1}{\@compare}{%
+\newcommand{\nochref}[2][\@empty]{%
+\IfStrEq{#1}{\@empty}{%
 \@classicref{\@chlabel:#2}%
 }{%
 \IfStrEq{#1}{appendix}{%
@@ -791,7 +788,7 @@ headpunct={\@thmpunct}
 \begin{center}
 {
 {\@coverfont\Huge\@title{\ifx\Subtitle\empty{\\[0.8em]}\else{\\[0.3em]}\fi}}
-{\ifx\@subtitle\@compare{\vspace{1em}}\else{\LARGE\@subtitle\\[1.3em]}\fi}
+{\ifx\@subtitle\@empty{\vspace{1em}}\else{\LARGE\@subtitle\\[1.3em]}\fi}
 } 
 {
 {
@@ -799,7 +796,7 @@ headpunct={\@thmpunct}
 \@author}
 
 \vspace*{\fill}
-\ifx\shortversion\@compare{}\else
+\ifx\shortversion\@empty{}\else
 {\smallskip \@coverfont
 \Large
 \centerline{\longversion}}
@@ -820,7 +817,7 @@ headpunct={\@thmpunct}
 
 \endgroup
 
-\ifx\@to\@compare{}\else
+\ifx\@to\@empty{}\else
 \vspace*{\fill}\noindent{\itshape\@to}\vspace*{10em}\vspace*{\fill}
 \newpage\fi
 
