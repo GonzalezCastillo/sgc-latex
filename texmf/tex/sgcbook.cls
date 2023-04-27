@@ -740,20 +740,24 @@ headpunct={\@thmpunct}
 
 \titlespacing{\part}{0pt}{0pt}{0pt}[0pt]
 
-\titleformat{\chapter}[display]{\setlength{\parskip}{0pt}\setlength{\parindent}{0pt}\huge\lightheadingfont}{\large\bfseries\chaptername~\thechapter}{0.1em}{}[{\bigskip\bigskip}]
+\titleformat{\chapter}[display]{%
+\setlength{\parskip}{0pt}\setlength{\parindent}{0pt}%
+\huge\centering\lightheadingfont%
+}{\large\bfseries\chaptername~\thechapter}{0.1em}{}[]
 
-\titlespacing*{\chapter}{0pt}{0pt}{5em}[0pt]
-
+\titlespacing*{\chapter}{0pt}{0pt}{7.2em}[0pt]
+\assignpagestyle{\chapter}{empty}
 
 
 \titleformat{\section}{\large\bfseries\headingfont}{%
 \minwidthbox{\parindentpt}{\thesection \ }}{0pt}{}
-\titlespacing*{\section}{0pt}{3em}{1em}[0pt]
+\titlespacing*{\section}{0pt}{3.6em}{\thm@skip}[0pt]
 
 \titleformat{\subsection}{\bfseries\headingfont}%
 {\minwidthbox{\parindentpt}{\thesubsection \ }}{0pt}{}
 
-\titlespacing*{\subsection}{0pt}{1.2em}{\env@sep}[0pt]
+\titlespacing*{\subsection}{0pt}{2.4em}{\thm@skip}[0pt]
+
 
 
 \newcommand{\infopage}[1][]{

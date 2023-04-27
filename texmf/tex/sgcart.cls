@@ -674,12 +674,13 @@ headpunct={\@thmpunct}
 
 \titleformat{\section}{\large\bfseries\headingfont}{%
 \minwidthbox{\parindentpt}{\thesection \ }}{0pt}{}
-\titlespacing*{\section}{0pt}{3em}{1em}[0pt]
+\titlespacing*{\section}{0pt}{3.6em}{\thm@skip}[0pt]
 
 \titleformat{\subsection}{\bfseries\headingfont}%
 {\minwidthbox{\parindentpt}{\thesubsection \ }}{0pt}{}
 
-\titlespacing*{\subsection}{0pt}{1.2em}{\env@sep}[0pt]
+\titlespacing*{\subsection}{0pt}{2.4em}{\thm@skip}[0pt]
+
 
 
 
