@@ -56,6 +56,8 @@
 \RequirePackage[final]{listings}
 \RequirePackage[separate-uncertainty = true]{siunitx}
 \usepackage[style=numeric,maxnames=3]{biblatex}
+\DeclareFieldFormat{labelnumber}{\small\mkbibbold{#1}}
+\DeclareFieldFormat{postnote}{\small #1}
 
 \ifphysics
 \RequirePackage{quantikz, braket}
@@ -344,7 +346,8 @@ SizeFeatures = {
 }%
 }
 
-\newcommand\cf[1]{[\S~#1]}
+\newcommand\cf[1]{[{\small #1}]}
+\newcommand\se{\S\,}
 
 
 %%fakesection Spacing and geometry

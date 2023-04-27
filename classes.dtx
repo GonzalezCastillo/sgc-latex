@@ -53,6 +53,8 @@
 \RequirePackage[final]{listings}
 \RequirePackage[separate-uncertainty = true]{siunitx}
 \usepackage[style=numeric,maxnames=3]{biblatex}
+\DeclareFieldFormat{labelnumber}{\small\mkbibbold{#1}}
+\DeclareFieldFormat{postnote}{\small #1}
 
 \ifphysics
 	\RequirePackage{quantikz, braket}
@@ -352,7 +354,8 @@
 }
 
 % Referencing commands
-\newcommand\cf[1]{[\S~#1]}
+\newcommand\cf[1]{[{\small #1}]}
+\newcommand\se{\S\,}
 
 %</doc>
 
