@@ -254,6 +254,7 @@ SizeFeatures = {
 \newcommand{\xfootnote}[2][]{{\renewcommand{\thefootnote}{#1}%
 \ifx{#1}\empty\footnotetext{#2}\else\footnote{#2}\fi}}
 
+\allowdisplaybreaks
 \renewcommand{\qedsymbol}{$\blacksquare$}
 \AtBeginDocument{\renewcommand{\phi}{\varphi}}
 \AtBeginDocument{\renewcommand{\epsilon}{\varepsilon}}
