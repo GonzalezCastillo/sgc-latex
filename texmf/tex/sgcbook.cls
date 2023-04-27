@@ -710,18 +710,29 @@ headpunct={\@thmpunct}
 
 \pagestyle{fancy}
 \ifprint
-\fancyhead[CE]{\scshape\footnotesize\nouppercase{\rightmark}}
-\fancyhead[CO]{\scshape\footnotesize\nouppercase{\leftmark}}
+\fancyhead[CE]{\scshape\footnotesize\nouppercase{\leftmark}}
+\fancyhead[CO]{\scshape\footnotesize\nouppercase{\rightmark}}
 \fancyhead[L,R]{}
-\else
-\lhead{}\chead{\scshape\footnotesize\nouppercase{\leftmark}}\rhead{}
-\fi
-\ifprint
+
 \fancyfoot[LE]{\small\thepage}
 \fancyfoot[RO]{\small\thepage}
 \fancyfoot[C,LO,RE]{}
+
+\fancypagestyle{plain}{
+\lhead{}\chead{}\rhead{}
+\fancyfoot[LE]{\small\thepage}
+\fancyfoot[RO]{\small\thepage}
+\fancyfoot[C,LO,RE]{}
+}
 \else
+\lhead{}\chead{\scshape\footnotesize\nouppercase{\leftmark}}\rhead{}
 \cfoot{\small\thepage}\rfoot{}\lfoot{}
+
+\fancypagestyle{plain}{
+\lhead{}\chead{}\rhead{}
+\cfoot{\small\thepage}\rfoot{}\lfoot{}
+}
+
 \fi
 \renewcommand{\headrulewidth}{0pt}
 
@@ -746,7 +757,7 @@ headpunct={\@thmpunct}
 }{\large\bfseries\chaptername~\thechapter}{0.1em}{}[]
 
 \titlespacing*{\chapter}{0pt}{0pt}{7.2em}[0pt]
-\assignpagestyle{\chapter}{empty}
+\assignpagestyle{\chapter}{plain}
 
 
 \titleformat{\section}{\large\bfseries\headingfont}{%

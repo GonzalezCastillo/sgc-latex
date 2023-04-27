@@ -660,8 +660,11 @@ headpunct={\@thmpunct}
 \ifzero\setcounter{section}{-1}\fi
 
 
-\pagestyle{fancy}
-\lhead{}\chead{}\rhead{}\cfoot{\small\thepage}\rfoot{}\lfoot{}
+\fancypagestyle{plain}{
+\lhead{}\chead{}\rhead{}
+\cfoot{\small\thepage}\rfoot{}\lfoot{}
+}
+\pagestyle{plain}
 \renewcommand{\headrulewidth}{0pt}
 
 \ifprint\else
