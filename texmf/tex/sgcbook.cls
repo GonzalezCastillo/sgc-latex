@@ -85,7 +85,7 @@ urlcolor = blue, filecolor = black, citecolor = black]{hyperref}
 \newcommand\str@license{All rights reserved.}
 \newcommand\str@draft{DRAFT}
 \newcommand\str@pageblank{This page is intentionally left blank.}
-\newcommand\str@appendices{Appendices}
+\newcommand\str@appendix{Appendix}
 \newcommand\str@edition{Edition}
 \newcommand\str@abstract{Abstract}
 
@@ -110,7 +110,7 @@ urlcolor = blue, filecolor = black, citecolor = black]{hyperref}
 \renewcommand\str@license{Todos los derechos reservados.}
 \renewcommand\str@draft{BORRADOR}
 \renewcommand\str@pageblank{Página dejada intencionadamente en blanco.}
-\renewcommand\str@appendices{Apéndices}
+\renewcommand\str@appendix{Apéndice}
 \renewcommand\str@edition{Edición}
 \renewcommand\str@abstract{Resumen}
 
@@ -670,7 +670,7 @@ headpunct={\@thmpunct}
 \addcontentsline{toc}{chapter}{#1}\markboth{#1}{}
 }
 \renewcommand\appendix{
-\unchapter{\str@appendices}
+\unchapter{\str@appendix}
 \stepcounter{chapter}\setcounter{section}{0}
 \chlabel{appendix}
 \renewcommand\thesection{\Alph{section}}
