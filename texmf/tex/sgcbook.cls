@@ -70,7 +70,7 @@
 
 \RequirePackage{titlesec}
 \RequirePackage{fancyhdr, background}
-\RequirePackage[pdfusetitle,hidelinks,final,
+\RequirePackage[hidelinks,final,
 colorlinks = true, linkcolor = black,
 urlcolor = blue, filecolor = black, citecolor = black]{hyperref}
 
@@ -287,21 +287,35 @@ SizeFeatures = {
 {\end{aligned}\right\}}
 
 
+\newcommand\@authordisplay{}
+\renewcommand\author[2][]{%
+\IfStrEq{#1}{\@empty}{%
+\renewcommand{\@author}{#2}\renewcommand{\@authordisplay}{#2}%
+}{%
+\renewcommand{\@author}{#2}\renewcommand{\@authordisplay}{#1}%
+}%
+}
 \def\@subtitle{}
 \date{\today}
 \def\@years{\the\year}
 \newcommand{\subtitle}[1]{\renewcommand\@subtitle{#1}}
 \newcommand{\years}[1]{\renewcommand\@years{#1}}
 
+\AfterPreamble{\hypersetup{
+pdftitle={\@title},
+pdfauthor={\@author}
+}}
+
 \newcommand{\printcopyright}{Copyright \copyright \ \@years, \@author.}
 \newcommand{\printlicense}{\str@license}
+\newcommand{\copyrightfoot}{\xfootnote{\printcopyright\ \printlicense}}
 \newcommand{\setcopyright}[1]{\renewcommand\printcopyright{#1}}
 \newcommand{\setlicense}[1]{\renewcommand\str@license{#1}}
 
 
 \newcommand\@edition{}
-\newcommand\@revision{}
 \newcommand\@draft{}
+\newif\ifversion\versionfalse
 
 \newcommand\@generateversion[1]{%
 \IfStrEq{\@edition}{\@empty}{%
@@ -326,6 +340,7 @@ SizeFeatures = {
 \SetBgContents{}
 
 \newcommand{\draft}[1]{
+\versiontrue%
 \IfStrEq{#1}{\@empty}{%
 \renewcommand\@draft{nonum}%
 }{%
@@ -335,6 +350,7 @@ SizeFeatures = {
 }
 
 \newcommand{\edition}[3][]{%
+\versiontrue%
 \IfStrEq{#1}{\@empty}{%
 \renewcommand\@edition{#2.#3}%
 }{%
@@ -784,22 +800,23 @@ headpunct={\@thmpunct}
 {\longversion}\par
 \@code\par
 \printcopyright\\\printlicense\par
-\@date\bigskip\\
-#1\par
+\@date\bigskip
 \vspace*{\fill}
 \newpage
 }
 
 
-\newcommand\@coverfont{\bfseries}
-
 \renewcommand{\maketitle}[1][]{
 \frontmatter
 \NoBgThispage
 \begingroup
+
 \setlength{\parindent}{0pt} \setlength{\parskip}{1em}
 \newpage
-\thispagestyle{empty}\begingroup\normalfont\lightheadingfont
+
+\begingroup
+
+\thispagestyle{empty}\normalfont\lightheadingfont
 
 \ifafive
 \vspace*{1.5em} 
@@ -808,22 +825,23 @@ headpunct={\@thmpunct}
 \fi
 
 \begin{center}
-{
-{\@coverfont\Huge\@title{\ifx\Subtitle\empty{\\[0.8em]}\else{\\[0.3em]}\fi}}
-{\ifx\@subtitle\@empty{\vspace{1em}}\else{\LARGE\@subtitle\\[1.3em]}\fi}
-} 
-{
-{
+
+\begingroup
+{\bfseries\huge\@title}%
+\IfStrEq{\@subtitle}{\@empty}{\\[0.8em]}{\\[0.3em]}
+\IfStrEq{\@subtitle}{\@empty}{\vspace{1em}}{\LARGE\@subtitle\\[1.3em]}
+\endgroup
+
+\begingroup
 \Large
-\@author}
+
+\@authordisplay
+\endgroup
 
 \vspace*{\fill}
 \ifx\shortversion\@empty{}\else
-{\smallskip \@coverfont
-\Large
-\centerline{\longversion}}
+{\smallskip \bfseries\Large\centerline{\longversion}}
 \fi
-}
 \end{center}
 
 \ifafive
@@ -831,6 +849,7 @@ headpunct={\@thmpunct}
 \else
 \vspace{6em}
 \fi
+
 \endgroup
 \newpage
 
@@ -843,8 +862,6 @@ headpunct={\@thmpunct}
 \vspace*{\fill}\noindent{\itshape\@to}\vspace*{10em}\vspace*{\fill}
 \newpage\fi
 
-\tableofcontents
-\newpage
 }
 
 

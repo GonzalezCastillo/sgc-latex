@@ -68,7 +68,7 @@
 %<*doc>
 \RequirePackage{titlesec}
 \RequirePackage{fancyhdr, background}
-\RequirePackage[pdfusetitle,hidelinks,final,
+\RequirePackage[hidelinks,final,
 	colorlinks = true, linkcolor = black,
 	urlcolor = blue, filecolor = black, citecolor = black]{hyperref}
 
@@ -292,14 +292,28 @@
 
 % Document variables
 
+\newcommand\@authordisplay{}
+\renewcommand\author[2][]{%
+	\IfStrEq{#1}{\@empty}{%
+		\renewcommand{\@author}{#2}\renewcommand{\@authordisplay}{#2}%
+	}{%
+		\renewcommand{\@author}{#2}\renewcommand{\@authordisplay}{#1}%
+	}%
+}
 \def\@subtitle{}
 \date{\today}
 \def\@years{\the\year}
 \newcommand{\subtitle}[1]{\renewcommand\@subtitle{#1}}
 \newcommand{\years}[1]{\renewcommand\@years{#1}}
 
+\AfterPreamble{\hypersetup{
+	pdftitle={\@title},
+	pdfauthor={\@author}
+}}
+
 \newcommand{\printcopyright}{Copyright \copyright \ \@years, \@author.}
 \newcommand{\printlicense}{\str@license}
+\newcommand{\copyrightfoot}{\xfootnote{\printcopyright\ \printlicense}}
 \newcommand{\setcopyright}[1]{\renewcommand\printcopyright{#1}}
 \newcommand{\setlicense}[1]{\renewcommand\str@license{#1}}
 
@@ -307,8 +321,8 @@
 
 %<*doc>
 \newcommand\@edition{}
-\newcommand\@revision{}
 \newcommand\@draft{}
+\newif\ifversion\versionfalse
 
 \newcommand\@generateversion[1]{%
 	\IfStrEq{\@edition}{\@empty}{%
@@ -333,6 +347,7 @@
 \SetBgContents{}
 
 \newcommand{\draft}[1]{
+	\versiontrue%
 	\IfStrEq{#1}{\@empty}{%
 		\renewcommand\@draft{nonum}%
 	}{%
@@ -342,6 +357,7 @@
 }
 
 \newcommand{\edition}[3][]{%
+	\versiontrue%
 	\IfStrEq{#1}{\@empty}{%
 		\renewcommand\@edition{#2.#3}%
 	}{%
@@ -841,8 +857,7 @@
 	{\longversion}\par
 	\@code\par
 	\printcopyright\\\printlicense\par
-	\@date\bigskip\\
-	#1\par
+	\@date\bigskip
 	\vspace*{\fill}
 	\newpage
 }
@@ -850,8 +865,6 @@
 
 %<*doc>
 
-%<article>\newcommand\@coverfont{}
-%<book>\newcommand\@coverfont{\bfseries}
 
 %<article>\newcommand{\cover}{
 %<book>\renewcommand{\maketitle}[1][]{
@@ -859,9 +872,13 @@
 	%<article>\pagenumbering{roman}
 	\NoBgThispage
 	\begingroup
+
 	\setlength{\parindent}{0pt} \setlength{\parskip}{1em}
 	\newpage
-	\thispagestyle{empty}\begingroup\normalfont\lightheadingfont
+
+	\begingroup
+
+	\thispagestyle{empty}\normalfont\lightheadingfont
 
 	\ifafive 
 		\vspace*{1.5em}	
@@ -871,24 +888,23 @@
 	\fi
 
 	\begin{center}
-	{
-		{\@coverfont\Huge\@title{\ifx\Subtitle\empty{\\[0.8em]}\else{\\[0.3em]}\fi}}
-		{\ifx\@subtitle\@empty{\vspace{1em}}\else{\LARGE\@subtitle\\[1.3em]}\fi}
-	}	
-	{
-		{
-		%<book>\Large
-		%<article>\large
-		\@author}
+
+		\begingroup
+		{\bfseries\huge\@title}%
+		\IfStrEq{\@subtitle}{\@empty}{\\[0.8em]}{\\[0.3em]}
+		\IfStrEq{\@subtitle}{\@empty}{\vspace{1em}}{\LARGE\@subtitle\\[1.3em]}
+		\endgroup
+
+		\begingroup
+		\Large
+
+		\@authordisplay
+		\endgroup
 
 		\vspace*{\fill}
 		\ifx\shortversion\@empty{}\else
-			{\smallskip \@coverfont
-			%<book>\Large
-			%<article>\large
-			\centerline{\longversion}}
+			{\smallskip \bfseries\Large\centerline{\longversion}}
 		\fi
-	}
 	\end{center}
 
 	\ifafive
@@ -896,14 +912,19 @@
 	\else
 		\vspace{6em}
 	\fi
+
 	\endgroup
 	\newpage
 
 	%<book>\infopage[#1]
 
-	%<article>\ifprint\newpage\thispagestyle{empty}
-	%<article>\vspace*{\fill}\centerline{\str@pageblank}\vspace{10em}
-	%<article>\vspace*{\fill}\newpage\fi
+	%<*article>
+	\ifprint
+		\newpage\thispagestyle{empty}
+		\vspace*{\fill}\centerline{\str@pageblank}\vspace{10em}
+		\vspace*{\fill}\newpage
+	\fi
+	%</article>
 
 	\endgroup
 
@@ -912,24 +933,55 @@
 	\newpage\fi
 	
 	%<article>\pagenumbering{arabic}
-	\tableofcontents
-	%<book>\newpage
 }
 %</doc>
 
 
 %<*article>
 \renewcommand{\maketitle}{
-	\begingroup
-	\lightheadingfont
-	\setlength{\parskip}{0pt}
-	\setlength{\parindent}{0pt}
-	\center
-	{\LARGE{\@title}
-		{\ifx\@subtitle\empty\else{\\\Large{\@subtitle}}\fi}\par\bigskip}
-	{\@author}\\ \@date\vspace{7em}
+	\begingroup%
+	\lightheadingfont\centering%
+	\setlength{\parskip}{0pt}%
+	\setlength{\parindent}{0pt}%
+	{
+		{\Large\bfseries\@title}%
+		\IfStrEq{\@subtitle}{\@empty}{empty}{\\[5pt]{\Large\@subtitle}}%
+	}
+	\vspace{.5em}\par%
+	{\@authordisplay}\par{\@date}
 
-	\ifspaced\else\vspace{0.7em}\fi
+	\ifafive
+		\vspace{1cm}
+	\else
+		\vspace{1.5cm}
+	\fi
+
+	\ifversion\xfootnote{\longversion}\fi
+
+	\endgroup
+}
+
+
+\newcommand{\printtitle}{
+	\begingroup%
+	\headingfont\centering%
+	\setlength{\parskip}{0pt}%
+	\setlength{\parindent}{0pt}%
+	{
+		\bfseries\MakeUppercase{\@title}%
+		\IfStrEq{\@subtitle}{\@empty}{empty}{\\{\@subtitle}}%
+	}
+	\vspace{.5em}\par%
+	{\@authordisplay}\par{\@date}
+
+	\ifafive
+		\vspace{1cm}
+	\else
+		\vspace{1.5cm}
+	\fi
+
+	\ifversion\xfootnote{\longversion}\fi
+
 	\endgroup
 }
 %</article>
