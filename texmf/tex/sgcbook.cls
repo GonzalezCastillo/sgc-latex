@@ -791,58 +791,35 @@ headpunct={\@thmpunct}
 
 
 
-\newcommand{\infopage}[1][]{
-\NoBgThispage
-\thispagestyle{empty}
-\vspace*{\fill}
-\textbf{\@title}\\
-\textbf{\textit{\@subtitle}}\par
-{\longversion}\par
-\@code\par
-\printcopyright\\\printlicense\par
-\@date\bigskip
-\vspace*{\fill}
-\newpage
-}
-
 
 \renewcommand{\maketitle}[1][]{
 \frontmatter
-\NoBgThispage
-\begingroup
 
-\setlength{\parindent}{0pt} \setlength{\parskip}{1em}
+\begingroup
+\setlength{\parindent}{0pt}\setlength{\parskip}{0pt}
+\thispagestyle{empty}\normalfont\headingfont%
+
+\begingroup
+\centering
 \newpage
-
-\begingroup
-
-\thispagestyle{empty}\normalfont\lightheadingfont
-
 \ifafive
 \vspace*{1.5em} 
 \else
 \vspace*{5em}
 \fi
-
-\begin{center}
-
-\begingroup
-{\bfseries\huge\@title}%
-\IfStrEq{\@subtitle}{\@empty}{\\[0.8em]}{\\[0.3em]}
-\IfStrEq{\@subtitle}{\@empty}{\vspace{1em}}{\LARGE\@subtitle\\[1.3em]}
-\endgroup
-
-\begingroup
-\Large
-
-\@authordisplay
-\endgroup
+{
+\lightheadingfont
+{\huge\bfseries\@title\par}%
+\IfStrEq{\@subtitle}{\@empty}{\vspace{3cm}}%
+{{\vspace{0.1cm}}\LARGE\@subtitle\\[2.9cm]}%
+}
+{
+\Large%
+\@authordisplay%
+}
 
 \vspace*{\fill}
-\ifx\shortversion\@empty{}\else
-{\smallskip \bfseries\Large\centerline{\longversion}}
-\fi
-\end{center}
+\ifversion{\bfseries\large\centerline{\longversion}}\fi
 
 \ifafive
 \vspace{3em}
@@ -851,16 +828,33 @@ headpunct={\@thmpunct}
 \fi
 
 \endgroup
+
 \newpage
 
-\infopage[#1]
-
-
+\thispagestyle{empty}
+\begingroup
+\setlength{\parskip}{1em}
+\vspace*{\fill}
+\IfStrEq{#1}{\@empty}{%
+\textbf{\@title}\\
+\textbf{\textit{\@subtitle}}\par
+{\longversion}\par
+\printcopyright\\\printlicense\par
+\@date\par
+\@code
+}{#1}
+\bigskip
+\vspace*{\fill}
 \endgroup
+\newpage
 
-\ifx\@to\@empty{}\else
-\vspace*{\fill}\noindent{\itshape\@to}\vspace*{10em}\vspace*{\fill}
-\newpage\fi
+
+\IfStrEq{\@to}{\@empty}{}{%
+\vspace*{\fill}\noindent{\itshape\@to}\vspace*{10em}\vspace*{\fill}%
+}
+
+\newpage 
+\endgroup
 
 }
 

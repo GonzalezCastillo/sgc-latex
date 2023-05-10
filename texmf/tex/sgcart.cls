@@ -707,44 +707,35 @@ headpunct={\@thmpunct}
 
 
 
-
 \newcommand{\cover}{
 \pagenumbering{roman}
-\NoBgThispage
-\begingroup
 
-\setlength{\parindent}{0pt} \setlength{\parskip}{1em}
+\begingroup
+\setlength{\parindent}{0pt}\setlength{\parskip}{0pt}
+\thispagestyle{empty}\normalfont\headingfont%
+
+\begingroup
+\centering
 \newpage
-
-\begingroup
-
-\thispagestyle{empty}\normalfont\lightheadingfont
-
 \ifafive
 \vspace*{1.5em} 
 \else
 \vspace*{5em}
 \fi
-
-\begin{center}
-
-\begingroup
-{\bfseries\huge\@title}%
-\IfStrEq{\@subtitle}{\@empty}{\\[0.8em]}{\\[0.3em]}
-\IfStrEq{\@subtitle}{\@empty}{\vspace{1em}}{\LARGE\@subtitle\\[1.3em]}
-\endgroup
-
-\begingroup
-\Large
-
-\@authordisplay
-\endgroup
+{
+\lightheadingfont
+{\huge\bfseries\@title\par}%
+\IfStrEq{\@subtitle}{\@empty}{\vspace{3cm}}%
+{{\vspace{0.1cm}}\LARGE\@subtitle\\[2.9cm]}%
+}
+{
+\Large%
+\@authordisplay%
+\vspace{.5em}\par{\@date}
+}
 
 \vspace*{\fill}
-\ifx\shortversion\@empty{}\else
-{\smallskip \bfseries\Large\centerline{\longversion}}
-\fi
-\end{center}
+\ifversion{\bfseries\large\centerline{\longversion}}\fi
 
 \ifafive
 \vspace{3em}
@@ -753,6 +744,7 @@ headpunct={\@thmpunct}
 \fi
 
 \endgroup
+
 \newpage
 
 
@@ -762,48 +754,22 @@ headpunct={\@thmpunct}
 \vspace*{\fill}\newpage
 \fi
 
-\endgroup
+\IfStrEq{\@to}{\@empty}{}{%
+\vspace*{\fill}\noindent{\itshape\@to}\vspace*{10em}\vspace*{\fill}%
+}
 
-\ifx\@to\@empty{}\else
-\vspace*{\fill}\noindent{\itshape\@to}\vspace*{10em}\vspace*{\fill}
-\newpage\fi
+\newpage 
+\endgroup
 
 \pagenumbering{arabic}
 }
 
-\renewcommand{\maketitle}{
-\begingroup%
-\lightheadingfont\centering%
-\setlength{\parskip}{0pt}%
-\setlength{\parindent}{0pt}%
-{
-{\Large\bfseries\@title}%
-\IfStrEq{\@subtitle}{\@empty}{empty}{\\[5pt]{\Large\@subtitle}}%
-}
-\vspace{.5em}\par%
-{\@authordisplay}\par{\@date}
-
-\ifafive
-\vspace{1cm}
-\else
-\vspace{1.5cm}
-\fi
-
-\ifversion\xfootnote{\longversion}\fi
-
-\endgroup
-}
-
-\newcommand{\printtitle}{
+\newcommand{\@arttitle}[1]{
 \begingroup%
 \headingfont\centering%
 \setlength{\parskip}{0pt}%
 \setlength{\parindent}{0pt}%
-{
-\bfseries\MakeUppercase{\@title}%
-\IfStrEq{\@subtitle}{\@empty}{empty}{\\{\@subtitle}}%
-}
-\vspace{.5em}\par%
+{\lightheadingfont#1}\par\vspace{.5em}%
 {\@authordisplay}\par{\@date}
 
 \ifafive
@@ -815,6 +781,19 @@ headpunct={\@thmpunct}
 \ifversion\xfootnote{\longversion}\fi
 
 \endgroup
+}
+\renewcommand{\maketitle}{
+\@arttitle{%
+{\Large\bfseries\@title\par}%
+\IfStrEq{\@subtitle}{\@empty}{}{{\Large\@subtitle\\[10pt]}}%
+}%
+}
+
+\newcommand{\printtitle}{
+\@arttitle{%
+\bfseries\MakeUppercase{\@title}%
+\IfStrEq{\@subtitle}{\@empty}{}{\\{\@subtitle}}%
+}%
 }
 
 \endinput
