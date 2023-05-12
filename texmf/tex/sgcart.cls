@@ -288,12 +288,12 @@ SizeFeatures = {
 
 
 \newcommand\@authordisplay{}
-\renewcommand\author[2][]{%
-\IfStrEq{#1}{\@empty}{%
+\renewcommand\author[2][\@empty]{%
+\ifx#1\@empty%
 \renewcommand{\@author}{#2}\renewcommand{\@authordisplay}{#2}%
-}{%
+\else%
 \renewcommand{\@author}{#2}\renewcommand{\@authordisplay}{#1}%
-}%
+\fi%
 }
 \def\@subtitle{}
 \date{\today}

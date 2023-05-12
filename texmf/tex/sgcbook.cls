@@ -288,12 +288,12 @@ SizeFeatures = {
 
 
 \newcommand\@authordisplay{}
-\renewcommand\author[2][]{%
-\IfStrEq{#1}{\@empty}{%
+\renewcommand\author[2][\@empty]{%
+\ifx#1\@empty%
 \renewcommand{\@author}{#2}\renewcommand{\@authordisplay}{#2}%
-}{%
+\else%
 \renewcommand{\@author}{#2}\renewcommand{\@authordisplay}{#1}%
-}%
+\fi%
 }
 \def\@subtitle{}
 \date{\today}
@@ -792,7 +792,7 @@ headpunct={\@thmpunct}
 
 
 
-\renewcommand{\maketitle}[1][]{
+\renewcommand{\maketitle}[1][\@empty]{
 \frontmatter
 
 \begingroup
@@ -833,17 +833,18 @@ headpunct={\@thmpunct}
 
 \thispagestyle{empty}
 \begingroup
+\flushleft
 \setlength{\parskip}{1em}
 \vspace*{\fill}
-\IfStrEq{#1}{\@empty}{%
+\ifx#1\@empty
 \textbf{\@title}\\
 \textbf{\textit{\@subtitle}}\par
 {\longversion}\par
 \printcopyright\\\printlicense\par
 \@date\par
-\@code
-}{#1}
-\bigskip
+\@code\par
+\else{#1}\fi
+\vspace{3cm}\par
 \vspace*{\fill}
 \endgroup
 \newpage
