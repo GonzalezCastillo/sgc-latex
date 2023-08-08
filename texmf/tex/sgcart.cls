@@ -13,6 +13,8 @@
 
 %%fakesection Initial setup and class options
 
+\newcommand\sgc@version{v1.0.0-beta}
+
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{sgcart}
 
@@ -22,7 +24,7 @@
 \newif\ifsans\sansfalse
 \newif\ifserif\seriffalse
 \newif\iflm\lmfalse
-\newif\ifphysics\physicsfalse
+\newif\ifqc\qcfalse
 
 \DeclareOption{es}{\spanishtrue}
 \DeclareOption{sans}{
@@ -32,7 +34,7 @@
 \DeclareOption{serif}{\seriftrue}
 \DeclareOption{lm}{\lmtrue}
 \DeclareOption{sans}{\sanstrue}
-\DeclareOption{physics}{\physicstrue}
+\DeclareOption{qc}{\qctrue}
 
 \newif\ifswap\swaptrue
 \newif\ifwithin\withinfalse
@@ -55,16 +57,17 @@
 \RequirePackage{amsthm, thmtools, mathtools, cancel, interval}
 \RequirePackage[final]{listings}
 \RequirePackage[separate-uncertainty = true]{siunitx}
+
 \usepackage[style=numeric,maxnames=3]{biblatex}
 \DeclareFieldFormat{labelnumber}{\small\mkbibbold{#1}}
 \DeclareFieldFormat{postnote}{\small #1}
 
-\ifphysics
+\ifqc
 \RequirePackage{quantikz, braket}
 \fi
 
-\usetikzlibrary{arrows.meta, calc, decorations.markings, math}
-\usetikzlibrary{intersections, patterns, cd}
+\usetikzlibrary{arrows.meta, calc, decorations.markings, math,
+intersections, patterns, cd}
 
 \setlength{\arrayrulewidth}{0.75pt} % Table rule thickness.
 
@@ -81,7 +84,6 @@ urlcolor = blue, filecolor = black, citecolor = black]{hyperref}
 
 %%fakesection Language
 
-\newcommand\str@problem{Problem}
 \newcommand\str@license{All rights reserved.}
 \newcommand\str@draft{DRAFT}
 \newcommand\str@pageblank{This page is intentionally left blank.}
@@ -102,11 +104,9 @@ urlcolor = blue, filecolor = black, citecolor = black]{hyperref}
 
 \ifspanish
 \RequirePackage[spanish]{babel}
-
 \usetikzlibrary{babel}
-
 \decimalpoint
-\renewcommand\str@problem{Problema}
+
 \renewcommand\str@license{Todos los derechos reservados.}
 \renewcommand\str@draft{BORRADOR}
 \renewcommand\str@pageblank{Página dejada intencionadamente en blanco.}
@@ -128,7 +128,6 @@ urlcolor = blue, filecolor = black, citecolor = black]{hyperref}
 \renewcommand\str@example{Ejemplo}
 \renewcommand\str@proposition{Proposición}
 \renewcommand\str@algorithm{Algoritmo}
-
 \else
 \RequirePackage[british]{babel}
 
@@ -156,6 +155,10 @@ frenchmath, upint
 \fi
 
 \ifxetex
+
+\AfterPreamble{\hypersetup{
+pdfproducer={XeTeX}
+}}
 
 \RequirePackage[no-math]{fontspec}
 
@@ -229,16 +232,19 @@ SizeFeatures = {
 }
 ]
 
-\newcommand\textslf[1]{{\sflight#1}}
+\newcommand\textsfl[1]{{\sflight#1}}
 
 \else
 \usepackage[T1]{fontenc}
 \newcommand\sflight\sffamily
-\newcommand\textslf[1]{\sffamily#1}
+\newcommand\textsfl[1]{\sffamily#1}
 \fi
 
-\newcommand\headingfont{\sffamily}
-\newcommand\lightheadingfont{\sflight}
+\newcommand\main@color{black}
+\newcommand\maincolor[1]{\renewcommand{\main@color}{#1}}
+\newcommand\headingfont{\sffamily\color{\main@color}}
+\newcommand\lightheadingfont{\sflight\color{\main@color}}
+\newcommand\resetcolor{\color{black}}
 
 \ifsans
 \renewcommand\familydefault{\sfdefault}
@@ -256,7 +262,6 @@ SizeFeatures = {
 \newcommand{\xfootnote}[2][]{{\renewcommand{\thefootnote}{#1}%
 \ifx{#1}\empty\footnotetext{#2}\else\footnote{#2}\fi}}
 
-\allowdisplaybreaks
 \renewcommand{\qedsymbol}{$\blacksquare$}
 \AtBeginDocument{\renewcommand{\phi}{\varphi}}
 \AtBeginDocument{\renewcommand{\epsilon}{\varepsilon}}
@@ -303,7 +308,8 @@ SizeFeatures = {
 
 \AfterPreamble{\hypersetup{
 pdftitle={\@title},
-pdfauthor={\@author}
+pdfauthor={\@author},
+pdfcreator={LaTeX (SGC \sgc@version)}
 }}
 
 \newcommand{\printcopyright}{Copyright \copyright \ \@years, \@author.}
@@ -349,13 +355,16 @@ pdfauthor={\@author}
 \SetBgContents{\bfseries\texttt{\shortversion}}%
 }
 
+\newcommand\lzero[1]{\ifnum#1<10 0\fi\the#1}
+
 \newcommand{\edition}[3][]{%
 \versiontrue%
 \IfStrEq{#1}{\@empty}{%
 \renewcommand\@edition{#2.#3}%
 }{%
 \IfStrEq{#1}{today}{%
-\renewcommand\@edition{#2.#3 ++ \the\year{}-\the\month{}-\the\day{}}%
+\renewcommand\@edition{#2.#3 ++ %
+\the\year{}-\lzero\month-\lzero\day}%
 }{%
 \renewcommand\@edition{#2.#3 ++ #1}%
 }%
@@ -482,10 +491,16 @@ leftmargin=\parindent, rightmargin=\parindent,
 align = left, labelsep = 0pt, labelwidth = 0pt,
 topsep=\env@sep, itemsep=0pt, font=\small,label=}
 
-\renewenvironment{quote}{\begin{quotenum}\item}{\end{quotenum}}
+\renewenvironment{quote}{
+\begingroup\small\begin{quotenum}\item
+}{
+\end{quotenum}\endgroup
+}
+
 \renewenvironment{abstract}{
+\begingroup\small
 \begin{abstenum}[before=\centerline{\textbf{\str@abstract}}]\item}
-{\end{abstenum}}
+{\end{abstenum}\endgroup}
 
 \newcommand\@deductionref{}
 \newenvironment{deduction}[1]{
@@ -679,7 +694,6 @@ headpunct={\@thmpunct}
 
 \ifzero\setcounter{section}{-1}\fi
 
-
 \fancypagestyle{plain}{
 \lhead{}\chead{}\rhead{}
 \cfoot{\small\thepage}\rfoot{}\lfoot{}
@@ -712,11 +726,11 @@ headpunct={\@thmpunct}
 
 \begingroup
 \setlength{\parindent}{0pt}\setlength{\parskip}{0pt}
-\thispagestyle{empty}\normalfont\headingfont%
+\thispagestyle{empty}\normalfont%
 
 \begingroup
-\centering
-\newpage
+\headingfont\centering\newpage
+
 \ifafive
 \vspace*{1.5em} 
 \else
@@ -726,12 +740,13 @@ headpunct={\@thmpunct}
 \lightheadingfont
 {\huge\bfseries\@title\par}%
 \IfStrEq{\@subtitle}{\@empty}{\vspace{3cm}}%
-{{\vspace{0.1cm}}\LARGE\@subtitle\\[2.9cm]}%
+{{\vspace{0.25cm}}\LARGE\@subtitle\\[2.75cm]}%
 }
+\resetcolor
 {
 \Large%
 \@authordisplay%
-\vspace{.5em}\par{\@date}
+\vspace{0.25cm}\par{\large\@date}
 }
 
 \vspace*{\fill}
@@ -749,9 +764,10 @@ headpunct={\@thmpunct}
 
 
 \ifprint
-\newpage\thispagestyle{empty}
-\vspace*{\fill}\centerline{\str@pageblank}\vspace{10em}
-\vspace*{\fill}\newpage
+\begingroup
+\headingfont\resetcolor\thispagestyle{empty}
+\vspace*{\fill}\centerline{\str@pageblank}\vspace{10em}\vspace*{\fill}
+\endgroup\newpage
 \fi
 
 \IfStrEq{\@to}{\@empty}{}{%
@@ -766,17 +782,13 @@ headpunct={\@thmpunct}
 
 \newcommand{\@arttitle}[1]{
 \begingroup%
-\headingfont\centering%
-\setlength{\parskip}{0pt}%
-\setlength{\parindent}{0pt}%
+\centering%
+\setlength{\parskip}{0pt}\setlength{\parindent}{0pt}%
 {\lightheadingfont#1}\par\vspace{.5em}%
+\headingfont\resetcolor%
 {\@authordisplay}\par{\@date}
 
-\ifafive
-\vspace{1cm}
-\else
-\vspace{1.5cm}
-\fi
+\vspace{2.4em} % Same as chapter! Based on thm@skip.
 
 \ifversion\xfootnote{\longversion}\fi
 
@@ -784,8 +796,8 @@ headpunct={\@thmpunct}
 }
 \renewcommand{\maketitle}{
 \@arttitle{%
-{\Large\bfseries\@title\par}%
-\IfStrEq{\@subtitle}{\@empty}{}{{\Large\@subtitle\\[10pt]}}%
+{\LARGE\bfseries\@title\par}%
+\IfStrEq{\@subtitle}{\@empty}{\vspace{10pt}}{{\Large\@subtitle\\[10pt]}}%
 }%
 }
 
@@ -795,6 +807,12 @@ headpunct={\@thmpunct}
 \IfStrEq{\@subtitle}{\@empty}{}{\\{\@subtitle}}%
 }%
 }
+
+\renewcommand\tableofcontents{
+\noindent{\headingfont\bfseries\contentsname}\par
+\@starttoc{toc}
+}
+
 
 \endinput
 %%
