@@ -58,6 +58,10 @@
 \usepackage[style=numeric,maxnames=3]{biblatex}
 \DeclareFieldFormat{labelnumber}{\small\mkbibbold{#1}}
 \DeclareFieldFormat{postnote}{\small #1}
+\DeclareFieldFormat[article]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[article]{citetitle}{\mkbibemph{#1}}
+\DeclareFieldFormat{journaltitle}{#1}
+\renewbibmacro{in:}{}
 
 \ifqc
 	\RequirePackage{quantikz, braket}
