@@ -699,8 +699,7 @@ headpunct={\@thmpunct}
 \renewcommand\thepart{\partname \ \arabic{part}}
 \ifzero\setcounter{chapter}{-1}\fi
 
-\newcommand\unchapter[1]{
-\chapter*{#1}
+\newcommand\unchapter[1]{ \chapter*{#1}
 \addcontentsline{toc}{chapter}{#1}\markboth{#1}{}
 }
 \renewcommand\appendix{

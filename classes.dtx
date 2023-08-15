@@ -731,8 +731,7 @@
 \renewcommand\thepart{\partname \ \arabic{part}}
 \ifzero\setcounter{chapter}{-1}\fi
 
-\newcommand\unchapter[1]{
-	\chapter*{#1}
+\newcommand\unchapter[1]{ \chapter*{#1}
 	\addcontentsline{toc}{chapter}{#1}\markboth{#1}{}
 }
 \renewcommand\appendix{
@@ -959,7 +958,7 @@
 	\headingfont\resetcolor%
 	{\@authordisplay}\par{\@date}
 
-	\vspace{2.4em} % Same as chapter! Based on thm@skip.
+	\vspace{2.4em} % 2.4 = 2 x thm@skip.
 
 	\ifversion\xfootnote{\longversion}\fi
 

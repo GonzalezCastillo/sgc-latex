@@ -792,7 +792,7 @@ headpunct={\@thmpunct}
 \headingfont\resetcolor%
 {\@authordisplay}\par{\@date}
 
-\vspace{2.4em} % Same as chapter! Based on thm@skip.
+\vspace{2.4em} % 2.4 = 2 x thm@skip.
 
 \ifversion\xfootnote{\longversion}\fi
 
