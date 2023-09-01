@@ -135,7 +135,11 @@ urlcolor = blue, filecolor = black, citecolor = black]{hyperref}
 \renewcommand\str@algorithm{Algoritmo}
 \else
 \RequirePackage[british]{babel}
-
+\AtBeginDocument{\def\today{%
+\number\day~\ifcase\month\or January\or February\or March\or April\or%
+May\or June\or July\or August\or September\or October\or November\or%
+December\fi~\number\year%
+}}
 \fi
 
 \RequirePackage[autostyle=true]{csquotes}
