@@ -52,19 +52,11 @@
 \ProcessOptions\relax
 
 %%fakesection Packages and basic settings
-\RequirePackage{xcolor, geometry, graphicx, tikz, pgfplots}
+\RequirePackage{xcolor, geometry, graphicx, tikz, pgfplots, caption}
 \RequirePackage{enumitem, import, centernot, tabularray, xstring, calc}
 \RequirePackage{amsthm, thmtools, mathtools, cancel, interval}
 \RequirePackage[final]{listings}
 \RequirePackage[separate-uncertainty = true]{siunitx}
-
-\usepackage[style=numeric,maxnames=3]{biblatex}
-\DeclareFieldFormat{labelnumber}{\small\mkbibbold{#1}}
-\DeclareFieldFormat{postnote}{\small #1}
-\DeclareFieldFormat[article]{title}{\mkbibemph{#1}}
-\DeclareFieldFormat[article]{citetitle}{\mkbibemph{#1}}
-\DeclareFieldFormat{journaltitle}{#1}
-\renewbibmacro{in:}{}
 
 \ifqc
 \RequirePackage{quantikz, braket}
@@ -85,6 +77,15 @@ urlcolor = blue, filecolor = black, citecolor = black]{hyperref}
 \SetBgAngle{90}
 \SetBgScale{1.5}
 \SetBgColor{black}
+
+
+\usepackage[style=numeric,maxnames=3]{biblatex}
+\DeclareFieldFormat{labelnumber}{\small\mkbibbold{#1}}
+\DeclareFieldFormat{postnote}{\small #1}
+\DeclareFieldFormat[article]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[article]{citetitle}{\mkbibemph{#1}}
+\DeclareFieldFormat{journaltitle}{#1}
+\renewbibmacro{in:}{}
 
 %%fakesection Language
 
@@ -400,9 +401,12 @@ pdfcreator={LaTeX (SGC \sgc@version)}
 \SetBgPosition{-1cm, -8cm}
 \fi
 
-\newcommand{\env@sep}{0.6em} % Space between environments.
-\newcommand{\label@sep}{0.4em} % Space between labels and text (enums).
-\newcommand{\thm@skip}{1.2em} % Space around theorems.
+\newlength\env@sep
+\newlength\label@sep
+\newlength\thm@skip
+\setlength{\env@sep}{0.6em} % Space between environments.
+\setlength{\label@sep}{0.4em} % Space between labels and text (enums).
+\setlength{\thm@skip}{1.2em} % Space around theorems.
 \setlength{\partopsep}{0pt plus 0pt minus 0pt}
 
 \ifspaced
@@ -530,7 +534,9 @@ after=\setcounter{axiomnum}{\value{enumi}}
 \fi
 }{\end{enumerate}}
 
-%%fakesection Colours & Boxes
+%%fakesection Environment formats and colours
+
+\captionsetup{labelfont=bf, font=small, margin={0.5\parindent}}
 
 \ifprint
 \definecolor{sgreen}{cmyk}{.82,.11,.91,.21}
@@ -794,19 +800,18 @@ headpunct={\@thmpunct}
 \huge\centering\lightheadingfont%
 }{\large\bfseries\chaptername~\thechapter}{0.1em}{}[]
 
-\titlespacing*{\chapter}{0pt}{0pt}{7.2em}[0pt]
+\titlespacing*{\chapter}{0pt}{0pt}{6\thm@skip}[0pt]
 \assignpagestyle{\chapter}{plain}
 
 
 \titleformat{\section}{\large\bfseries\headingfont}{%
 \minwidthbox{\parindentpt}{\thesection \ }}{0pt}{}
-\titlespacing*{\section}{0pt}{3.6em}{\thm@skip}[0pt]
+\titlespacing*{\section}{0pt}{3\thm@skip}{\thm@skip}[0pt]
 
 \titleformat{\subsection}{\bfseries\headingfont}%
 {\minwidthbox{\parindentpt}{\thesubsection \ }}{0pt}{}
 
-\titlespacing*{\subsection}{0pt}{2.4em}{\thm@skip}[0pt]
-
+\titlespacing*{\subsection}{0pt}{2\thm@skip}{\thm@skip}[0pt]
 
 
 
