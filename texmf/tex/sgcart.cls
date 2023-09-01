@@ -538,7 +538,7 @@ after=\setcounter{axiomnum}{\value{enumi}}
 \fi
 }{\end{enumerate}}
 
-%%fakesection Environment formats and colours
+%%fakesection Environment formats, colours and pictures
 
 \captionsetup{labelfont=bf, font=small, margin={0.5\parindent}}
 
@@ -566,6 +566,8 @@ after=\setcounter{axiomnum}{\value{enumi}}
 \definecolor{sgray}{RGB}{198,198,198}
 \fi
 
+\newcommand\light[1]{#1!13}
+
 \lstset{tabsize = 4,
 basicstyle=\ttfamily\small,
     showstringspaces=false,
@@ -592,7 +594,7 @@ stringstyle=\color{darkgray}
 #1 {\color{smagenta}$\blacktriangleleft$}
 }
 
-\newcommand\light[1]{#1!13}
+\newcommand\fish{\includegraphics[width=2cm]{fish.pdf}}
 
 %%fakesection Fixes
 
