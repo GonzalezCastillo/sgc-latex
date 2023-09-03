@@ -812,7 +812,7 @@ headpunct={\@thmpunct}
 
 \titleformat{\section}{\large\bfseries\headingfont}{%
 \minwidthbox{\parindentpt}{\thesection \ }}{0pt}{}
-\titlespacing*{\section}{0pt}{3\thm@skip}{\thm@skip}[0pt]
+\titlespacing*{\section}{0pt}{2\thm@skip}{\thm@skip}[0pt]
 
 \titleformat{\subsection}{\bfseries\headingfont}%
 {\minwidthbox{\parindentpt}{\thesubsection \ }}{0pt}{}
