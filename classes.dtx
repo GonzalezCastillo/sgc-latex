@@ -154,15 +154,13 @@
 	\RequirePackage[
 		scaled = 1.02,
 		largesc, varbb, subscriptcorrection,
-		frenchmath, upint
+		frenchmath, upint, nott
 	]{newtx}
-
-% Redefine coloneq (adapted from https://tex.stackexchange.com/a/4881)
-\renewcommand*{\coloneq}{%
-	\mathrel{\rlap{\raisebox{0.25ex}{$\m@th\cdot$}}%
-	\raisebox{-0.25ex}{$\m@th\cdot$}}=%
-}
-
+	% Redefine coloneq (adapted from https://tex.stackexchange.com/a/4881)
+	\renewcommand*{\coloneq}{%
+		\mathrel{\rlap{\raisebox{0.25ex}{$\m@th\cdot$}}%
+		\raisebox{-0.25ex}{$\m@th\cdot$}}=%
+	}
 \fi
 
 \ifxetex
@@ -245,7 +243,16 @@
 
 	\newcommand\textsfl[1]{{\sflight#1}}
 
+	\setmonofont{InconsolataN}[
+		Extension = .otf,
+		Ligatures = {TeX},
+		UprightFont = {*-Regular},
+		Scale = 1.02,
+		BoldFont = {*-Bold}
+	]
+
 \else
+	\usepackage[scale=1.02]{inconsolata}
 	\usepackage[T1]{fontenc}
 	\newcommand\sflight\sffamily
 	\newcommand\textsfl[1]{\sffamily#1}
@@ -591,8 +598,10 @@
 
 \newcommand\light[1]{#1!13}
 
+% Maximum listing width: 70 characters.
 \lstset{tabsize = 4,
-	basicstyle=\ttfamily\small,
+	basicstyle=\ttfamily,
+	columns=flexible,
     showstringspaces=false,
 	numbers=left,
 	commentstyle=\color{darkgray},
@@ -600,7 +609,7 @@
 	stringstyle=\color{darkgray}
 }
 \ifafive
-	\lstset{basicstyle=\ttfamily\footnotesize}
+	\lstset{basicstyle=\ttfamily}
 \fi
 
 \DeclareRobustCommand{\issue}[1]{

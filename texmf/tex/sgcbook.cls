@@ -153,14 +153,12 @@ December\fi~\number\year%
 \RequirePackage[
 scaled = 1.02,
 largesc, varbb, subscriptcorrection,
-frenchmath, upint
+frenchmath, upint, nott
 ]{newtx}
-
 \renewcommand*{\coloneq}{%
 \mathrel{\rlap{\raisebox{0.25ex}{$\m@th\cdot$}}%
 \raisebox{-0.25ex}{$\m@th\cdot$}}=%
 }
-
 \fi
 
 \ifxetex
@@ -243,7 +241,16 @@ SizeFeatures = {
 
 \newcommand\textsfl[1]{{\sflight#1}}
 
+\setmonofont{InconsolataN}[
+Extension = .otf,
+Ligatures = {TeX},
+UprightFont = {*-Regular},
+Scale = 1.02,
+BoldFont = {*-Bold}
+]
+
 \else
+\usepackage[scale=1.02]{inconsolata}
 \usepackage[T1]{fontenc}
 \newcommand\sflight\sffamily
 \newcommand\textsfl[1]{\sffamily#1}
@@ -569,7 +576,8 @@ after=\setcounter{axiomnum}{\value{enumi}}
 \newcommand\light[1]{#1!13}
 
 \lstset{tabsize = 4,
-basicstyle=\ttfamily\small,
+basicstyle=\ttfamily,
+columns=flexible,
     showstringspaces=false,
 numbers=left,
 commentstyle=\color{darkgray},
@@ -577,7 +585,7 @@ keywordstyle=\bfseries,
 stringstyle=\color{darkgray}
 }
 \ifafive
-\lstset{basicstyle=\ttfamily\footnotesize}
+\lstset{basicstyle=\ttfamily}
 \fi
 
 \DeclareRobustCommand{\issue}[1]{
