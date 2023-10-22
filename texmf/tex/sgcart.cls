@@ -107,6 +107,9 @@ urlcolor = blue, filecolor = black, citecolor = black]{hyperref}
 
 \newcommand\@thmpunct{.}
 
+\RequirePackage[autostyle=true]{csquotes}
+\newcommand\cml[1]{\enquote{#1}}
+
 \ifspanish
 \RequirePackage[spanish]{babel}
 \usetikzlibrary{babel}
@@ -135,15 +138,13 @@ urlcolor = blue, filecolor = black, citecolor = black]{hyperref}
 \renewcommand\str@algorithm{Algoritmo}
 \else
 \RequirePackage[british]{babel}
+\setquotestyle{american}
 \AtBeginDocument{\def\today{%
 \number\day~\ifcase\month\or January\or February\or March\or April\or%
 May\or June\or July\or August\or September\or October\or November\or%
 December\fi~\number\year%
 }}
 \fi
-
-\RequirePackage[autostyle=true]{csquotes}
-\newcommand\cml[1]{\enquote{#1}}
 
 %%fakesection Fonts
 
