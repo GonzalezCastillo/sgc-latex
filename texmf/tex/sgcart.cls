@@ -251,7 +251,7 @@ BoldFont = {*-Bold}
 ]
 
 \else
-\usepackage[scale=1.02]{inconsolata}
+\usepackage[scale=1.02,narrow]{inconsolata}
 \usepackage[T1]{fontenc}
 \newcommand\sflight\sffamily
 \newcommand\textsfl[1]{\sffamily#1}
