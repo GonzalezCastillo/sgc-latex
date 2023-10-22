@@ -846,8 +846,7 @@ headpunct={\@thmpunct}
 \vspace*{5em}
 \fi
 {
-\lightheadingfont
-{\huge\bfseries\@title\par}%
+{\huge\lightheadingfont\bfseries\@title\par}%
 \IfStrEq{\@subtitle}{\@empty}{\vspace{3cm}}%
 {{\vspace{0.15cm}}\LARGE\@subtitle\\[3.85cm]}%
 }

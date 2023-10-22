@@ -761,8 +761,7 @@ headpunct={\@thmpunct}
 \vspace*{5em}
 \fi
 {
-\lightheadingfont
-{\huge\bfseries\@title\par}%
+{\huge\lightheadingfont\bfseries\@title\par}%
 \IfStrEq{\@subtitle}{\@empty}{\vspace{3cm}}%
 {{\vspace{0.15cm}}\LARGE\@subtitle\\[3.85cm]}%
 }
@@ -807,9 +806,10 @@ headpunct={\@thmpunct}
 \newcommand{\@arttitle}[1]{
 \begingroup%
 \centering%
+\headingfont%
 \setlength{\parskip}{0pt}\setlength{\parindent}{0pt}%
-{\lightheadingfont#1}\par\vspace{.5em}%
-\headingfont\resetcolor%
+{#1}\par\vspace{.5em}%
+\resetcolor%
 {\@authordisplay}\par{\@date}
 
 \vspace{3\thm@skip}
@@ -820,14 +820,14 @@ headpunct={\@thmpunct}
 }
 \renewcommand{\maketitle}{
 \@arttitle{%
-{\LARGE\bfseries\@title\par}%
+{\lightheadingfont\LARGE\bfseries\@title\par}%
 \IfStrEq{\@subtitle}{\@empty}{\vspace{10pt}}{{\Large\@subtitle\\[10pt]}}%
 }%
 }
 
 \newcommand{\printtitle}{
 \@arttitle{%
-\bfseries\MakeUppercase{\@title}%
+\lightheadingfont\bfseries\MakeUppercase{\@title}%
 \IfStrEq{\@subtitle}{\@empty}{}{\\{\@subtitle}}%
 }%
 }
