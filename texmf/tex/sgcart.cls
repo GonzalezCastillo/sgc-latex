@@ -302,7 +302,7 @@ BoldFont = {*-Bold}
 \newcommand{\Ceil}[1]{\left\lceil #1 \right\rceil}
 \newcommand\limplies\rightarrow
 \newcommand\liff\leftrightarrow
-\newcommand\qsep{.\ }
+\newcommand\qsep{\boldsymbol{.}\ }
 
 \newenvironment{lrcases} % rcases is already defined in mathtools
 {\left\{\begin{aligned}}
