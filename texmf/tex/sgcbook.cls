@@ -763,7 +763,9 @@ headpunct={\@thmpunct}
 }%
 }%
 \newcommand{\chref}[1]{\@classicref{#1}}
+\newcommand{\rref}[3][\@empty]{\ref[#1]{#2}\xref[#1]{#2:#3}}
 }
+
 
 
 

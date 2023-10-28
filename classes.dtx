@@ -798,9 +798,12 @@
 		}%
 	}%
 	\newcommand{\chref}[1]{\@classicref{#1}}
+	\newcommand{\rref}[3][\@empty]{\ref[#1]{#2}\xref[#1]{#2:#3}}
 }
 
 %</book>
+
+%<article>\newcommand{\rref}[2]{\ref{#1}\ref{#1:#2}}
 
 %<article>\ifzero\setcounter{section}{-1}\fi
 

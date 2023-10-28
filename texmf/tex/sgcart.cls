@@ -717,6 +717,8 @@ headpunct={\@thmpunct}
 \subtitle{}
 
 
+\newcommand{\rref}[2]{\ref{#1}\ref{#1:#2}}
+
 \ifzero\setcounter{section}{-1}\fi
 
 \fancypagestyle{plain}{
