@@ -594,16 +594,16 @@ stringstyle=\color{darkgray}
 \fi
 
 \DeclareRobustCommand{\issue}[1]{
-{\color{sred}\headingfont\textbf{ISSUE} $\blacktriangleright$}
+{\headingfont\color{sred}\textbf{ISSUE} $\blacktriangleright$}
 #1 {\color{sred}$\blacktriangleleft$}
 }
 \DeclareRobustCommand{\todo}[1]{
-{\color{sblue}\headingfont\textbf{TO-DO} $\blacktriangleright$}
+{\headingfont\color{sblue}\textbf{TO-DO} $\blacktriangleright$}
 #1 {\color{sblue}$\blacktriangleleft$}
 }
 
 \DeclareRobustCommand{\comment}[1]{
-{\color{smagenta}\headingfont\textbf{!!} $\blacktriangleright$}
+{\headingfont\color{smagenta}\textbf{!!} $\blacktriangleright$}
 #1 {\color{smagenta}$\blacktriangleleft$}
 }
 
