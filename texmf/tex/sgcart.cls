@@ -809,7 +809,7 @@ headpunct={\@thmpunct}
 \begingroup%
 \centering%
 \headingfont%
-\setlength{\parskip}{0pt}\setlength{\parindent}{0pt}%
+\setlength{\parindent}{0pt}%
 {#1}\par\vspace{.5em}%
 \resetcolor%
 {\@authordisplay}\par{\@date}
