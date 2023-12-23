@@ -100,6 +100,7 @@ urlcolor = blue, filecolor = black, citecolor = black]{hyperref}
 \newcommand\str@pageblank{This page is intentionally left blank.}
 \newcommand\str@appendix{Appendix}
 \newcommand\str@edition{Edition}
+\newcommand\str@revision{Revision}
 \newcommand\str@abstract{Abstract}
 
 \newcommand\str@theorem{Theorem}
@@ -126,6 +127,7 @@ urlcolor = blue, filecolor = black, citecolor = black]{hyperref}
 \renewcommand\str@pageblank{Página dejada intencionadamente en blanco.}
 \renewcommand\str@appendix{Apéndice}
 \renewcommand\str@edition{Edición}
+\renewcommand\str@revision{Revisión}
 \renewcommand\str@abstract{Resumen}
 
 \addto\captionsspanish{
@@ -358,12 +360,12 @@ pdfcreator={LaTeX (SGC \sgc@version)}
 #1\@edition%
 }{%
 #1\@edition \ %
-(\str@draft\IfStrEq{\@draft}{nonum}{}{\ \@draft})%
+--- \str@draft\IfStrEq{\@draft}{nonum}{}{\ \@draft}%
 }%
 }%
 }
 
-\newcommand{\shortversion}{\@generateversion{}}
+\newcommand{\shortversion}{\@generateversion{v}}
 \newcommand{\longversion}{\@generateversion{\str@edition\ }}
 
 \SetBgContents{}
@@ -386,10 +388,10 @@ pdfcreator={LaTeX (SGC \sgc@version)}
 \renewcommand\@edition{#2.#3}%
 }{%
 \IfStrEq{#1}{today}{%
-\renewcommand\@edition{#2.#3 ++ %
-\the\year{}-\lzero\month-\lzero\day}%
+\renewcommand\@edition{#2.#3 (\str@revision\ %
+\the\year{}-\lzero\month-\lzero\day)}%
 }{%
-\renewcommand\@edition{#2.#3 ++ #1}%
+\renewcommand\@edition{#2.#3 (\str@revision \ #1)}%
 }%
 }%
 }
