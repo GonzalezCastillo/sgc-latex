@@ -187,28 +187,28 @@ CharacterVariant = {5,8,10,2},
 UprightFeatures = {
 SizeFeatures = {
 {Size = -16},
-{Size = 16-, Font = {*-Display}}
+{Size = 16-, Font = {*Display-Regular}}
 }
 },
 BoldFont = {*-Bold},
 BoldFeatures = {
 SizeFeatures = {
 {Size = -16},
-{Size = 16-, Font = {*-DisplayBold}}
+{Size = 16-, Font = {*Display-Bold}}
 }
 },
 ItalicFont = {*-Italic},
 ItalicFeatures = {
 SizeFeatures= {
 {Size = -16},
-{Size = 16-, Font = {*-DisplayItalic}}
+{Size = 16-, Font = {*Display-Italic}}
 }
 },
 BoldItalicFont = {*-BoldItalic},
 BoldItalicFeatures = {
 SizeFeatures = {
 {Size = -16},
-{Size = 16-, Font = {*-DisplayBoldItalic}}
+{Size = 16-, Font = {*Display-BoldItalic}}
 }
 }
 ]
@@ -222,28 +222,28 @@ CharacterVariant = {5,8,10,2},
 UprightFeatures = {
 SizeFeatures = {
 {Size = -16},
-{Size = 16-, Font = {*-DisplayLight}}
+{Size = 16-, Font = {*Display-Light}}
 }
 },
 BoldFont = {*-SemiBold},
 BoldFeatures = {
 SizeFeatures = {
 {Size = -16},
-{Size = 16-, Font = {*-DisplaySemiBold}}
+{Size = 16-, Font = {*Display-SemiBold}}
 }
 },
 ItalicFont = {*-LightItalic},
 ItalicFeatures = {
 SizeFeatures= {
 {Size = -16},
-{Size = 16-, Font = {*-DisplayLightItalic}}
+{Size = 16-, Font = {*Display-LightItalic}}
 }
 },
 BoldItalicFont = {*-SemiBoldItalic},
 BoldItalicFeatures = {
 SizeFeatures = {
 {Size = -16},
-{Size = 16-, Font = {*-DisplaySemiBoldItalic}}
+{Size = 16-, Font = {*Display-SemiBoldItalic}}
 }
 }
 ]
