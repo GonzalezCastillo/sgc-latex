@@ -313,6 +313,12 @@ BoldFont = {*-Bold}
 \newcommand\liff\leftrightarrow
 \newcommand\qsep{\boldsymbol{.}\; }
 
+\newcommand\lcm{\op{lcm}}
+\ifspanish
+\renewcommand\gcd{\op{mcd}}
+\renewcommand\lcm{\op{mcm}}
+\fi
+
 \newenvironment{lrcases} % rcases is already defined in mathtools
 {\left\{\begin{aligned}}
 {\end{aligned}\right\}}
