@@ -907,7 +907,7 @@ headpunct={\@thmpunct}
 \textbf{\@title}\\
 \textbf{\textit{\@subtitle}}\par
 {\longversion}\par
-\printcopyright\\\printlicense\par
+\printcopyright\IfStrEq{\printlicense}{\@empty}{}{\\ \printlicense}\par
 \@date\par
 \@code\par
 \else{#1}\fi
