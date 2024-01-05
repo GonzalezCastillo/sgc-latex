@@ -86,13 +86,25 @@
 
 % Bibliography
 
-\usepackage[style=numeric,maxnames=3]{biblatex}
+\usepackage[style=numeric,maxnames=3,minnames=3,backend=biber]{biblatex}
 \DeclareFieldFormat{labelnumber}{\small\mkbibbold{#1}}
 \DeclareFieldFormat{postnote}{\small #1}
 \DeclareFieldFormat[article]{title}{\mkbibemph{#1}}
 \DeclareFieldFormat[article]{citetitle}{\mkbibemph{#1}}
+\DeclareFieldFormat[inproceedings]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[inproceedings]{citetitle}{\mkbibemph{#1}}
+\DeclareFieldFormat{booktitle}{#1}
 \DeclareFieldFormat{journaltitle}{#1}
+\DeclareFieldFormat{pages}{#1}
+\DeclareFieldFormat{issn}{}
+\DeclareFieldFormat{isbn}{}
+\DeclareFieldFormat{doi}{}
+\DeclareFieldFormat{url}{\textsc{url}: \href{#1}{#1}}
 \renewbibmacro{in:}{}
+\DeclareSourcemap{
+	\maps[datatype=bibtex, overwrite]{
+		\map{\step[fieldset=editor, null]}}
+}
 
 %%fakesection Language
 
