@@ -262,12 +262,14 @@ SizeFeatures = {
 
 \newcommand\textsfl[1]{{\sflight#1}}
 
-\setmonofont{InconsolataN}[
-Extension = .otf,
+\setmonofont{JuliaMono}[
+Extension = .ttf,
 Ligatures = {TeX},
 UprightFont = {*-Regular},
-Scale = 1.02,
-BoldFont = {*-Bold}
+Scale = 0.85,
+BoldFont = {*-Bold},
+ItalicFont = {*-RegularItalic},
+BoldItalicFont = {*-BoldItalic}
 ]
 
 \else
