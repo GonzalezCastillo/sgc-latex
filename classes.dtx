@@ -10,9 +10,11 @@
 \NeedsTeXFormat{LaTeX2e}
 %<article>\ProvidesClass{sgcart}
 %<book>\ProvidesClass{sgcbook}
+%<pres>\ProvidesClass{sgcpres}
 
 %<article>\LoadClass[reqno,12pt,twoside]{article}
 %<book>\LoadClass[reqno,12pt]{book}
+%<pres>\LoadClassWithOptions{beamer}
 
 \newif\ifspanish\spanishfalse
 \newif\ifsans\sansfalse
@@ -186,6 +188,9 @@
 
 \ifxetex
 
+	\newcommand\threshold{16}
+	%<pres>\renewcommand\threshold{10}
+
 	\AfterPreamble{\hypersetup{
 		pdfproducer={XeTeX}
 	}}
@@ -200,29 +205,29 @@
 		CharacterVariant = {5,8,10},
 		UprightFeatures = {
 			SizeFeatures = {
-				{Size = -16},
-				{Size = 16-, Font = {*Display-Regular}}
+				{Size = -\threshold},
+				{Size = \threshold-, Font = {*Display-Regular}}
 			}
 		},
 		BoldFont = {*-Bold},
 		BoldFeatures = {
 			SizeFeatures = {
-				{Size = -16},
-				{Size = 16-, Font = {*Display-Bold}}
+				{Size = -\threshold},
+				{Size = \threshold-, Font = {*Display-Bold}}
 			}
 		},
 		ItalicFont = {*-Italic},
 		ItalicFeatures = {
 			SizeFeatures= {
-				{Size = -16},
-				{Size = 16-, Font = {*Display-Italic}}
+				{Size = -\threshold},
+				{Size = \threshold-, Font = {*Display-Italic}}
 			}
 		},
 		BoldItalicFont = {*-BoldItalic},
 		BoldItalicFeatures = {
 			SizeFeatures = {
-				{Size = -16},
-				{Size = 16-, Font = {*Display-BoldItalic}}
+				{Size = -\threshold},
+				{Size = \threshold-, Font = {*Display-BoldItalic}}
 			}
 		}
 	]
@@ -235,29 +240,29 @@
 		CharacterVariant = {5,8,10},
 		UprightFeatures = {
 			SizeFeatures = {
-				{Size = -16},
-				{Size = 16-, Font = {*Display-Light}}
+				{Size = -\threshold},
+				{Size = \threshold-, Font = {*Display-Light}}
 			}
 		},
 		BoldFont = {*-SemiBold},
 		BoldFeatures = {
 			SizeFeatures = {
-				{Size = -16},
-				{Size = 16-, Font = {*Display-SemiBold}}
+				{Size = -\threshold},
+				{Size = \threshold-, Font = {*Display-SemiBold}}
 			}
 		},
 		ItalicFont = {*-LightItalic},
 		ItalicFeatures = {
 			SizeFeatures= {
-				{Size = -16},
-				{Size = 16-, Font = {*Display-LightItalic}}
+				{Size = -\threshold},
+				{Size = \threshold-, Font = {*Display-LightItalic}}
 			}
 		},
 		BoldItalicFont = {*-SemiBoldItalic},
 		BoldItalicFeatures = {
 			SizeFeatures = {
-				{Size = -16},
-				{Size = 16-, Font = {*Display-SemiBoldItalic}}
+				{Size = -\threshold},
+				{Size = \threshold-, Font = {*Display-SemiBoldItalic}}
 			}
 		}
 	]
@@ -343,7 +348,7 @@
 	{\end{aligned}\right\}}
 
 % Document variables
-
+%<*doc>
 \newcommand\@authordisplay{}
 \renewcommand\author[2][\@empty]{%
 	\ifx#1\@empty%
@@ -353,9 +358,10 @@
 	\fi%
 }
 \def\@subtitle{}
+%</doc>
 \date{\today}
 \def\@years{\the\year}
-\newcommand{\subtitle}[1]{\renewcommand\@subtitle{#1}}
+%<doc>\newcommand{\subtitle}[1]{\renewcommand\@subtitle{#1}}
 \newcommand{\years}[1]{\renewcommand\@years{#1}}
 
 \AfterPreamble{\hypersetup{
@@ -456,6 +462,7 @@
 %</doc>
 
 % Custom commands for spacing
+%<*doc>
 \newlength\env@sep
 \newlength\label@sep
 \newlength\thm@skip
@@ -598,10 +605,12 @@
 	\fi
 	}{\end{enumerate}}
 
+%</doc>
 %%fakesection Environment formats, colours and pictures
 
 \captionsetup{labelfont=bf, font=small, margin={0.5\parindent}}
 
+%<*doc>
 \ifprint
 	\definecolor{sgreen}{cmyk}{.82,.11,.91,.21}
 	\definecolor{sred}{cmyk}{.07,.95,.77,.20}
@@ -614,6 +623,7 @@
 	\definecolor{ssilver}{cmyk}{.83,.62,.35,.23}
 	\definecolor{sgray}{cmyk}{.1,.1,.1,.1}
 \else
+%</doc>
 	\definecolor{sgreen}{RGB}{0, 124, 60}
 	\definecolor{sred}{RGB}{170, 8, 42}
 	\definecolor{sblue}{RGB}{0, 106, 182}
@@ -624,7 +634,7 @@
 	\definecolor{sblack}{RGB}{0,0,0}
 	\definecolor{ssilver}{RGB}{52, 73, 94}
 	\definecolor{sgray}{RGB}{198,198,198}
-\fi
+%<doc>\fi
 
 \newcommand\light[1]{#1!13}
 
@@ -638,9 +648,11 @@
 	keywordstyle=\bfseries,
 	stringstyle=\color{darkgray}
 }
+%<*doc>
 \ifafive
 	\lstset{basicstyle=\ttfamily}
 \fi
+%</doc>
 
 \DeclareRobustCommand{\issue}[1]{
 	{\headingfont\color{sred}\textbf{ISSUE} $\blacktriangleright$}
@@ -872,11 +884,14 @@
 
 \fi
 %</book>
+
+%<*doc>
 \renewcommand{\headrulewidth}{0pt}
 
 \ifprint\else
 	\let\cleardoublepage\clearpage
 \fi
+%</doc>
 
 
 
@@ -1038,3 +1053,52 @@
 
 %</article>
 
+%%fakesection Presentations
+
+%<*pres>
+\renewcommand\maincolor{ssilver}
+
+
+%\usetheme[sectionpage=simple,numbering=none,block=fill]{metropolis}
+%\setbeamercolor*{structure}{bg=\maincolor,fg=white}
+
+\setbeamertemplate{navigation symbols}{}
+
+\setbeamercolor{structure}{bg=\maincolor,fg=white}
+\setbeamercolor{block title}{bg=\maincolor,fg=white}
+\setbeamercolor{block body}{bg=\seccolor,fg=black}
+\setbeamercolor{section in toc}{fg=\maincolor}
+
+\setbeamerfont{block title}{shape=\bfseries}
+\setbeamerfont{frametitle}{shape=\bfseries}
+\setbeamerfont{title}{shape=\bfseries}
+\setbeamerfont{section title}{shape=\bfseries}
+\setbeamerfont{section name}{size=\large}
+
+
+
+
+\definecolor{presback}{RGB}{242, 249, 250}
+
+\setbeamercolor{normal text}{fg=black,bg=ssilver!10}
+%\setbeamercolor{normal text}{fg=white,bg=black!90}
+%\setbeamercolor{structure}{fg=white}
+
+%\setbeamercolor{alerted text}{fg=red!85!black}
+
+%\setbeamercolor{item projected}{use=item,fg=black,bg=item.fg!35}
+
+%\setbeamercolor*{palette primary}{use=structure,fg=structure.fg}
+%\setbeamercolor*{palette secondary}{use=structure,fg=structure.fg!95!black}
+%\setbeamercolor*{palette tertiary}{use=structure,fg=structure.fg!90!black}
+%\setbeamercolor*{palette quaternary}{use=structure,fg=structure.fg!95!black,bg=black!80}
+
+%\setbeamercolor*{framesubtitle}{fg=white}
+
+%\setbeamercolor*{block title}{parent=structure,bg=black!60}
+%\setbeamercolor*{block body}{fg=black,bg=black!10}
+%\setbeamercolor*{block title alerted}{parent=alerted text,bg=black!15}
+%\setbeamercolor*{block title example}{parent=example text,bg=black!15}
+
+
+%</pres>

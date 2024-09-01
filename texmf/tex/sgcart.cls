@@ -184,6 +184,8 @@ frenchmath, upint, nott
 
 \ifxetex
 
+\newcommand\threshold{16}
+
 \AfterPreamble{\hypersetup{
 pdfproducer={XeTeX}
 }}
@@ -198,29 +200,29 @@ Scale = 0.95,
 CharacterVariant = {5,8,10},
 UprightFeatures = {
 SizeFeatures = {
-{Size = -16},
-{Size = 16-, Font = {*Display-Regular}}
+{Size = -\threshold},
+{Size = \threshold-, Font = {*Display-Regular}}
 }
 },
 BoldFont = {*-Bold},
 BoldFeatures = {
 SizeFeatures = {
-{Size = -16},
-{Size = 16-, Font = {*Display-Bold}}
+{Size = -\threshold},
+{Size = \threshold-, Font = {*Display-Bold}}
 }
 },
 ItalicFont = {*-Italic},
 ItalicFeatures = {
 SizeFeatures= {
-{Size = -16},
-{Size = 16-, Font = {*Display-Italic}}
+{Size = -\threshold},
+{Size = \threshold-, Font = {*Display-Italic}}
 }
 },
 BoldItalicFont = {*-BoldItalic},
 BoldItalicFeatures = {
 SizeFeatures = {
-{Size = -16},
-{Size = 16-, Font = {*Display-BoldItalic}}
+{Size = -\threshold},
+{Size = \threshold-, Font = {*Display-BoldItalic}}
 }
 }
 ]
@@ -233,29 +235,29 @@ Scale = 0.95,
 CharacterVariant = {5,8,10},
 UprightFeatures = {
 SizeFeatures = {
-{Size = -16},
-{Size = 16-, Font = {*Display-Light}}
+{Size = -\threshold},
+{Size = \threshold-, Font = {*Display-Light}}
 }
 },
 BoldFont = {*-SemiBold},
 BoldFeatures = {
 SizeFeatures = {
-{Size = -16},
-{Size = 16-, Font = {*Display-SemiBold}}
+{Size = -\threshold},
+{Size = \threshold-, Font = {*Display-SemiBold}}
 }
 },
 ItalicFont = {*-LightItalic},
 ItalicFeatures = {
 SizeFeatures= {
-{Size = -16},
-{Size = 16-, Font = {*Display-LightItalic}}
+{Size = -\threshold},
+{Size = \threshold-, Font = {*Display-LightItalic}}
 }
 },
 BoldItalicFont = {*-SemiBoldItalic},
 BoldItalicFeatures = {
 SizeFeatures = {
-{Size = -16},
-{Size = 16-, Font = {*Display-SemiBoldItalic}}
+{Size = -\threshold},
+{Size = \threshold-, Font = {*Display-SemiBoldItalic}}
 }
 }
 ]
@@ -336,7 +338,6 @@ BoldItalicFont = {*-BoldItalic}
 \newenvironment{lrcases} % rcases is already defined in mathtools
 {\left\{\begin{aligned}}
 {\end{aligned}\right\}}
-
 
 \newcommand\@authordisplay{}
 \renewcommand\author[2][\@empty]{%
@@ -755,6 +756,7 @@ headpunct={\@thmpunct}
 \cfoot{\small\thepage}\rfoot{}\lfoot{}
 }
 \pagestyle{plain}
+
 \renewcommand{\headrulewidth}{0pt}
 
 \ifprint\else
@@ -868,6 +870,8 @@ headpunct={\@thmpunct}
 \@starttoc{toc}
 }
 
+
+%%fakesection Presentations
 
 \endinput
 %%
