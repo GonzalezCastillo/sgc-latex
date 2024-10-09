@@ -24,7 +24,6 @@
 \newif\ifsans\sansfalse
 \newif\ifserif\seriffalse
 \newif\iflm\lmfalse
-\newif\ifqc\qcfalse
 
 \DeclareOption{es}{\spanishtrue}
 \DeclareOption{sans}{
@@ -34,7 +33,6 @@
 \DeclareOption{serif}{\seriftrue}
 \DeclareOption{lm}{\lmtrue}
 \DeclareOption{sans}{\sanstrue}
-\DeclareOption{qc}{\qctrue}
 
 \newif\ifswap\swaptrue
 \newif\ifwithin\withinfalse
@@ -49,26 +47,20 @@
 \DeclareOption{spaced}{\spacedtrue}
 \DeclareOption{print}{\printtrue}
 
+
 \ProcessOptions\relax
 
 %%fakesection Packages and basic settings
-\RequirePackage{xcolor, geometry, graphicx, tikz, pgfplots, caption}
-\RequirePackage{enumitem, import, centernot, tabularray, xstring, calc}
-\RequirePackage{amsthm, thmtools, mathtools, cancel, interval}
+\RequirePackage{xcolor, geometry, graphicx, tikz, pgfplots, caption, xstring}
+\RequirePackage{enumitem, import, amsthm, thmtools, tabularray}
+\RequirePackage{mathtools, cancel, interval, centernot, quantikz, braket}
 \RequirePackage[final]{listings}
 \RequirePackage[separate-uncertainty = true]{siunitx}
-
-\ifqc
-\RequirePackage{quantikz, braket}
-\fi
 
 \usetikzlibrary{arrows.meta, calc, decorations.markings, math,
 intersections, patterns, cd}
 \tikzset{ % Make tikz lines thicker and adjust arrows
 >=Stealth,
-every picture/.style={line width=0.8pt},
-thick/.style={line width=1.6pt},
-very thick/.style={line width=2.4pt}
 }
 
 \setlength{\arrayrulewidth}{0.75pt} % Table rule thickness.
@@ -86,8 +78,8 @@ urlcolor = blue, filecolor = black, citecolor = black]{hyperref}
 
 
 \usepackage[style=numeric,maxnames=3,minnames=3,backend=biber]{biblatex}
-\DeclareFieldFormat{labelnumber}{\small\mkbibbold{#1}}
-\DeclareFieldFormat{postnote}{\small #1}
+\DeclareFieldFormat{labelnumber}{\mkbibbold{#1}}
+\DeclareFieldFormat{postnote}{#1}
 \DeclareFieldFormat[article]{title}{\mkbibemph{#1}}
 \DeclareFieldFormat[article]{citetitle}{\mkbibemph{#1}}
 \DeclareFieldFormat[inproceedings]{title}{\mkbibemph{#1}}
@@ -281,10 +273,10 @@ BoldItalicFont = {*-BoldItalic}
 \newcommand\textsfl[1]{\sffamily#1}
 \fi
 
-\newcommand\main@color{black}
-\newcommand\maincolor[1]{\renewcommand{\main@color}{#1}}
-\newcommand\headingfont{\sffamily\color{\main@color}}
-\newcommand\lightheadingfont{\sflight\color{\main@color}}
+\newcommand\@maincolor{black}
+\newcommand\maincolor[1]{\renewcommand{\@maincolor}{#1}}
+\newcommand\headingfont{\sffamily\color{\@maincolor}}
+\newcommand\lightheadingfont{\sflight\color{\@maincolor}}
 \newcommand\resetcolor{\color{black}}
 
 \ifsans
@@ -338,6 +330,14 @@ BoldItalicFont = {*-BoldItalic}
 \newenvironment{lrcases} % rcases is already defined in mathtools
 {\left\{\begin{aligned}}
 {\end{aligned}\right\}}
+
+\newenvironment{cd}{%
+    \begin{tikzcd}[every cell/.style={},%
+every arrow/.append style={-{stealth}},
+nodes={inner sep=4pt},%
+row sep=2em,%
+     column sep=2.75em]
+}{\end{tikzcd}}
 
 \newcommand\@authordisplay{}
 \renewcommand\author[2][\@empty]{%
@@ -418,7 +418,7 @@ pdfcreator={LaTeX (SGC \sgc@version)}
 }%
 }
 
-\newcommand\cf[1]{[{\small #1}]}
+\newcommand\cf[1]{[{#1}]}
 \newcommand\se{\S\,}
 
 
@@ -443,11 +443,12 @@ pdfcreator={LaTeX (SGC \sgc@version)}
 \SetBgPosition{-1cm, -8cm}
 \fi
 
+
+
 \newlength\env@sep
 \newlength\label@sep
 \newlength\thm@skip
 \setlength{\env@sep}{0.6em} % Space between environments.
-\setlength{\label@sep}{0.4em} % Space between labels and text (enums).
 \setlength{\thm@skip}{1.2em} % Space around theorems.
 \setlength{\partopsep}{0pt plus 0pt minus 0pt}
 
@@ -609,15 +610,16 @@ after=\setcounter{axiomnum}{\value{enumi}}
 \fi
 
 \newcommand\light[1]{#1!13}
+\newcommand\superlight[1]{#1!4!white!94!sblack}
 
 \lstset{tabsize = 4,
 basicstyle=\ttfamily,
 columns=flexible,
     showstringspaces=false,
 numbers=left,
-commentstyle=\color{darkgray},
-keywordstyle=\bfseries,
-stringstyle=\color{darkgray}
+commentstyle=\color{sgreen},%\color{darkgray},
+keywordstyle=\bfseries\color{sred},
+stringstyle=\color{sblue}%\color{darkgray}
 }
 \ifafive
 \lstset{basicstyle=\ttfamily}

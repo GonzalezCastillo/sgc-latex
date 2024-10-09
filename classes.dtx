@@ -14,13 +14,16 @@
 
 %<article>\LoadClass[reqno,12pt,twoside]{article}
 %<book>\LoadClass[reqno,12pt]{book}
-%<pres>\LoadClassWithOptions{beamer}
+%<*beam>
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{beamer}}
+\ProcessOptions\relax
+\LoadClass[final]{beamer}
+%</beam>
 
 \newif\ifspanish\spanishfalse
 \newif\ifsans\sansfalse
 \newif\ifserif\seriffalse
 \newif\iflm\lmfalse
-\newif\ifqc\qcfalse
 
 \DeclareOption{es}{\spanishtrue}
 \DeclareOption{sans}{
@@ -30,7 +33,6 @@
 \DeclareOption{serif}{\seriftrue}
 \DeclareOption{lm}{\lmtrue}
 \DeclareOption{sans}{\sanstrue}
-\DeclareOption{qc}{\qctrue}
 
 %<*doc>
 \newif\ifswap\swaptrue
@@ -48,26 +50,24 @@
 \DeclareOption{print}{\printtrue}
 %</doc>
 
+%<pres>\newif\ifspaced\spacedtrue
+
 \ProcessOptions\relax
 
 %%fakesection Packages and basic settings
-\RequirePackage{xcolor, geometry, graphicx, tikz, pgfplots, caption}
-\RequirePackage{enumitem, import, centernot, tabularray, xstring, calc}
-\RequirePackage{amsthm, thmtools, mathtools, cancel, interval}
+\RequirePackage{xcolor, geometry, graphicx, tikz, pgfplots, caption, xstring}
+%<doc>\RequirePackage{enumitem, import, amsthm, thmtools, tabularray}
+\RequirePackage{mathtools, cancel, interval, centernot, quantikz, braket}
 \RequirePackage[final]{listings}
 \RequirePackage[separate-uncertainty = true]{siunitx}
-
-\ifqc
-	\RequirePackage{quantikz, braket}
-\fi
 
 \usetikzlibrary{arrows.meta, calc, decorations.markings, math,
 	intersections, patterns, cd}
 \tikzset{ % Make tikz lines thicker and adjust arrows
 	>=Stealth,
-	every picture/.style={line width=0.8pt},
-	thick/.style={line width=1.6pt},
-	very thick/.style={line width=2.4pt}
+%	every picture/.style={line width=0.8pt},
+%	thick/.style={line width=1.6pt},
+%	very thick/.style={line width=2.4pt}
 }
 
 \setlength{\arrayrulewidth}{0.75pt} % Table rule thickness. 
@@ -89,8 +89,8 @@
 % Bibliography
 
 \usepackage[style=numeric,maxnames=3,minnames=3,backend=biber]{biblatex}
-\DeclareFieldFormat{labelnumber}{\small\mkbibbold{#1}}
-\DeclareFieldFormat{postnote}{\small #1}
+\DeclareFieldFormat{labelnumber}{\mkbibbold{#1}}
+\DeclareFieldFormat{postnote}{#1}
 \DeclareFieldFormat[article]{title}{\mkbibemph{#1}}
 \DeclareFieldFormat[article]{citetitle}{\mkbibemph{#1}}
 \DeclareFieldFormat[inproceedings]{title}{\mkbibemph{#1}}
@@ -144,7 +144,7 @@
 	\renewcommand\str@edition{Edición}
 	\renewcommand\str@revision{Revisión}
 	\renewcommand\str@abstract{Resumen}
-	
+
 	\addto\captionsspanish{
 		\renewcommand{\contentsname}{Índice}
 	}
@@ -286,10 +286,10 @@
 	\newcommand\textsfl[1]{\sffamily#1}
 \fi
 
-\newcommand\main@color{black}
-\newcommand\maincolor[1]{\renewcommand{\main@color}{#1}}
-\newcommand\headingfont{\sffamily\color{\main@color}}
-\newcommand\lightheadingfont{\sflight\color{\main@color}}
+\newcommand\@maincolor{black}
+\newcommand\maincolor[1]{\renewcommand{\@maincolor}{#1}}
+\newcommand\headingfont{\sffamily\color{\@maincolor}}
+\newcommand\lightheadingfont{\sflight\color{\@maincolor}}
 \newcommand\resetcolor{\color{black}}
 
 \ifsans
@@ -346,6 +346,14 @@
 \newenvironment{lrcases} % rcases is already defined in mathtools
 	{\left\{\begin{aligned}}
 	{\end{aligned}\right\}}
+
+\newenvironment{cd}{%
+    \begin{tikzcd}[every cell/.style={},%
+		every arrow/.append style={-{stealth}},
+		nodes={inner sep=4pt},%
+		row sep=2em,%
+    	column sep=2.75em]
+}{\end{tikzcd}}
 
 % Document variables
 %<*doc>
@@ -433,7 +441,7 @@
 }
 
 % Referencing commands
-\newcommand\cf[1]{[{\small #1}]}
+\newcommand\cf[1]{[{#1}]}
 \newcommand\se{\S\,}
 
 %</doc>
@@ -462,12 +470,14 @@
 %</doc>
 
 % Custom commands for spacing
+
+%<beam>\lstset{aboveskip = 1.5em, belowskip=1.5em, xleftmargin=0pt}	
+
 %<*doc>
 \newlength\env@sep
 \newlength\label@sep
 \newlength\thm@skip
 \setlength{\env@sep}{0.6em} % Space between environments.
-\setlength{\label@sep}{0.4em} % Space between labels and text (enums).
 \setlength{\thm@skip}{1.2em} % Space around theorems.
 \setlength{\partopsep}{0pt plus 0pt minus 0pt}
 
@@ -498,6 +508,7 @@
 	\settowidth\numlength{#2}%
 	\makebox[\ifdim\numlength>#1{\numlength}\else{#1}\fi][l]{#2}%
 }
+
 
 %%fakesection Lists and related environments
 
@@ -604,8 +615,8 @@
 			\global\def\axiomletter{#1}]
 	\fi
 	}{\end{enumerate}}
-
 %</doc>
+
 %%fakesection Environment formats, colours and pictures
 
 \captionsetup{labelfont=bf, font=small, margin={0.5\parindent}}
@@ -637,6 +648,7 @@
 %<doc>\fi
 
 \newcommand\light[1]{#1!13}
+\newcommand\superlight[1]{#1!4!white!94!sblack}
 
 % Maximum listing width: 70 characters.
 \lstset{tabsize = 4,
@@ -1056,49 +1068,30 @@
 %%fakesection Presentations
 
 %<*pres>
-\renewcommand\maincolor{ssilver}
 
-
-%\usetheme[sectionpage=simple,numbering=none,block=fill]{metropolis}
-%\setbeamercolor*{structure}{bg=\maincolor,fg=white}
 
 \setbeamertemplate{navigation symbols}{}
 
-\setbeamercolor{structure}{bg=\maincolor,fg=white}
-\setbeamercolor{block title}{bg=\maincolor,fg=white}
-\setbeamercolor{block body}{bg=\seccolor,fg=black}
-\setbeamercolor{section in toc}{fg=\maincolor}
+\definecolor{presback}{RGB}{242, 240, 239}
+
+\setbeamercolor{palette primary}{fg=\@maincolor}
+\setbeamercolor{item}{fg=\@maincolor}
+\setbeamercolor{structure}{fg=\@maincolor}
+\setbeamercolor{block title}{bg=\@maincolor,fg=white}
+\setbeamercolor{block body}{bg=\light{\@maincolor},fg=black}
+\setbeamercolor{section in toc}{fg=\@maincolor}
+\setbeamercolor{normal text}{fg=black,bg=presback}
+%\setbeamercolor{alerted text}{fg=red!85!black}
 
 \setbeamerfont{block title}{shape=\bfseries}
 \setbeamerfont{frametitle}{shape=\bfseries}
 \setbeamerfont{title}{shape=\bfseries}
-\setbeamerfont{section title}{shape=\bfseries}
+\setbeamerfont{section title}{size=\Large,shape=\bfseries}
 \setbeamerfont{section name}{size=\large}
+\setbeamerfont{date}{size=\small}
 
 
 
-
-\definecolor{presback}{RGB}{242, 249, 250}
-
-\setbeamercolor{normal text}{fg=black,bg=ssilver!10}
-%\setbeamercolor{normal text}{fg=white,bg=black!90}
-%\setbeamercolor{structure}{fg=white}
-
-%\setbeamercolor{alerted text}{fg=red!85!black}
-
-%\setbeamercolor{item projected}{use=item,fg=black,bg=item.fg!35}
-
-%\setbeamercolor*{palette primary}{use=structure,fg=structure.fg}
-%\setbeamercolor*{palette secondary}{use=structure,fg=structure.fg!95!black}
-%\setbeamercolor*{palette tertiary}{use=structure,fg=structure.fg!90!black}
-%\setbeamercolor*{palette quaternary}{use=structure,fg=structure.fg!95!black,bg=black!80}
-
-%\setbeamercolor*{framesubtitle}{fg=white}
-
-%\setbeamercolor*{block title}{parent=structure,bg=black!60}
-%\setbeamercolor*{block body}{fg=black,bg=black!10}
-%\setbeamercolor*{block title alerted}{parent=alerted text,bg=black!15}
-%\setbeamercolor*{block title example}{parent=example text,bg=black!15}
 
 
 %</pres>

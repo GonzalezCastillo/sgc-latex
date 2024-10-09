@@ -4,7 +4,7 @@
 %%
 %% The original source files were:
 %%
-%% classes.dtx  (with options: `pres')
+%% classes.dtx  (with options: `beam,pres')
 %% 
 %%
 %% Copyright (C) Samuel González-Castillo (sgc.ink).
@@ -18,13 +18,14 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{sgcpres}
 
-\LoadClassWithOptions{beamer}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{beamer}}
+\ProcessOptions\relax
+\LoadClass[final]{beamer}
 
 \newif\ifspanish\spanishfalse
 \newif\ifsans\sansfalse
 \newif\ifserif\seriffalse
 \newif\iflm\lmfalse
-\newif\ifqc\qcfalse
 
 \DeclareOption{es}{\spanishtrue}
 \DeclareOption{sans}{
@@ -34,29 +35,22 @@
 \DeclareOption{serif}{\seriftrue}
 \DeclareOption{lm}{\lmtrue}
 \DeclareOption{sans}{\sanstrue}
-\DeclareOption{qc}{\qctrue}
 
+
+\newif\ifspaced\spacedtrue
 
 \ProcessOptions\relax
 
 %%fakesection Packages and basic settings
-\RequirePackage{xcolor, geometry, graphicx, tikz, pgfplots, caption}
-\RequirePackage{enumitem, import, centernot, tabularray, xstring, calc}
-\RequirePackage{amsthm, thmtools, mathtools, cancel, interval}
+\RequirePackage{xcolor, geometry, graphicx, tikz, pgfplots, caption, xstring}
+\RequirePackage{mathtools, cancel, interval, centernot, quantikz, braket}
 \RequirePackage[final]{listings}
 \RequirePackage[separate-uncertainty = true]{siunitx}
-
-\ifqc
-\RequirePackage{quantikz, braket}
-\fi
 
 \usetikzlibrary{arrows.meta, calc, decorations.markings, math,
 intersections, patterns, cd}
 \tikzset{ % Make tikz lines thicker and adjust arrows
 >=Stealth,
-every picture/.style={line width=0.8pt},
-thick/.style={line width=1.6pt},
-very thick/.style={line width=2.4pt}
 }
 
 \setlength{\arrayrulewidth}{0.75pt} % Table rule thickness.
@@ -64,8 +58,8 @@ very thick/.style={line width=2.4pt}
 
 
 \usepackage[style=numeric,maxnames=3,minnames=3,backend=biber]{biblatex}
-\DeclareFieldFormat{labelnumber}{\small\mkbibbold{#1}}
-\DeclareFieldFormat{postnote}{\small #1}
+\DeclareFieldFormat{labelnumber}{\mkbibbold{#1}}
+\DeclareFieldFormat{postnote}{#1}
 \DeclareFieldFormat[article]{title}{\mkbibemph{#1}}
 \DeclareFieldFormat[article]{citetitle}{\mkbibemph{#1}}
 \DeclareFieldFormat[inproceedings]{title}{\mkbibemph{#1}}
@@ -260,10 +254,10 @@ BoldItalicFont = {*-BoldItalic}
 \newcommand\textsfl[1]{\sffamily#1}
 \fi
 
-\newcommand\main@color{black}
-\newcommand\maincolor[1]{\renewcommand{\main@color}{#1}}
-\newcommand\headingfont{\sffamily\color{\main@color}}
-\newcommand\lightheadingfont{\sflight\color{\main@color}}
+\newcommand\@maincolor{black}
+\newcommand\maincolor[1]{\renewcommand{\@maincolor}{#1}}
+\newcommand\headingfont{\sffamily\color{\@maincolor}}
+\newcommand\lightheadingfont{\sflight\color{\@maincolor}}
 \newcommand\resetcolor{\color{black}}
 
 \ifsans
@@ -318,6 +312,14 @@ BoldItalicFont = {*-BoldItalic}
 {\left\{\begin{aligned}}
 {\end{aligned}\right\}}
 
+\newenvironment{cd}{%
+    \begin{tikzcd}[every cell/.style={},%
+every arrow/.append style={-{stealth}},
+nodes={inner sep=4pt},%
+row sep=2em,%
+     column sep=2.75em]
+}{\end{tikzcd}}
+
 \date{\today}
 \def\@years{\the\year}
 \newcommand{\years}[1]{\renewcommand\@years{#1}}
@@ -339,6 +341,10 @@ pdfcreator={LaTeX (SGC \sgc@version)}
 %%fakesection Spacing and geometry
 
 
+
+\lstset{aboveskip = 1.5em, belowskip=1.5em, xleftmargin=0pt} 
+
+
 %%fakesection Environment formats, colours and pictures
 
 \captionsetup{labelfont=bf, font=small, margin={0.5\parindent}}
@@ -355,15 +361,16 @@ pdfcreator={LaTeX (SGC \sgc@version)}
 \definecolor{sgray}{RGB}{198,198,198}
 
 \newcommand\light[1]{#1!13}
+\newcommand\superlight[1]{#1!4!white!94!sblack}
 
 \lstset{tabsize = 4,
 basicstyle=\ttfamily,
 columns=flexible,
     showstringspaces=false,
 numbers=left,
-commentstyle=\color{darkgray},
-keywordstyle=\bfseries,
-stringstyle=\color{darkgray}
+commentstyle=\color{sgreen},%\color{darkgray},
+keywordstyle=\bfseries\color{sred},
+stringstyle=\color{sblue}%\color{darkgray}
 }
 
 \DeclareRobustCommand{\issue}[1]{
@@ -414,30 +421,25 @@ stringstyle=\color{darkgray}
 
 %%fakesection Presentations
 
-\renewcommand\maincolor{ssilver}
-
 
 \setbeamertemplate{navigation symbols}{}
 
-\setbeamercolor{structure}{bg=\maincolor,fg=white}
-\setbeamercolor{block title}{bg=\maincolor,fg=white}
-\setbeamercolor{block body}{bg=\seccolor,fg=black}
-\setbeamercolor{section in toc}{fg=\maincolor}
+\definecolor{presback}{RGB}{242, 240, 239}
+
+\setbeamercolor{palette primary}{fg=\@maincolor}
+\setbeamercolor{item}{fg=\@maincolor}
+\setbeamercolor{structure}{fg=\@maincolor}
+\setbeamercolor{block title}{bg=\@maincolor,fg=white}
+\setbeamercolor{block body}{bg=\light{\@maincolor},fg=black}
+\setbeamercolor{section in toc}{fg=\@maincolor}
+\setbeamercolor{normal text}{fg=black,bg=presback}
 
 \setbeamerfont{block title}{shape=\bfseries}
 \setbeamerfont{frametitle}{shape=\bfseries}
 \setbeamerfont{title}{shape=\bfseries}
-\setbeamerfont{section title}{shape=\bfseries}
+\setbeamerfont{section title}{size=\Large,shape=\bfseries}
 \setbeamerfont{section name}{size=\large}
-
-\definecolor{presback}{RGB}{242, 249, 250}
-
-\setbeamercolor{normal text}{fg=black,bg=ssilver!10}
-
-
-
-
-
+\setbeamerfont{date}{size=\small}
 
 \endinput
 %%
