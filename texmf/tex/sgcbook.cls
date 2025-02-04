@@ -13,7 +13,7 @@
 
 %%fakesection Initial setup and class options
 
-\newcommand\sgc@version{v1.0.0-beta}
+\def\sgc@compileday{(?)}
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{sgcbook}
@@ -356,7 +356,7 @@ row sep=2em,%
 \AfterPreamble{\hypersetup{
 pdftitle={\@title},
 pdfauthor={\@author},
-pdfcreator={LaTeX (SGC \sgc@version)}
+pdfcreator={SGC-LaTeX v\sgc@compileday}
 }}
 
 \newcommand{\printcopyright}{Copyright \copyright \ \@years, \@author.}
@@ -936,6 +936,7 @@ headpunct={\@thmpunct}
 
 %%fakesection Presentations
 
-\endinput
+%% 
 %%
 %% End of file `texmf/tex/sgcbook.cls'.
+\def\sgc@compileday{2025-02-04}
