@@ -449,6 +449,7 @@ pdfcreator={LaTeX (SGC \sgc@version)}
 \newlength\label@sep
 \newlength\thm@skip
 \setlength{\env@sep}{0.6em} % Space between environments.
+\setlength{\label@sep}{0.4em} % Space between labels and text (enums).
 \setlength{\thm@skip}{1.2em} % Space around theorems.
 \setlength{\partopsep}{0pt plus 0pt minus 0pt}
 
@@ -617,9 +618,9 @@ basicstyle=\ttfamily,
 columns=flexible,
     showstringspaces=false,
 numbers=left,
-commentstyle=\color{sgreen},%\color{darkgray},
-keywordstyle=\bfseries\color{sred},
-stringstyle=\color{sblue}%\color{darkgray}
+commentstyle=\color{darkgray},
+keywordstyle=\bfseries,
+stringstyle=\color{darkgray}
 }
 \ifafive
 \lstset{basicstyle=\ttfamily}

@@ -368,9 +368,9 @@ basicstyle=\ttfamily,
 columns=flexible,
     showstringspaces=false,
 numbers=left,
-commentstyle=\color{sgreen},%\color{darkgray},
-keywordstyle=\bfseries\color{sred},
-stringstyle=\color{sblue}%\color{darkgray}
+commentstyle=\color{darkgray},
+keywordstyle=\bfseries,
+stringstyle=\color{darkgray}
 }
 
 \DeclareRobustCommand{\issue}[1]{
