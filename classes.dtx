@@ -16,8 +16,9 @@
 %<book>\LoadClass[reqno,12pt]{book}
 %<*beam>
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{beamer}}
+\PassOptionsToClass{12pt}{beamer}
 \ProcessOptions\relax
-\LoadClass[final]{beamer}
+\LoadClass{beamer}
 %</beam>
 
 \newif\ifspanish\spanishfalse
@@ -33,6 +34,7 @@
 \DeclareOption{serif}{\seriftrue}
 \DeclareOption{lm}{\lmtrue}
 \DeclareOption{sans}{\sanstrue}
+%<beam>\sanstrue
 
 %<*doc>
 \newif\ifswap\swaptrue
@@ -1070,6 +1072,7 @@
 
 %<*pres>
 
+\setlength\parskip{0.6em}
 
 \setbeamertemplate{navigation symbols}{}
 
@@ -1091,8 +1094,28 @@
 \setbeamerfont{section name}{size=\large}
 \setbeamerfont{date}{size=\small}
 
+\newcommand\bigrule{\bigskip \hrule height 1pt \bigskip}
+\newcommand\imgframe[2][0.8]{
+\begin{frame}[plain]
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[at=(current page.center)] {
+			\includegraphics[keepaspectratio,width=#1\paperwidth, height=#1\paperheight]{#2}
+        };
+    \end{tikzpicture}
+\end{frame}
+}
+	\newcommand\fullimgframe[1]{
+\begin{frame}[plain]
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[at=(current page.center)] {
+            \includegraphics[keepaspectratio,width=\paperwidth, height=\paperheight]{#1}
+        };
+    \end{tikzpicture}
+\end{frame}
+}
+\newcommand\shout{\Huge\bfseries\sflight\color{\@maincolor}}
 
-
-
+\useinnertheme[rounded=true,showtitle=false,shaded=false,shadow=false,halign=flush left]{tcolorbox}
+\tcbset{boxsep=10pt,bottom=2pt,colback=white}
 
 %</pres>

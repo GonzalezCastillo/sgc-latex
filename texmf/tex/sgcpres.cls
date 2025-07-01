@@ -19,8 +19,9 @@
 \ProvidesClass{sgcpres}
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{beamer}}
+\PassOptionsToClass{12pt}{beamer}
 \ProcessOptions\relax
-\LoadClass[final]{beamer}
+\LoadClass{beamer}
 
 \newif\ifspanish\spanishfalse
 \newif\ifsans\sansfalse
@@ -35,6 +36,7 @@
 \DeclareOption{serif}{\seriftrue}
 \DeclareOption{lm}{\lmtrue}
 \DeclareOption{sans}{\sanstrue}
+\sanstrue
 
 
 \newif\ifspaced\spacedtrue
@@ -422,6 +424,8 @@ stringstyle=\color{darkgray}
 %%fakesection Presentations
 
 
+\setlength\parskip{0.6em}
+
 \setbeamertemplate{navigation symbols}{}
 
 \definecolor{presback}{RGB}{242, 240, 239}
@@ -441,7 +445,31 @@ stringstyle=\color{darkgray}
 \setbeamerfont{section name}{size=\large}
 \setbeamerfont{date}{size=\small}
 
+\newcommand\bigrule{\bigskip \hrule height 1pt \bigskip}
+\newcommand\imgframe[2][0.8]{
+\begin{frame}[plain]
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[at=(current page.center)] {
+\includegraphics[keepaspectratio,width=#1\paperwidth, height=#1\paperheight]{#2}
+        };
+    \end{tikzpicture}
+\end{frame}
+}
+\newcommand\fullimgframe[1]{
+\begin{frame}[plain]
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[at=(current page.center)] {
+            \includegraphics[keepaspectratio,width=\paperwidth, height=\paperheight]{#1}
+        };
+    \end{tikzpicture}
+\end{frame}
+}
+\newcommand\shout{\Huge\bfseries\sflight\color{\@maincolor}}
+
+\useinnertheme[rounded=true,showtitle=false,shaded=false,shadow=false,halign=flush left]{tcolorbox}
+\tcbset{boxsep=10pt,bottom=2pt,colback=white}
+
 %% 
 %%
 %% End of file `texmf/tex/sgcpres.cls'.
-\def\sgc@compileday{2025-02-04}
+\def\sgc@compileday{2025-07-01}

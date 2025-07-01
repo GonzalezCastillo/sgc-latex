@@ -939,4 +939,4 @@ headpunct={\@thmpunct}
 %% 
 %%
 %% End of file `texmf/tex/sgcbook.cls'.
-\def\sgc@compileday{2025-02-04}
+\def\sgc@compileday{2025-07-01}

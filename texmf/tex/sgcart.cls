@@ -879,4 +879,4 @@ headpunct={\@thmpunct}
 %% 
 %%
 %% End of file `texmf/tex/sgcart.cls'.
-\def\sgc@compileday{2025-02-04}
+\def\sgc@compileday{2025-07-01}
