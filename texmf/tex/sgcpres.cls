@@ -429,6 +429,17 @@ stringstyle=\color{darkgray}
 \setbeamertemplate{navigation symbols}{}
 
 \definecolor{presback}{RGB}{242, 240, 239}
+\newcommand\@presback{presback}
+
+\renewcommand\maincolor[1]{%
+\IfStrEq{#1}{sblack}{%
+\renewcommand\@maincolor{#1}%
+\renewcommand\@presback{presback}%
+}{%
+\renewcommand\@maincolor{#1}%
+\renewcommand\@presback{#1!7}
+}
+}
 
 \setbeamercolor{palette primary}{fg=\@maincolor}
 \setbeamercolor{item}{fg=\@maincolor}
@@ -436,7 +447,7 @@ stringstyle=\color{darkgray}
 \setbeamercolor{block title}{bg=\@maincolor,fg=white}
 \setbeamercolor{block body}{bg=\light{\@maincolor},fg=black}
 \setbeamercolor{section in toc}{fg=\@maincolor}
-\setbeamercolor{normal text}{fg=black,bg=presback}
+\setbeamercolor{normal text}{fg=black,bg=\@presback}
 
 \setbeamerfont{block title}{shape=\bfseries}
 \setbeamerfont{frametitle}{shape=\bfseries}
@@ -472,4 +483,4 @@ stringstyle=\color{darkgray}
 %% 
 %%
 %% End of file `texmf/tex/sgcpres.cls'.
-\def\sgc@compileday{2025-07-01}
+\def\sgc@compileday{2025-07-04}
