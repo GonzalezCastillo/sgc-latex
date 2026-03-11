@@ -485,4 +485,4 @@ stringstyle=\color{darkgray}
 %% 
 %%
 %% End of file `texmf/tex/sgcpres.cls'.
-\def\sgc@compileday{2025-07-04}
+\def\sgc@compileday{2026-03-11}

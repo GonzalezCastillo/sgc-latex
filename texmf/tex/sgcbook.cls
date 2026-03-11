@@ -545,6 +545,11 @@ leftmargin=\parindent, rightmargin=\parindent,
 align = left, labelsep = 0pt, labelwidth = 0pt,
 topsep=\env@sep, itemsep=0pt, font=\small,label=}
 
+\newlist{steps}{enumerate}{3}
+\setlist[steps,1]{label=(\arabic*)}
+\setlist[steps,2]{label=(\arabic{stepsi}.\arabic*)}
+\setlist[steps,3]{label=(\arabic{stepsi}.\arabic{stepsii}.\arabic*)}
+
 \renewenvironment{quote}{
 \begingroup\small\begin{quotenum}\item
 }{
@@ -941,4 +946,4 @@ headpunct={\@thmpunct}
 %% 
 %%
 %% End of file `texmf/tex/sgcbook.cls'.
-\def\sgc@compileday{2025-07-04}
+\def\sgc@compileday{2026-03-11}
