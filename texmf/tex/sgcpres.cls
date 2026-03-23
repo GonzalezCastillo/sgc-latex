@@ -45,7 +45,7 @@
 
 %%fakesection Packages and basic settings
 \RequirePackage{xcolor, geometry, graphicx, tikz, pgfplots, caption, xstring}
-\RequirePackage{mathtools, cancel, interval, centernot, quantikz, braket}
+\RequirePackage{mathtools, cancel, interval, centernot, braket}
 \RequirePackage[final]{listings}
 \RequirePackage[separate-uncertainty = true]{siunitx}
 
@@ -485,4 +485,4 @@ stringstyle=\color{darkgray}
 %% 
 %%
 %% End of file `texmf/tex/sgcpres.cls'.
-\def\sgc@compileday{2026-03-11}
+\def\sgc@compileday{2026-03-22}

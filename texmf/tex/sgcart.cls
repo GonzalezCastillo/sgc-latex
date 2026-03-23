@@ -53,7 +53,7 @@
 %%fakesection Packages and basic settings
 \RequirePackage{xcolor, geometry, graphicx, tikz, pgfplots, caption, xstring}
 \RequirePackage{enumitem, import, amsthm, thmtools, tabularray}
-\RequirePackage{mathtools, cancel, interval, centernot, quantikz, braket}
+\RequirePackage{mathtools, cancel, interval, centernot, braket}
 \RequirePackage[final]{listings}
 \RequirePackage[separate-uncertainty = true]{siunitx}
 
@@ -886,4 +886,4 @@ headpunct={\@thmpunct}
 %% 
 %%
 %% End of file `texmf/tex/sgcart.cls'.
-\def\sgc@compileday{2026-03-11}
+\def\sgc@compileday{2026-03-22}
