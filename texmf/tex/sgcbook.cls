@@ -184,11 +184,11 @@ pdfproducer={XeTeX}
 
 \RequirePackage[no-math]{fontspec}
 
+\newcommand{\mononum}[1]{{\addfontfeatures{Numbers=Monospaced}#1}}
 \setsansfont{Inter}[
 Extension = .otf,
 Ligatures = {TeX},
 UprightFont = {*-Regular},
-Numbers = Monospaced,
 Scale = 0.95,
 CharacterVariant = {5,8,10},
 UprightFeatures = {
@@ -224,7 +224,6 @@ SizeFeatures = {
 Extension = .otf,
 Ligatures = {TeX},
 UprightFont = {*-Light},
-Numbers = Monospaced,
 Scale = 0.95,
 CharacterVariant = {5,8,10},
 UprightFeatures = {
@@ -669,7 +668,7 @@ spaceabove=\thm@skip,
 spacebelow=\thm@skip,
 postheadspace=0pt,
 headformat={%
-\minwidthbox{\parindentpt}{\headingfont\NUMBER\ }\NAME \NOTE%
+\minwidthbox{\parindentpt}{\headingfont\mononum{\NUMBER}\ }\NAME \NOTE%
 },
 headpunct={\@thmpunct\ \,}
 ]{theorem}
@@ -682,7 +681,7 @@ spacebelow=\thm@skip,
 postheadspace=0pt,
 headformat={%
 \renewcommand\thmt@space{}%
-\minwidthbox{\parindentpt}{\headingfont\NUMBER \ }\NOTE%
+\minwidthbox{\parindentpt}{\headingfont\mononum{\NUMBER} \ }\NOTE%
 },
 headpunct={\if\NOTE\empty\else{\@thmpunct\ \,}\fi}
 ]{custom}
@@ -863,11 +862,11 @@ headpunct={\@thmpunct}
 
 
 \titleformat{\section}{\large\bfseries\headingfont}{%
-\minwidthbox{\parindentpt}{\thesection \ }}{0pt}{}
+\minwidthbox{\parindentpt}{\mononum{\thesection} \ }}{0pt}{}
 \titlespacing*{\section}{0pt}{2\thm@skip}{\thm@skip}[0pt]
 
 \titleformat{\subsection}{\bfseries\headingfont}%
-{\minwidthbox{\parindentpt}{\thesubsection \ }}{0pt}{}
+{\minwidthbox{\parindentpt}{\mononum{\thesubsection} \ }}{0pt}{}
 
 \titlespacing*{\subsection}{0pt}{2\thm@skip}{\thm@skip}[0pt]
 
@@ -946,4 +945,4 @@ headpunct={\@thmpunct}
 %% 
 %%
 %% End of file `texmf/tex/sgcbook.cls'.
-\def\sgc@compileday{2026-03-22}
+\def\sgc@compileday{2026-04-17}

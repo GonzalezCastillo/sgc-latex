@@ -167,11 +167,11 @@ pdfproducer={XeTeX}
 
 \RequirePackage[no-math]{fontspec}
 
+\newcommand{\mononum}[1]{{\addfontfeatures{Numbers=Monospaced}#1}}
 \setsansfont{Inter}[
 Extension = .otf,
 Ligatures = {TeX},
 UprightFont = {*-Regular},
-Numbers = Monospaced,
 Scale = 0.95,
 CharacterVariant = {5,8,10},
 UprightFeatures = {
@@ -207,7 +207,6 @@ SizeFeatures = {
 Extension = .otf,
 Ligatures = {TeX},
 UprightFont = {*-Light},
-Numbers = Monospaced,
 Scale = 0.95,
 CharacterVariant = {5,8,10},
 UprightFeatures = {
@@ -485,4 +484,4 @@ stringstyle=\color{darkgray}
 %% 
 %%
 %% End of file `texmf/tex/sgcpres.cls'.
-\def\sgc@compileday{2026-03-22}
+\def\sgc@compileday{2026-04-17}
