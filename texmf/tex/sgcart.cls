@@ -77,25 +77,39 @@ urlcolor = blue, filecolor = black, citecolor = black]{hyperref}
 \SetBgColor{black}
 
 
-\usepackage[style=numeric,maxnames=3,minnames=3,backend=biber]{biblatex}
-\DeclareFieldFormat{labelnumber}{\mkbibbold{#1}}
+\usepackage[style=ext-numeric-comp,maxnames=3,minnames=3,backend=biber]{biblatex}
+\DeclareFieldFormat
+  [article,inbook,incollection,inproceedings,patent,thesis,unpublished,book]
+  {titlecase:title}{\MakeSentenceCase*{#1}}
+\DeclareFieldFormat{labelnumber}{\textsfl{\mkbibbold{#1}}}
 \DeclareFieldFormat{postnote}{#1}
-\DeclareFieldFormat[article]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[article]{title}{\mkbibemph{\MakeSentenceCase*{#1}}}
 \DeclareFieldFormat[article]{citetitle}{\mkbibemph{#1}}
 \DeclareFieldFormat[inproceedings]{title}{\mkbibemph{#1}}
 \DeclareFieldFormat[inproceedings]{citetitle}{\mkbibemph{#1}}
-\DeclareFieldFormat{booktitle}{#1}
+\DeclareFieldFormat[incollection]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[incollection]{citetitle}{\mkbibemph{#1}}
+\DeclareFieldFormat[phdthesis]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[phdthesis]{citetitle}{\mkbibemph{#1}}
+\DeclareFieldFormat{booktitle}{\MakeSentenceCase{#1}}
 \DeclareFieldFormat{journaltitle}{#1}
 \DeclareFieldFormat{pages}{#1}
 \DeclareFieldFormat{issn}{}
 \DeclareFieldFormat{isbn}{}
-\DeclareFieldFormat{doi}{}
+\DeclareFieldFormat{doi}{\textsc{doi}: \textsf{\href{https://doi.org/#1}{#1}}}
 \DeclareFieldFormat{url}{\textsc{url}: \href{#1}{#1}}
+\DeclareFieldFormat{eprint:arxiv}{%
+  {arXiv}: \textsf{\href{https://arxiv.org/abs/#1}{#1}}%
+  \iffieldundef{eprintclass}
+    {}
+    {\space[\printfield{eprintclass}]}%
+}
 \renewbibmacro{in:}{}
 \DeclareSourcemap{
 \maps[datatype=bibtex, overwrite]{
 \map{\step[fieldset=editor, null]}}
 }
+\AtEveryBibitem{\clearlist{location}\clearfield{issue}\clearfield{month}}
 
 %%fakesection Language
 
@@ -885,4 +899,4 @@ headpunct={\@thmpunct}
 %% 
 %%
 %% End of file `texmf/tex/sgcart.cls'.
-\def\sgc@compileday{2026-04-17}
+\def\sgc@compileday{2026-04-18}
