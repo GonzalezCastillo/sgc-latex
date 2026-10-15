@@ -790,9 +790,7 @@ headpunct={\@thmpunct}
 \newcommand\chlabel[1]{%
 \renewcommand\@chlabel{#1}\@classiclabel{#1}%
 }%
-\let\@classicamslabel\label@in@display
 \renewcommand{\label}[1]{\@classiclabel{\@chlabel:#1}}
-\renewcommand{\label@in@display}[1]{\@classicamslabel{\@chlabel:#1}}
 \renewcommand{\ref}[2][\@empty]{%
 \IfStrEq{#1}{\@empty}{%
 \@classicref{\@chlabel:#2}%
@@ -934,7 +932,7 @@ headpunct={\@thmpunct}
 \textbf{\@title}\\
 \textbf{\textit{\@subtitle}}\par
 {\longversion}\par
-\printcopyright\IfStrEq{\printlicense}{\@empty}{}{\\ \printlicense}\par
+\printcopyright\if\relax\detokenize\expandafter{\str@license}\relax\else\\ \printlicense\fi\par
 \@date\par
 \@code\par
 \else{#1}\fi
@@ -959,4 +957,4 @@ headpunct={\@thmpunct}
 %% 
 %%
 %% End of file `texmf/tex/sgcbook.cls'.
-\def\sgc@compileday{2026-04-18}
+\def\sgc@compileday{2026-10-15}
